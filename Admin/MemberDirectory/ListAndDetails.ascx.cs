@@ -90,7 +90,8 @@ public partial class Admin_MemberDirectory_ListAndDetails : System.Web.UI.UserCo
 
         using (SqlConnection conn = new SqlConnection(ConfigurationManager.AppSettings.Get("CMServer")))
         {
-            SqlDataAdapter dapt = new SqlDataAdapter("select * from dbo.Organizations where name != 'CMEY' order by name", conn);
+            SqlDataAdapter dapt = new SqlDataAdapter("select * from dbo.Organizations where id != @id order by name", conn);
+            dapt.SelectCommand.Parameters.Add(new SqlParameter("id", ConfigurationManager.AppSettings.Get("Organizations.CMEY.ID")));
             dapt.SelectCommand.CommandType = CommandType.Text;
             dapt.Fill(dt);
 
