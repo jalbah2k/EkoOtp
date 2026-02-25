@@ -1,0 +1,460 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <style type="text/css">
+            /* FONTS */
+            @media screen {
+                @font-face {
+                    font-family: 'Lato';
+                    font-style: normal;
+                    font-weight: normal;
+                    src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v11/qIIYRU-oROkIk8vfvxw6QvesZW2xOQ-xsNqO47m55DA.woff) format('woff');
+                }
+
+                @font-face {
+                    font-family: 'Lato';
+                    font-style: normal;
+                    font-weight: 700;
+                    src: local('Lato Bold'), local('Lato-Bold'), url(https://fonts.gstatic.com/s/lato/v11/qdgUG4U09HnJwhYI-uK18wLUuEpTyoUstqEm5AMlJo4.woff) format('woff');
+                }
+            }
+
+            .button:hover {
+                background-color: #A2318E;
+            }
+
+
+
+            /* CLIENT-SPECIFIC STYLES */
+            body, table, td, a {
+                -webkit-text-size-adjust: 100%;
+                -ms-text-size-adjust: 100%;
+            }
+
+            table, td {
+                mso-table-lspace: 0pt;
+                mso-table-rspace: 0pt;
+            }
+
+            img {
+                -ms-interpolation-mode: bicubic;
+            }
+
+            /* RESET STYLES */
+            img {
+                border: 0;
+                height: auto;
+                line-height: 100%;
+                outline: none;
+                text-decoration: none;
+            }
+
+            table {
+                border-collapse: collapse !important;
+            }
+
+            body {
+                height: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 100% !important;
+            }
+
+            /* iOS BLUE LINKS */
+            a[x-apple-data-detectors] {
+                color: inherit !important;
+                text-decoration: none !important;
+                font-size: inherit !important;
+                font-family: inherit !important;
+                font-weight: inherit !important;
+                line-height: inherit !important;
+            }
+
+            /* MOBILE STYLES */
+            @media screen and (max-width:600px) {
+                h1 {
+                    font-size: 24px !important;
+                }
+                /*        .mobileFull
+             {
+                padding-left: 0!important;
+                padding-right: 0!important;
+             }*/
+            }
+
+            /* ANDROID CENTER FIX */
+            div[style*="margin: 16px 0;"] {
+                margin: 0 !important;
+            }
+
+            /*General*/
+            hr {
+                border-top: 3px solid;
+                border-color: rgb(131, 200, 188);
+            }
+
+            h2 {
+                color: #523496;
+                font-size: 22px;
+                font-weight: normal;
+            }
+
+            /*#region Newsroom */
+
+            /*    .news_description {
+            display: grid;
+            grid-template-columns: 70px 1fr;
+            grid-column-gap: 0px;
+        }
+
+        .news_description .image_news img {
+            width: 100%;
+            border-radius: 50%;
+        }
+        .home-news-desc {
+            margin-left: 32px;
+        }
+
+        .home-news-desc h3{
+            display: inline-block;
+            color: #a23193 !important;
+            text-transform: uppercase;
+            font-size: 17px;
+            font-weight: 400;
+            margin:0;
+        }
+        .home-news-desc h4 {
+            color: #573494;
+            text-decoration: none !important;
+            text-decoration-thickness: 0 !important;
+            text-decoration-color: transparent !important;
+            border-bottom:none!important;
+            display: inline-block;
+            position: relative;
+            margin:0;
+        }*/
+            .home-news-desc h4:after {
+                content: "";
+                background: url(https://www.empoweredkidsontario.ca/Images/news-arrows.svg) no-repeat;
+                position: relative;
+                background-size: contain;
+                display: inline-block;
+                height: 20px;
+                width: 40px;
+                left: 7px;
+                top: 2px;
+            }
+            /*#endregion */
+    </style>
+</head>
+<body style="background-color: #f4f4f4; margin: 0 !important; padding: 0 !important;">
+
+    <!-- HIDDEN PREHEADER TEXT -->
+    <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'Lato', Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">
+        What’s new this week for EKO members?
+    </div>
+
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <!-- LOGO -->
+        <tr>
+            <td bgcolor="#83c8bc" align="center">
+                <!--[if (gte mso 9)|(IE)]>
+                <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                <tr>
+                <td align="center" valign="top" width="600">
+                <![endif]-->
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+                    <tr>
+                        <td>
+                            &nbsp;<br>&nbsp;
+                        </td>
+                    </tr>
+                </table>
+                <!--[if (gte mso 9)|(IE)]>
+                </td>
+                </tr>
+                </table>
+                <![endif]-->
+            </td>
+        </tr>
+        <!-- HERO -->
+        <tr>
+            <td bgcolor="#83c8bc" align="center" style="padding: 0px 0px 0px 0px;">
+                <!--[if (gte mso 9)|(IE)]>
+                <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                <tr>
+                <td align="center" valign="top" width="600">
+                <![endif]-->
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+                    <tr>
+                        <td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight:normal; letter-spacing: 4px;">
+                            <a href="https://www.empoweredkidsontario.ca/" target="_blank">
+                                <img alt="Empowered Kids Ontario Logo" src="https://www.empoweredkidsontario.ca/images/newsletter/logo-transparent.png" width="240" height="85" style="display: block; width: 240px; max-width: 240px; min-width: 240px; font-family: 'Lato', Helvetica, Arial, sans-serif; color: #ffffff; font-size: 18px;" border="0">
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+                <!--[if (gte mso 9)|(IE)]>
+                </td>
+                </tr>
+                </table>
+                <![endif]-->
+            </td>
+        </tr>
+        <!-- COPY BLOCK -->
+        <tr>
+            <td bgcolor="#f4f4f4" align="center" style="padding: 0px 0px 0px 0px;">
+                <!--[if (gte mso 9)|(IE)]>
+                <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                <tr>
+                <td align="center" valign="top" width="600">
+                <![endif]-->
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+                    <!-- COPY -->
+
+                    <tr>
+                        <td bgcolor="#ffffff" align="center" style="padding: 0px 21px 40px 21px; color: #555555; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: normal; line-height: 1;" class="mobileFull">
+                            <h1 style="color:#523496; font-size:22px; font-weight:normal; margin-bottom:5px;">EKO Weekly Newsletter</h1>
+                            <p style="margin: 0; color:#555555; font-weight:normal; font-size:15px;">Mar 29, 2024 - Apr 04, 2024</p>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td bgcolor="#ffffff" style="padding: 0px 21px 0px 21px; color: #333; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 16px; font-weight: normal; line-height: 1; text-align:center;">
+                        </td>
+                    </tr>
+
+
+
+                    <tr>
+                        <td bgcolor="#ffffff" align="left" style="padding: 0px 21px 0px 21px; color: #A2318E; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: normal; line-height: 1;">
+                            <!-- HEADER -->
+                            <hr>
+                            <h2>Latest News</h2>
+                            <br />
+                        </td>
+                    </tr>
+
+
+
+                    <tr>
+                        <td bgcolor="#ffffff" align="left" style="padding: 0px 21px 0px 21px; font-family: 'Lato', Helvetica, Arial, sans-serif;">
+
+                            <table class="div_table news_description" style="width:100%;">
+                                <tr>
+                                    <td class="div_cell image_news" style=" width:70px;">
+                                        <a href="https://www.empoweredkidsontario.ca/membernews?newsid=1175">
+                                            <img width="68" height="68" style="width: 68px; height:68px; border-radius: 50%; overflow:hidden;" src="https://www.empoweredkidsontario.ca/Images/news-default-eko.jpg" alt="">
+                                        </a>
+                                    </td>
+                                    <td class="div_cell home-news-desc" style="padding-left: 32px; vertical-align: middle; ">
+                                        <a href="https://www.empoweredkidsontario.ca/membernews?newsid=1175" style="text-decoration:none!important;">
+                                            <h3 style="display: inline-block; color: #a23193 !important; text-decoration: none !important; text-decoration-thickness: 0 !important; text-decoration-color: transparent !important; text-transform: uppercase; font-size: 17px; font-weight: 400; margin: 0;display:block;">April 04, 2024</h3>
+                                            <h4 style="color: #573494; text-decoration: none !important; text-decoration-thickness: 0 !important; text-decoration-color: transparent !important; border-bottom: none !important; display: inline-block; position: relative; margin: 0;">Stratford Festival welcomes the EKO community to their accessible performances</h4>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br />
+                        </td>
+                    </tr>
+
+
+
+                    <tr>
+                        <td bgcolor="#ffffff" align="left" style="padding: 0px 21px 0px 21px; color: #A2318E; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: normal; line-height: 1;">
+                            <!-- HEADER -->
+                            <hr>
+                            <h2>Latest Watercooler Activity</h2>
+                            <h3 style="color:#A2318E; font-size:16px; text-transform: uppercase;font-weight:normal; margin-bottom:0px;">Communications Network:</h3>
+                        </td>
+                    </tr>
+
+
+
+
+                    <tr>
+                        <td bgcolor="#ffffff" align="left" style="padding: 20px 21px 0px 21px; color: #555555; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight:normal; line-height: 1;" class="mobileFull">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 558px;">
+                                <tr>
+                                    <td bgcolor="#fefefe" align="left">
+                                        <div style="padding: 16px 16px 16px 16px; border-radius: 25px; border:1px solid #ccc;">
+                                            <h3 style=" color: #523496; font-weight:normal;margin:0 0 5px 0; font-size:16px;">Martin is sharing his advice for scholarship applicants</h3>
+                                            <p style="margin: 0; color:#555555; font-weight:normal; font-size:14px; font-weight:normal;line-height: 1.2;"><p>We are VERY excited to share a new video for EKO Scholarship promotions (remember ... only ONE MONTH LEFT)!&nbsp;</p><p>Martin Leduc, a 2023 Scholar and former CHEO client, has graciously shared his time and expertise to film a short advice video for this year's applicants&#8212;and it's really good! I've dropped the video, with a suggested message and full transcript, <a href="https://www.empoweredkidsontario.ca/resource/8820?step=view" target="_blank">in our Resource Library</a>. Feel free to download and share across your social media channels!&nbsp;&nbsp;</p> <a href="https://www.empoweredkidsontario.ca/Membership/Posts/t1382-Martin-is-sharing-his-advice-for-scholarship-applicants" target="_blank" style="color:#a23193; text-decoration:none;"> more...</a> </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+
+
+                    <tr>
+                        <td bgcolor="#ffffff" align="left" style="padding: 20px 21px 0px 21px; color: #555555; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight:normal; line-height: 1;" class="mobileFull">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 558px;">
+                                <tr>
+                                    <td bgcolor="#fefefe" align="left">
+                                        <div style="padding: 16px 16px 16px 16px; border-radius: 25px; border:1px solid #ccc;">
+                                            <h3 style=" color: #523496; font-weight:normal;margin:0 0 5px 0; font-size:16px;">Brad Ross recording posted</h3>
+                                            <p style="margin: 0; color:#555555; font-weight:normal; font-size:14px; font-weight:normal;line-height: 1.2;"><p>Thanks to everyone who joined in and made the discussion with Brad Ross so robust! As promised, we have posted the recording in our Resource Library, watch it here:&nbsp;<a href="https://www.empoweredkidsontario.ca/resource/8822?step=view" target="_blank">/resource/8822?step=view&nbsp;</a>&nbsp;</p><p>&nbsp;</p> <a href="https://www.empoweredkidsontario.ca/Membership/Posts/t1384-Brad-Ross-recording-posted" target="_blank" style="color:#a23193; text-decoration:none;"> more...</a> </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+
+
+                    <!-- HEADER -->
+                    <tr>
+                        <td bgcolor="#ffffff" align="left" style="padding: 20px 21px 0px 21px; color: #A2318E; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: normal; line-height: 1; margin-top:10px;">
+                            <h2 style="color:#A2318E; font-size:16px; text-transform: uppercase;font-weight:normal; margin-bottom:0px;">SmartStart Hubs Community of Practice:</h2>
+                        </td>
+                    </tr>
+
+
+
+
+                    <tr>
+                        <td bgcolor="#ffffff" align="left" style="padding: 20px 21px 0px 21px; color: #555555; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight:normal; line-height: 1;" class="mobileFull">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 558px;">
+                                <tr>
+                                    <td bgcolor="#fefefe" align="left">
+                                        <div style="padding: 16px 16px 16px 16px; border-radius: 25px; border:1px solid #ccc;">
+                                            <h3 style=" color: #523496; font-weight:normal;margin:0 0 5px 0; font-size:16px;">Ujima Project webinar - young parents and the developmental needs of their young children</h3>
+                                            <p style="margin: 0; color:#555555; font-weight:normal; font-size:14px; font-weight:normal;line-height: 1.2;"><span style="color: #212529; font-size: 16px;">The Ontario Association of Young Parent Agencies is hosting a webinar to demonstrate how the Ujima Project is improving the outcomes of young, equity-deserving parents(age 29 and under) and their children (0-6).</span><p>&nbsp;</p><p><strong>Content</strong>: Hear about the core components of the project and how Ujima Project programs and services are impacting young families by increasing access and confidence in navigating systems, increasing awareness and advocacy of needs, improving positive parenting techniques, and&nbsp;<em>supporting timely referral and attachment to specialized children's treatment services</em>. Evaluation findings will be discussed, demonstrating a successful proof-of-concept for Ujima Project's model of access to services for young parents that strives to meet their children's early developmental needs.&nbsp;<a target="_blank" rel="nofollow" href="https://www.oaypa.ca/wp-content/uploads/2024/03/Ujima-Report-March-2024.pdf" title="https://www.oaypa.ca/wp-content/uploads/2024/03/Ujima-Report-March-2024.pdf">Please see more about the Ujima Project in its recent Impact Report&nbsp;</a>&nbsp;and&nbsp;<a target="_blank" rel="nofollow" href="https://www.oaypa.ca/wp-content/uploads/2024/03/Ujima-Infographic-March-2024.pdf" title="https://www.oaypa.ca/wp-content/uploads/2024/03/Ujima-Infographic-March-2024.pdf">Infographic&nbsp;</a>.</p><p>&nbsp;</p><p><strong>When</strong>: April 10,11:30am - 1:00pm</p><p>&nbsp;</p><p><strong>Registration</strong>:&nbsp;<a target="_blank" rel="nofollow" href="https://forms.office.com/r/SVrxcxxHd4" title="https://forms.office.com/r/SVrxcxxHd4">https://forms.office.com/r/SVrxcxxHd4&nbsp;</a>(MS Teams)</p><p>&nbsp;</p><p><strong>Not able to attend?</strong> The session will be recorded. Register and you will receive a recording link after the session.</p><p>&nbsp;</p><p><strong>Presenters</strong>: Jonine Adridge, Early Literacy Specialist, Rosalie Hall; Ekua Asabea Blair, President, Ontario Association of Young Parent Agencies; President &amp; CEO, Abiona Centre for Infant and Early Mental Health; Tamar Meyer, Director, Ujima Project, Abiona Centre for Infant and Early Mental Health; Katelyn Mitri, Research and Evaluation Consultant, Taylor Newberry Consulting; Gillian Thompson, Nurse Practitioner, Paediatrics/Young Families Program, SickKids</p> <a href="https://www.empoweredkidsontario.ca/Membership/Posts/t1390-Ujima-Project-webinar---young-parents-and-the-developmental-needs-of-their-young-children" target="_blank" style="color:#a23193; text-decoration:none;"> more...</a> </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+
+
+                    <!-- HEADER -->
+                    <tr>
+                        <td bgcolor="#ffffff" align="left" style="padding: 20px 21px 0px 21px; color: #A2318E; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: normal; line-height: 1; margin-top:10px;">
+                            <h2 style="color:#A2318E; font-size:16px; text-transform: uppercase;font-weight:normal; margin-bottom:0px;">The Empowered Chat:</h2>
+                        </td>
+                    </tr>
+
+
+
+
+                    <tr>
+                        <td bgcolor="#ffffff" align="left" style="padding: 20px 21px 0px 21px; color: #555555; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight:normal; line-height: 1;" class="mobileFull">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 558px;">
+                                <tr>
+                                    <td bgcolor="#fefefe" align="left">
+                                        <div style="padding: 16px 16px 16px 16px; border-radius: 25px; border:1px solid #ccc;">
+                                            <h3 style=" color: #523496; font-weight:normal;margin:0 0 5px 0; font-size:16px;">Former EKO Scholars are sharing their advice</h3>
+                                            <p style="margin: 0; color:#555555; font-weight:normal; font-size:14px; font-weight:normal;line-height: 1.2;"><p>We are so grateful to our amazing EKO Scholars who have lended their time, effort and expertise to share some advice for future applicants!&nbsp;</p><p>Martin Leduc, a 2023 EKO Scholar and former client of CHEO, has kicked things off with an awesome video where he talks about taking enough time, choosing references and how to "stack the deck in your favour" on the application. Check it out on <a href="https://www.instagram.com/p/C5TVdtOPHDa/?hl=en" target="_blank">Instagram</a>, <a href="https://www.facebook.com/reel/1100819347894302" target="_blank">Facebook</a>, <a href="https://twitter.com/EmpoweredKidsON/status/1775523656812077487" target="_blank">X</a> and <a href="https://www.linkedin.com/feed/update/urn:li:activity:7181289375958269952" target="_blank">LinkedIn</a>!&nbsp;</p><p>You can also <a href="https://www.empoweredkidsontario.ca/resource/8820?step=view" target="_blank">download the video from the Communications Network Resource Library</a> and post to your own pages.</p><p>The 2024 EKO Scholarship Program application deadline is approaching, there is only one month left for students to submit their applications. Stay tuned for next week's advice video from Erin Arbuckle, a 2023 EKO Scholar, and please share these videos and words of wisdom with students in your networks.</p><p>REMINDERS:</p><p><ul><li><a href="https://www.empoweredkidsontario.ca/newsroom?newsid=1169" target="_blank">Now offering 8 scholarships, worth $3,000 each</a></li><li>Applicants can learn more and apply at&nbsp;<a href="https://www.empoweredkidsontario.ca/scholarshipawards" target="_blank">https://www.empoweredkidsontario.ca/scholarshipawards</a></li><li>You can find social media assets and printable flyers in English and French in <a href="https://www.empoweredkidsontario.ca/resources?library=communications_network&amp;category=2024_eko_scholarships" target="_blank">the Communications Network Resource Library</a></li><li><strong>Application deadline: April 30, 5 p.m.</strong></li></ul><div>Make sure students in your networks know about this opportunity, let's give some scholarships!&nbsp;</div></p> <a href="https://www.empoweredkidsontario.ca/Membership/Posts/t1385-Former-EKO-Scholars-are-sharing-their-advice" target="_blank" style="color:#a23193; text-decoration:none;"> more...</a> </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+
+
+
+                    <!-- BULLETPROOF BUTTON -->
+                    <tr>
+                        <td bgcolor="#ffffff" align="left">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td bgcolor="#ffffff" align="center" style="padding: 30px 21px 40px 21px;" class="mobileFull">
+                                        <table border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <td align="center" style="border-radius: 25px;" bgcolor="#523496"><a class="button" href="https://www.empoweredkidsontario.ca//login" target="_blank" style="font-size: 14px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 10px 30px; border-radius: 25px; border: 1px solid #523496; display: inline-block;">login to view more</a></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <!--[if (gte mso 9)|(IE)]>
+                </td>
+                </tr>
+                </table>
+                <![endif]-->
+            </td>
+        </tr>
+        <!-- COPY CALLOUT -->
+        <tr>
+            <td bgcolor="#f4f4f4" align="center" style="padding: 0px 0px 0px 0px;">
+                <!--[if (gte mso 9)|(IE)]>
+                <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                <tr>
+                <td align="center" valign="top" width="600">
+                <![endif]-->
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+                    <!-- COPY -->
+                    <tr>
+                        <td bgcolor="#523496" align="center" style="padding: 20px 21px 0px 21px; " class="mobileFull">
+                            <div id="footerSocial">
+                                <a style="display: inline-block; height: 34px; width: 34px; border-radius: 50%; background-color: rgba(255,255,255,0.06); margin-right: 8px; background: url(https://www.empoweredkidsontario.ca//Images/newsletter/facebook.png) no-repeat center center #5e41a0; background-size: 18px auto;" href="https://www.facebook.com/EmpoweredKidsON/" class="facebook" title="EKO Facebook" target="_blank"></a>
+                                <a style="display: inline-block; height: 34px; width: 34px; border-radius: 50%; background-color: rgba(255,255,255,0.06); margin-right: 8px; background: url(https://www.empoweredkidsontario.ca//Images/newsletter/twitter.png) no-repeat center center #5e41a0; background-size: 18px auto;" href="https://twitter.com/empoweredkidson?lang=en" class="twitter" title="EKO Twitter" target="_blank"></a>
+                                <a style="display: inline-block; height: 34px; width: 34px; border-radius: 50%; background-color: rgba(255,255,255,0.06); margin-right: 8px; background: url(https://www.empoweredkidsontario.ca//Images/newsletter/linkedin.png) no-repeat center center #5e41a0; background-size: 23px auto;" href="https://www.linkedin.com/company/empowered-kids-ontario/" class="linkedin" title="EKO Linkedin" target="_blank"></a>
+                                <a style="display: inline-block; height: 34px; width: 34px; border-radius: 50%; background-color: rgba(255,255,255,0.06); margin-right: 8px; background: url(https://www.empoweredkidsontario.ca//Images/newsletter/instagram.png) no-repeat center center #5e41a0; background-size: 18px auto;" href="https://www.instagram.com/empoweredkidson/" class="instagram" title="EKO Instagram" target="_blank"></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="#513494" align="center" style="padding: 10px 21px 20px 21px; color: #eeeeee; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 12px; font-weight:normal;" class="mobileFull">
+                            <p style="margin: 0; font-size: 12px;">You received this email because you are subscribed to EKO Member updates<br><a href="https://www.empoweredkidsontario.ca/Membership/Profile/Subscriptions" target="_blank" style="color: #ffffff; font-weight: normal; text-decoration: none!important;">click here to change your email settings</a></p>
+                        </td>
+                    </tr>
+
+                </table>
+                <!--[if (gte mso 9)|(IE)]>
+                </td>
+                </tr>
+                </table>
+                <![endif]-->
+            </td>
+        </tr>
+
+        <!-- FOOTER -->
+        <tr>
+            <td bgcolor="#f4f4f4" align="center" style="padding: 0px 0px 0px 0px;">
+                <!--[if (gte mso 9)|(IE)]>
+                <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                <tr>
+                <td align="center" valign="top" width="600">
+                <![endif]-->
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+
+
+
+                    <!-- ADDRESS -->
+                    <tr>
+                        <td bgcolor="#f4f4f4" align="center" style="padding: 30px 21px 30px 21px; color: #555555; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 12px; font-weight: normal; line-height: 16px;" class="mobileFull">
+                            <p style="margin: 0;">&copy; 2022 Copyright. All Rights Reserved. Charitable Registration: 13774 7812 RR000</p>
+                            <p style="margin: 0;">Empowered Kids Ontario-Enfants Avenir Ontario is a business name used by the Ontario Association of Children's Rehabilitation Services.</p>
+                        </td>
+                    </tr>
+                </table>
+                <!--[if (gte mso 9)|(IE)]>
+                </td>
+                </tr>
+                </table>
+                <![endif]-->
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>

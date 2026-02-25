@@ -1,0 +1,89 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Services;
+using System.Data.SqlClient;
+using System.Configuration;
+
+/// <summary>
+/// Summary description for ValidationWS
+/// </summary>
+[WebService(Namespace = "http://base-bilingual-topleftnav.bluelemonmedia.com/")]
+[WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
+// To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
+[System.Web.Script.Services.ScriptService]
+public class ValidationWS : System.Web.Services.WebService
+{
+
+    public ValidationWS()
+    {
+
+        //Uncomment the following line if using designed components 
+        //InitializeComponent(); 
+    }
+
+    [WebMethod]
+    public bool UserNameExists(string args)
+    {
+        bool result = false;
+        int count = 0;
+
+        using (SqlConnection conn = new SqlConnection(ConfigurationManager.AppSettings.Get("CMServer")))
+        {
+            SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Users WHERE UserName=@UserName", conn);
+            cmd.Parameters.AddWithValue("@UserName", args);
+
+            conn.Open();
+            count = Convert.ToInt32(cmd.ExecuteScalar());
+            conn.Close();
+        }
+
+        if (count > 0)
+            result = true;
+
+        return !result;
+    }
+
+    /*[WebMethod]
+    public bool EmailExists(string args)
+    {
+        SqlConnection conn = new SqlConnection(ConfigurationManager.AppSettings.Get("CMServer"));
+        SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Users WHERE email=@email", conn);
+        cmd.Parameters.AddWithValue("@email", args);
+
+        bool result = false;
+
+        conn.Open();
+        int count = Convert.ToInt32(cmd.ExecuteScalar());
+        conn.Close();
+
+        if (count > 0)
+            result = true;
+
+        return !result;
+    }*/
+
+    [WebMethod]
+    public bool SEOExists(string args)
+    {
+        bool result = false;
+        int count = 0;
+
+        using (SqlConnection conn = new SqlConnection(ConfigurationManager.AppSettings.Get("CMServer")))
+        {
+            SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Pages WHERE seo=@seo", conn);
+            cmd.Parameters.AddWithValue("@seo", args);
+
+            conn.Open();
+            count = Convert.ToInt32(cmd.ExecuteScalar());
+            conn.Close();
+        }
+
+        if (count > 0)
+            result = true;
+
+        return !result;
+    }
+
+}

@@ -1,0 +1,413 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="SpringEvent.master.cs" Inherits="SpringEvent" %>
+
+<%@ Register TagPrefix="Hardcode" Src="~/Controls/BackToTop/BackToTop.ascx" TagName="BackToTop" %>
+<%@ Register TagPrefix="Hardcode" Src="~/Controls/Session/Session.ascx" TagName="Session" %>
+<%@ Register TagPrefix="Hardcode" Src="~/Controls/WidgetsToolbar/WidgetsToolbar.ascx" TagName="WidgetsToolbar" %>
+<%@ Register TagPrefix="Custom" Namespace="ASB" Assembly="AutoSuggestBox" %>
+<%@ Register Src="~/Controls/Content/Content.ascx" TagPrefix="Hardcode" TagName="Content" %>
+<%@ Register Src="~/Controls/Breadcrumbs/Breadcrumbs.ascx" TagPrefix="Hardcode" TagName="Breadcrumbs" %>
+
+
+<%@ Register Src="~/Header.ascx" TagPrefix="Hardcode" TagName="Header" %>
+<%@ Register Src="~/Footer.ascx" TagPrefix="Hardcode" TagName="Footer" %>
+<%@ Register Src="~/Controls/EKO_Directory_Logos/EKO_Directory_Logos.ascx" TagPrefix="Hardcode" TagName="EKO_Directory" %>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head id="Head1" runat="server">
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KFXPPXP');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- EKO PUBLIC ONLY - Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0Z1ZRPLWEL"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-0Z1ZRPLWEL');
+    </script>
+     <!-- End EKO PUBLIC ONLY - Google Tag Manager -->
+
+     
+    
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>    
+
+    
+
+    <!-- Mobile Specific Metas
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<!--     <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
+
+
+    <!-- FONT
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+   
+    <link rel="stylesheet" href="https://use.typekit.net/clv1wox.css">
+    <!-- CSS
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <asp:PlaceHolder runat="server"><%-- Required to add the version to css files --%>
+    
+    <!-- SmartMenus core CSS (required) -->
+    <link href="<%: Styles.Url("~/CSS/menu") %>" type="text/css" rel="stylesheet" />
+
+    <%--Site styles--%>
+    <link href="<%: Styles.Url("~/CSS/site") %>" type="text/css" rel="stylesheet" />
+    <link href="<%: Styles.Url("~/CSS/forum") %>" type="text/css" rel="stylesheet" />
+    <link href="<%: Styles.Url("~/CSS/slick") %>" type="text/css" rel="stylesheet" />
+
+
+<%--    <script src="https://use.fontawesome.com/8123fd5db7.js"></script>--%>
+
+    <!-- Favicon
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <!-- ****** faviconit.com favicons ****** -->
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/Images/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/Images/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/Images/favicons/favicon-16x16.png">
+
+	<!-- ****** faviconit.com favicons ****** -->
+    
+    <!-- Scripts
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <script type="text/javascript">
+        var GB_ROOT_DIR = "/JS/greybox/";
+    </script>
+
+      
+    <%: System.Web.Optimization.Scripts.Render("~/bundles/jquery") %>
+    <%if (Session["LoggedInID"] != null)
+        { %>
+    <%: System.Web.Optimization.Scripts.Render("~/bundles/jqueryui") %>
+    <%: System.Web.Optimization.Scripts.Render("~/bundles/jqueryeasing") %>
+    <%} %>
+	<%: System.Web.Optimization.Scripts.Render("~/bundles/backtotop") %>
+
+    </asp:PlaceHolder>
+
+   <%-- <script type="text/javascript" src="/js/clicker_action.js"></script>--%>
+    
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-18819492-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-18819492-1');
+</script>
+
+<style type="text/css">
+    /*#insideWrap
+    {
+        background: url('/Images/ekosp1.png') no-repeat top right!important;
+        background-size: 20vw auto;
+    }*/
+
+    
+
+    @media only screen and (max-width: 1340px) and (min-width: 1000px) {
+        #listStats
+        {
+            grid-template-columns: 1fr 1fr 1fr!important;
+        }
+        #listStats li {
+            width: 17vw!important;
+            height: calc(17vw - 50px)!important;
+        }
+    }
+
+    @media only screen and (max-width: 999px) {
+        #listStats
+        {
+            grid-template-columns: 1fr 1fr!important;
+        }
+    }
+    @media only screen and (max-width: 767px) {
+        .button-primary, body .button
+        {
+            display: inline-block!important;
+            
+            float: left;
+            position: relative;
+        }
+
+        #buttonsTop
+        {
+            float: left!important;
+            top: 30px;
+            position: relative;
+        }
+    }
+    /*h1
+    {
+        display: none!important;
+    }*/
+
+    #listStats
+    {
+        margin:0 -5vw;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-column-gap: 10px;
+        grid-row-gap: 10px;
+        align-items: center;
+    }
+
+    #listStats li
+    {
+        padding:50px 10px 10px 10px;
+        text-align: center;
+        border-radius: 50%;
+        border:1px solid var(--pink);
+/*        border:7px solid var(--green);*/
+        width:12vw; height: calc(12vw - 50px);
+        line-height: 1.2!important;
+    }
+
+    #listStats li:before
+    {
+        display: none!important;
+    }
+
+    #listStats li strong
+    {
+        display: block;
+        font-size: 50px;
+        font-weight: 900;
+        color: var(--purple)!important;
+    }
+
+    .button, #insideContent a
+    {
+        transition: all 0.3s ease;
+    }
+
+    .button:hover
+    {
+        transform: scale(1.05);
+        -ms-transform: scale(1.05);
+        -moz-transform: scale(1.05);
+        -webkit-transform: scale(1.05);
+        -o-transform: scale(1.05);
+        cursor: pointer;
+    }
+    /*@media only screen and (min-width: 768px) {
+        body.inside.insideMainTemplate #insideMemberSlider:before {
+            content: "";
+            background: url(/Images/ekosp2.png) no-repeat left bottom transparent;*/
+            /*background-size: calc((100vw - 900px) /2) auto;
+            height: calc(((100vw - 900px) /2)*1.7791005291);*/
+            /*background-size: 300px auto;
+            height:535px;
+            width: 100%;
+        }*/
+    }
+  /*  #insideWrap:before
+    {
+        content: "";
+        background-image: url(/Images/spring-lite.png);
+        background-size: 150px auto;
+        background-repeat: no-repeat;
+        background-position: top left;
+        pointer-events: none;
+        position: top left;
+    }*/
+
+    /*#flowers
+    {
+        background: url('/Images/ekosp2.png') no-repeat bottom left!important;
+        width:30vw;
+        height: 63vh;
+        max-height: 420px;
+        background-size: contain!important;
+        left:0;
+        bottom:0;
+        position: fixed;
+        pointer-events: none;
+        z-index: 999999999;
+    }*/
+
+    #mainContentInside>div, body #mainContentInside {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .inside.insideMainTemplate.foliage #insideMemberSlider:before {
+        content: "";
+        background-image:  none!important;
+        bottom:248px;
+    }
+    .inside.insideMainTemplate.foliage #insideMemberSlider:after {
+        content: "";
+        background-image: none!important;
+    }
+
+    #listStats li {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.5s, transform 0.5s;
+    }
+
+    /* Apply animation effect when the 'show' class is added */
+    #listStats li.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .nGY2GThumbnail{
+        top:0!important;
+    }
+       
+</style>
+<script type="text/javascript">
+
+    document.addEventListener("DOMContentLoaded", function() {
+  const listItems = document.querySelectorAll("#listStats li");
+  
+  // Function to animate each list item
+  function animateListItem(index) {
+    if (index < listItems.length) {
+      listItems[index].classList.add("show");
+      setTimeout(function() {
+        animateListItem(index + 1);
+      }, 200); // Adjust the delay between each animation
+    }
+  }
+
+  // Function to check if an element is in view
+  function isInView(element) {
+    const rect = element.getBoundingClientRect();
+    return (
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+  }
+
+  // Start animation when the list is in view
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        animateListItem(0);
+        observer.unobserve(entry.target);
+      }
+    });
+  });
+
+  // Observe each list item
+  listItems.forEach(function(item) {
+    observer.observe(item);
+  });
+});
+</script>
+</head>
+<body id="body" class="inside insideMainTemplate">
+    <div id="flowers"></div>
+            <div role="navigation" aria-label="Skip to main content" class="nosize"><a href="#content" title="Skip to main content">Skip content</a></div>
+
+
+    
+
+
+
+	<form id="form1" runat="server">
+		<asp:ScriptManager ID="sman" runat="server">
+			<Scripts>
+				<%--<asp:ScriptReference Path="/js/webkit.js" />--%>
+			</Scripts>
+		</asp:ScriptManager>
+			<asp:ContentPlaceHolder ID="admin" runat="server" />
+		<div style="position: absolute; left: 50%; top: 85px; z-index: 999999;">
+			<Hardcode:Session runat="server" id="sessioncontrol" visible="false"></Hardcode:Session></div>
+		<Hardcode:BackToTop ID="BackToTop1" runat="server" />
+
+         <asp:ContentPlaceHolder ID="Alert" runat="server"></asp:ContentPlaceHolder>
+
+        <Hardcode:Header runat="server" />
+	
+	<asp:ContentPlaceHolder ID="Banner" runat="server" />
+				
+        <!--######################## START MAIN ########################## -->
+        <div id="insideWrap" class="full-width">
+            <div class="contained-width inside" id="mainContentInside">
+                <div id="leftMenu">
+                    <!-- <asp:Literal ID="litMenuTitle" runat="server"></asp:Literal> -->
+                        <div id="leftMenuDropWrap">
+                            <div>
+                                <span class="dropTitle"><%--Current Page Title Here--%>
+                                    <asp:Literal runat="server" ID="litPageTitle"></asp:Literal>
+                                </span>
+                                <div id="dropWrap">
+                                    <a href="/springsymposium2025"><img src="/images/Empower BCI Identifier-Simplified.png" style="width:250px; height:auto;  margin-left:-20px;" alt="Logo of EmpowerBCI"></a>
+                                    <asp:ContentPlaceHolder ID="LeftMenu" runat="server" />
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div id="rightInside">
+                    <div id="buttonsTop" style="float:right; clear: both; display: block;">
+                        <%--<a href="/2025-submittingyourabstracts" class="button button" style="background: var(--pink)!important; border-color: var(--pink)!important; color: #fff!important;">Submit an Abstract</a>--%>
+                        <%--<a href="/getadvancenoticeaboutRegistration" class="button button-primary">Count me in!</a>--%>
+                        <%--<a href="/ekoss2025-register" class="button button-primary">register now!</a>--%>
+                    </div><br><br>
+                    <div id="breadcrumbs">
+                        <Hardcode:Breadcrumbs runat="server" ID="Breadcrumbs" />
+                    </div>
+                    <div id="insideBanner">
+                        <asp:ContentPlaceHolder ID="InsideBanner" runat="server" />
+                    </div>
+                    <div id='insideContent'>
+                        <div style="position: absolute;" visible="false" runat="server" id="ContentTBL">
+                            <div style="position: relative; top: -40px;"><a href="/controls/Zone/Zone.aspx?zone=1&PageId=<%=Session["PageId"].ToString() %>" target="_blank" rel='opener' onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('ModArea','','/images/lemonaid/buttons/modifyarea_over.png',1)" onblur="MM_swapImgRestore()" onfocus="MM_swapImage('ModArea','','/images/lemonaid/buttons/modifyarea_over.png',1)">
+                                <img src="/images/lemonaid/buttons/modifyarea.png" border="0" alt="Modify this Area" width="150" height="30" id="Img1" /></a></div>
+                        </div>
+                        <Hardcode:WidgetsToolbar ID="WidgetsToolbar1" runat="server" visible="false" />
+
+                        <a name="content"></a>
+                        <div id="html_content" style="display:grid;">
+                            <div>
+                            <asp:ContentPlaceHolder ID="Content" runat="server" />
+                            </div>
+          
+                        </div>
+                </div>
+    		</div>
+        </div>
+		<!-- content -->
+        <div id="insideMemberSlider">
+            <Hardcode:EKO_Directory runat="server" ID="EKO_Directory" />
+        </div>
+
+        <!--######################## END MAIN ########################## -->
+       
+        <Hardcode:Footer runat="server" ID="Footer1" />
+
+
+         
+    </form>
+ 
+    <%: System.Web.Optimization.Scripts.Render("~/bundles/slick") %>
+
+    <%-- Dont bundle this file, to avoid break the left menu click dropdown:--%>
+    <script src="/Libraries/smartmenus-1.2.1/jquery.smartmenus.js"></script>
+
+    <%: System.Web.Optimization.Scripts.Render("~/bundles/site") %>
+    <%: System.Web.Optimization.Scripts.Render("~/bundles/forum") %>
+ 
+    <asp:ContentPlaceHolder ID="Scripts" runat="server" />
+</body>
+</html>
+

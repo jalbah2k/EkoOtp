@@ -1,0 +1,66 @@
+﻿.nGY2GallerySub .nGY2GThumbnail:not(:first-child) {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+.nGY2GallerySub {
+    height: 100% !important;
+}
+
+.nGY2GThumbnailTitle {
+    display: none !important;
+}
+
+.ngbt.ngy2viewerToolAction .label .title.nGEvent {
+    display: none;
+}
+
+/*#region Position of Divs (Thumbnails) */
+
+.photo-container {
+    height: 240px;
+    width: 23%;
+    float: left;
+    margin-left: 30px;
+    position:relative;
+}
+
+.photo-container:first-child {
+    margin-left: 0;
+}
+
+
+/*#endregion */
+
+/*#region Admin Gallery Edit */
+
+.btnPhotoAdd.widget_edit_btn {
+    /*float: right;*/
+}
+
+.Draggable_Widget .widget_handle{
+    left:unset!important;
+    right:0!important;
+}
+/*#endregion */
+
+/*#region Breadcrumb or Album's Title */
+/*.nGY2Icon-left-open {
+    display: none;
+}
+
+    .nGY2Icon-left-open:before {
+        content: '' !important;
+    }
+*/
+.photo-album-title {
+    position: absolute;
+    bottom: -62px;
+}
+
+body.logged-in .photo-album-title{
+    bottom:-62px;
+}
+/*#endregion */
+

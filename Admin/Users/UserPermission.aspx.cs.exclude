@@ -1,0 +1,319 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Text;
+using System.Data.SqlClient;
+using System.Configuration;
+using System.Data;
+
+public partial class Admin_Users_UserPermission : System.Web.UI.Page
+{
+    #region DAL
+
+    StringBuilder sb;
+
+
+    #region User Permission
+
+    public DataTable mGet_All_Groups()
+    {
+        string strConnectionString = ConfigurationManager.AppSettings["CMServer"].ToString();
+        string commandString = "select * from groups order by name";
+        DataSet ds = new DataSet();
+
+        using (SqlConnection connection = new SqlConnection(strConnectionString))
+        {
+            SqlCommand cmd = new SqlCommand(commandString, connection);
+            
+            connection.Open();
+            SqlDataAdapter da = new SqlDataAdapter();
+            da.SelectCommand = cmd;
+
+            da.Fill(ds, "table1");
+        }
+
+        return ds.Tables[0];
+    }
+
+
+    public DataTable mGet_All_Users_Groups_Access_ByUserANDGroupid(int mID,int mGroupid)
+    {
+        string strConnectionString = ConfigurationManager.AppSettings["CMServer"].ToString();
+        string commandString = "select ug.*,g.name from Users_Groups_Access ug, Groups g where ug.Group_id = g.id and Group_id = @mGroupid and User_id = @mID";
+        DataSet ds = new DataSet();
+
+        using (SqlConnection connection = new SqlConnection(strConnectionString))
+        {
+            SqlCommand cmd = new SqlCommand(commandString, connection);
+            cmd.Parameters.AddWithValue("@mID", mID);
+            cmd.Parameters.AddWithValue("@mGroupid", mGroupid);
+            connection.Open();
+            SqlDataAdapter da = new SqlDataAdapter();
+            da.SelectCommand = cmd;
+
+            da.Fill(ds, "table1");
+        }
+
+        return ds.Tables[0];
+    }
+
+    public DataTable mGet_One_Users_Groups_Access(int mID)
+    {
+        string strConnectionString = ConfigurationManager.AppSettings["CMServer"].ToString();
+        string commandString = "select * from Users_Groups_Access where id =  @mID";
+        DataSet ds = new DataSet();
+
+        using (SqlConnection connection = new SqlConnection(strConnectionString))
+        {
+            SqlCommand cmd = new SqlCommand(commandString, connection);
+            cmd.Parameters.AddWithValue("@mID", mID);
+            connection.Open();
+            SqlDataAdapter da = new SqlDataAdapter();
+            da.SelectCommand = cmd;
+
+            da.Fill(ds, "table1");
+        }
+
+        return ds.Tables[0];
+    }
+
+    public DataTable mGet_All_Users_Groups_Access_ByUserid(int mID)
+    {
+        string strConnectionString = ConfigurationManager.AppSettings["CMServer"].ToString();
+        string commandString = "select ug.*,g.name from Users_Groups_Access ug, Groups g where ug.Group_id = g.id  and User_id = @mID";
+        DataSet ds = new DataSet();
+
+        using (SqlConnection connection = new SqlConnection(strConnectionString))
+        {
+            SqlCommand cmd = new SqlCommand(commandString, connection);
+            cmd.Parameters.AddWithValue("@mID", mID);
+          
+            connection.Open();
+            SqlDataAdapter da = new SqlDataAdapter();
+            da.SelectCommand = cmd;
+
+            da.Fill(ds, "table1");
+        }
+
+        return ds.Tables[0];
+    }
+
+    public void mAdd_Users_Groups_Access(string User_id, string Group_id, string Access_Level)
+    {
+
+        sb = sb.Remove(0, sb.Length);
+        sb.Append(" insert into Users_Groups_Access  (User_id, Group_id, Access_Level) ");
+        sb.Append(" values   (@User_id, @Group_id, @Access_Level)");
+        
+        string strConnectionString = ConfigurationManager.AppSettings["CMServer"].ToString();
+        string commandString = sb.ToString();
+
+
+        using (SqlConnection connection = new SqlConnection(strConnectionString))
+        {
+            SqlCommand cmd = new SqlCommand(commandString, connection);
+            cmd.Parameters.AddWithValue("@User_id", User_id);
+            cmd.Parameters.AddWithValue("@Group_id", Group_id);
+            cmd.Parameters.AddWithValue("@Access_Level", Access_Level);
+                     
+
+            connection.Open();
+           cmd.ExecuteScalar();
+          
+
+        }
+
+    }
+
+
+    public void mUpdate_Permission(string id, string permission)
+    {
+        sb = sb.Remove(0, sb.Length);
+        sb.Append(" update Users_Groups_Access ");
+        sb.Append(" Set Access_Level = @permission ");
+
+        sb.Append(" where id = @id ");
+        string strConnectionString = ConfigurationManager.AppSettings["CMServer"].ToString();
+        string commandString = sb.ToString();
+
+
+        using (SqlConnection connection = new SqlConnection(strConnectionString))
+        {
+            SqlCommand cmd = new SqlCommand(commandString, connection);
+
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@permission", permission);
+
+            connection.Open();
+            cmd.ExecuteNonQuery();
+        }
+
+    }
+
+   
+  
+
+    #endregion
+
+    #endregion
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        sb = new StringBuilder(60);
+        if (!IsPostBack)
+        {
+            string mUser_id = Request["id"];
+
+            if (mUser_id != "")
+            {
+                DataTable dt = new DataTable();
+                dt = mGet_All_Users_Groups_Access_ByUserid(Convert.ToInt32(mUser_id));
+                ViewState["dt_permission"] = dt;
+
+                this.GridView1.DataSource = dt;
+                this.GridView1.DataBind();
+            }
+           Load_ListGroup();
+            
+        }
+    }
+
+ #region My Functions
+
+
+    void Load_ListGroup()
+    {
+        DataTable dt = new DataTable();
+        dt = mGet_All_Groups();
+
+        this.LB_Group.DataSource = dt;
+        this.LB_Group.DataTextField = "name";
+        this.LB_Group.DataValueField = "id";
+        this.LB_Group.DataBind();
+		LB_Group.Items.Add(new ListItem("Select a Group","",true));
+    	LB_Group.Items.FindByValue("").Selected = true;
+    }
+
+ #endregion
+
+    protected void LB_Group_SelectedIndexChanged(object sender, EventArgs e)
+    {
+		LB_Group.Items.FindByValue("").Enabled = false;
+        this.tbl_permission.Visible = true;
+        string mUser_id = Request["id"];
+
+        int id = Convert.ToInt32(this.LB_Group.SelectedValue.ToString());
+        DataTable dt = new DataTable();
+        //dt = mGet_All_Users_Groups_Access_ByUserANDGroupid(Convert.ToInt32(mUser_id), id);
+
+        dt = (DataTable)ViewState["dt_permission"];
+        DataRow[] dr = dt.Select("group_id = " + id);
+
+
+        if (dr.Length != 0)
+        {
+            this.RB_Permission.SelectedValue = dr[0]["Access_Level"].ToString();
+           
+        }
+        else
+        {
+            this.RB_Permission.SelectedValue =null;
+        }
+    }
+    protected void Btn_Cancel_Click(object sender, EventArgs e)
+    {
+        this.tbl_permission.Visible = false;
+        this.LB_Group.SelectedValue = null;
+        string mUser_id = Request["id"];
+
+        if (mUser_id != "")
+        {
+            DataTable dt = new DataTable();
+            dt = mGet_All_Users_Groups_Access_ByUserid(Convert.ToInt32(mUser_id));
+            ViewState["dt_permission"] = dt;
+
+            this.GridView1.DataSource = dt;
+            this.GridView1.DataBind();
+        }
+    }
+    protected void Btn_Save_Click(object sender, EventArgs e)
+    {
+        DataTable dt = new DataTable();
+        DataTable dt_Original = new DataTable();
+
+        dt = (DataTable)ViewState["dt_permission"];
+        dt_Original = mGet_All_Users_Groups_Access_ByUserid(Convert.ToInt32(Request["id"]));
+
+        int i = dt.Rows.Count;
+        int ii = dt_Original.Rows.Count;
+
+        foreach (DataRow mRows in dt.Rows)
+        {
+            if (mRows["id"].ToString() == "999999991")
+            {
+                //add
+                mAdd_Users_Groups_Access(mRows["User_id"].ToString(), mRows["Group_id"].ToString(), mRows["Access_Level"].ToString());
+            }
+            else
+            {
+                foreach (DataRow mdr_original in dt_Original.Rows)
+                {
+                    //update
+                    string s = mRows["id"].ToString();
+                    string ss = mdr_original["id"].ToString();
+                    if (mRows["id"].ToString() == mdr_original["id"].ToString())
+                    {
+                        if (mRows["Access_Level"].ToString() != mdr_original["Access_Level"].ToString())
+                        {
+                            mUpdate_Permission(mdr_original["id"].ToString(), mRows["Access_Level"].ToString());
+                            break;
+                        }
+                    }
+
+                }
+
+            }
+
+        }
+
+		ClientScript.RegisterStartupScript(GetType(),"asd","parent.parent.GB_hide();",true);
+    }
+    protected void RB_Permission_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        DataTable dt = new DataTable();
+
+        dt = (DataTable)ViewState["dt_permission"];
+        string mGroup_id = this.LB_Group.SelectedValue.ToString();
+        int i = 0;
+        foreach (DataRow dr in dt.Rows)
+        {
+            if (mGroup_id == dr["Group_id"].ToString())
+            {
+                dr["Access_Level"] = this.RB_Permission.SelectedValue.ToString();
+                i = 1;
+                break;
+            }
+        }
+
+        if (i==0)
+        {
+            DataRow dr = dt.NewRow();
+           
+            dr["id"] = "999999991";
+            dr["User_id"] = Request["id"].ToString();            
+            dr["Group_id"] = mGroup_id;
+            dr["Access_Level"] = this.RB_Permission.SelectedValue.ToString();
+
+            dt.Rows.Add(dr);
+           
+
+        }
+
+        ViewState["dt_permission"] = dt;
+        this.GridView1.DataSource = dt;
+        this.GridView1.DataBind();
+    }
+}

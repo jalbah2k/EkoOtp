@@ -1,0 +1,112 @@
+﻿/* FAQ PAGE */
+
+.faq .accordion-wrapper h2 {
+    display: none;
+}
+
+.FAQacc.paddTB60 {
+    padding-top: 38px; /*70 - 32 to account for top margin on accordion lis*/
+}
+
+.accordion {
+    overflow: hidden;
+    border-radius: 4px;
+    margin: 0px;
+}
+
+.accordion-section-title {
+    width: 100%;
+    padding: 15px;
+    cursor: pointer;
+}
+
+.accordion-section-title {
+    width: calc(100% - 100px);
+    padding: 15px 70px 15px 30px;
+    display: inline-block;
+    background-color: #EAEAEA;
+    border: 0;
+    color: #444444;
+    transition: all linear 0.1s;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 25px;
+}
+
+.accordion-wrapper a.accordion-section-title, .accordion-wrapper a.accordion-section-title h2 {
+    /*width: 100%;*/
+    /* color: #444444;
+    margin-top: 32px;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 25px;
+    line-height: 1;*/
+    margin-top: 32px;
+    font-size: 22px;
+    color: var(--purple);
+    line-height: 1.2;
+    font-weight: 400;
+}
+
+    .accordion-wrapper a.accordion-section-title h2 {
+        margin: 5px 0 !important;
+    }
+
+.accordion-wrapper h3 {
+    color: #455560;
+    font-size: 24px;
+    font-weight: 300;
+    margin-bottom: 10px !important;
+    line-height: initial;
+    margin-top: 0px;
+}
+
+.accordion-wrapper h4 {
+    color: #4A5A64;
+    font-size: 19px;
+    line-height: 1.2;
+    font-weight: bold;
+    margin-bottom: 15px;
+    margin-top: 0;
+}
+
+
+.accordion-section-title.active {
+    background-color: #C3C1C1;
+    text-decoration: none;
+    background: url('/Images/MSK/faq-close.png') no-repeat right 30px center #EAEAEA;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    font-size: 25px;
+}
+
+.accordion-section-title:hover {
+    background-color: #C3C1C1;
+    text-decoration: none;
+    font-size: 25px;
+}
+
+.accordion-section:last-child .accordion-section-title {
+    border-bottom: none;
+}
+
+.accordion-section-content {
+    padding: 15px 30px;
+    display: none;
+    background: #fdfdfd;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.accordion-section {
+    margin-bottom: 32px;
+}
+
+.accordion-wrapper h2 {
+    margin-bottom: 0 !important;
+}
+
+.accordion-section-content h2 {
+    margin-bottom: 10px !important;
+}
+/* END FAQ PAGE */

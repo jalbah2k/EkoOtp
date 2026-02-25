@@ -1,0 +1,116 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
+using CuteEditor;
+
+public partial class Admin_NewsRoom_NewsRoomEdit : System.Web.UI.Page
+{
+    protected string _connection = ConfigurationManager.AppSettings.Get("CMServer");
+    protected string sqlSelect = "NewsRoomSelect";
+    protected string sqlInsert = "NewsRoomInsert";
+    protected string sqlUpdate = "NewsRoomUpdate";
+
+    protected string test;
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!Page.IsPostBack)
+        {
+        	//Editor1.AutoConfigure = AutoConfigure.Minimal;
+        	Editor1.TemplateItemList = "Bold,Italic,Underline,|,JustifyLeft,JustifyCenter,JustifyRight,JustifyFull,|,InsertLink";
+        	Editor1.ResizeMode = CuteEditor.EditorResizeMode.None;
+        	Editor1.Height = 200;
+
+			//Editor2.AutoConfigure = AutoConfigure.Minimal;
+        	Editor2.TemplateItemList = "Bold,Italic,Underline,|,JustifyLeft,JustifyCenter,JustifyRight,JustifyFull,|,InsertLink";
+        	Editor2.ResizeMode = CuteEditor.EditorResizeMode.None;
+        	Editor2.Height = 200;
+
+            tbDate.Attributes.Add("onkeypress", "return false;");
+            if (!string.IsNullOrEmpty(NewsID))
+                PopulateFields();
+        }
+    }
+
+    protected string NewsID
+    {
+        get
+        {
+            if (Request["id"] != null)
+            {
+                return Request["id"];
+            }
+            else
+                return null;
+        }
+    }
+
+    private void PopulateFields()
+    {
+        DataTable dt = new DataTable();
+        SqlDataAdapter da = new SqlDataAdapter(sqlSelect, _connection);
+        da.SelectCommand.CommandType = CommandType.StoredProcedure;
+        da.SelectCommand.Parameters.AddWithValue("@id", NewsID);
+        da.Fill(dt);
+        if (dt.Rows.Count > 0)
+        {
+            DataRow rw = dt.Rows[0];
+            tbTitle_en.Text = rw["title_en"].ToString();
+            tbShort_en.Text = rw["DetailsShort_en"].ToString();
+
+            tbLong_en.Text = rw["Details_en"].ToString();
+        	tbLong_en.Visible = false;
+        	Editor1.Text = rw["Details_en"].ToString();
+            
+			tbTitle_fr.Text = rw["title_fr"].ToString();
+            tbShort_fr.Text = rw["DetailsShort_fr"].ToString();
+
+            tbLong_fr.Text = rw["Details_fr"].ToString();
+        	tbLong_fr.Visible = false;
+            Editor2.Text = rw["Details_fr"].ToString();
+			
+			tbDate.Text = ((DateTime)rw["NewsDate"]).ToString("yyyy/MM/dd");
+        }
+    }
+
+    protected void imgSave_Click(object sender, ImageClickEventArgs e)
+    {
+        Save();
+        Page.ClientScript.RegisterClientScriptBlock(GetType(), "close", "parent.parent.window.location.reload();", true);
+    }
+
+    private void Save()
+    {
+        string sql = string.IsNullOrEmpty(NewsID) ? sqlInsert : sqlUpdate;
+
+        SqlCommand cmd = new SqlCommand(sql, new SqlConnection(_connection));
+        cmd.CommandType = CommandType.StoredProcedure;
+        if (!string.IsNullOrEmpty(NewsID))
+            cmd.Parameters.AddWithValue("@id", NewsID);
+
+        cmd.Parameters.AddWithValue("@title_en", tbTitle_en.Text);
+        cmd.Parameters.AddWithValue("@DetailsShort_en", tbShort_en.Text);
+
+        //cmd.Parameters.AddWithValue("@Details_en", tbLong_en.Text);
+		cmd.Parameters.AddWithValue("@Details_en", Editor1.Text);
+
+        cmd.Parameters.AddWithValue("@title_fr", tbTitle_fr.Text);
+        cmd.Parameters.AddWithValue("@DetailsShort_fr", tbShort_fr.Text);
+
+        //cmd.Parameters.AddWithValue("@Details_fr", tbLong_fr.Text);
+		cmd.Parameters.AddWithValue("@Details_fr", Editor2.Text);
+
+        cmd.Parameters.AddWithValue("@NewsDate", tbDate.Text);
+        cmd.Connection.Open();
+        int ret = cmd.ExecuteNonQuery();
+        cmd.Connection.Close();
+    }
+
+
+}
+

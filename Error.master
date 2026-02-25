@@ -1,0 +1,268 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Error.master.cs" Inherits="Inside" %>
+
+<%@ Register TagPrefix="Hardcode" Src="Controls/TextSize/TextSize.ascx" TagName="TextSize" %>
+<%@ Register TagPrefix="Hardcode" Src="/Controls/Session/Session.ascx" TagName="Session" %>
+<%@ Register Src="~/Controls/Content/Content.ascx" TagPrefix="Hardcode" TagName="Content" %>
+
+
+<%@ Register Src="~/Controls/Menu/Menu.ascx" TagPrefix="Hardcode" TagName="Menu" %>
+<%@ Register Src="~/Footer.ascx" TagPrefix="Hardcode" TagName="Footer" %>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head id="Head1" runat="server">
+    <title></title>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    
+    
+
+    
+
+    <!-- Mobile Specific Metas
+    -------------------------------- -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%--<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">--%>
+
+    <!-- FONT
+    -------------------------------- -->
+    <script src="https://use.fontawesome.com/8123fd5db7.js"></script>
+
+    <!-- CSS
+    -------------------------------- -->
+    <asp:PlaceHolder runat="server"><%-- Required to add the version to css files --%>
+ 
+        <!-- SmartMenus core CSS (required) -->
+    <link href="<%: Styles.Url("~/CSS/menu") %>" type="text/css" rel="stylesheet" />
+
+    <%--Site styles--%>
+    <link href="<%: Styles.Url("~/CSS/site") %>" type="text/css" rel="stylesheet" />
+    <link href="<%: Styles.Url("~/CSS/forum") %>" type="text/css" rel="stylesheet" />
+    <link href="<%: Styles.Url("~/CSS/slick") %>" type="text/css" rel="stylesheet" />
+
+
+   
+ <!-- Favicon
+ –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+ <!-- ****** faviconit.com favicons ****** -->
+ <link rel="shortcut icon" href="/favicon.ico">
+ <link rel="apple-touch-icon" sizes="180x180" href="/Images/favicons/apple-touch-icon.png">
+ <link rel="icon" type="image/png" sizes="32x32" href="/Images/favicons/favicon-32x32.png">
+ <link rel="icon" type="image/png" sizes="16x16" href="/Images/favicons/favicon-16x16.png">
+
+	<!-- ****** faviconit.com favicons ****** -->
+
+	<!-- Scripts
+    -------------------------------- -->
+	<script type="text/javascript">
+        var GB_ROOT_DIR = "/JS/greybox/";
+    </script>
+
+    <%: System.Web.Optimization.Scripts.Render("~/bundles/jquery") %>
+    <%if (Session["LoggedInID"] != null)
+        { %>
+    <%: System.Web.Optimization.Scripts.Render("~/bundles/jqueryui") %>
+    <%: System.Web.Optimization.Scripts.Render("~/bundles/jqueryeasing") %>
+    <%} %>
+    <%: System.Web.Optimization.Scripts.Render("~/bundles/backtotop") %>
+
+
+    </asp:PlaceHolder>
+
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-18819492-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-18819492-1');
+</script>
+</head>
+<body id="body" class="inside insideMainTemplate yes-inside-menu">
+            <div role="navigation" aria-label="Skip to main content" class="nosize"><a href="#content" title="Skip to main content">Skip content</a></div>
+
+
+    
+
+
+
+	<form id="form1" runat="server">
+		<asp:ScriptManager ID="sman" runat="server">
+			<Scripts>
+				<%--<asp:ScriptReference Path="/js/webkit.js" />--%>
+			</Scripts>
+		</asp:ScriptManager>
+			
+		<div style="position: absolute; left: 50%; top: 85px; z-index: 999999;">
+			<Hardcode:Session runat="server" id="sessioncontrol" visible="false"></Hardcode:Session></div>
+
+
+      <div id="greenBar"></div>
+<style>
+body.TYPE_PNCA #ekoPncaTips, body.TYPE_PNCA #ekoTips, body.TYPE_EKO #ekoPncaTips, body.TYPE_EKO #pncaTips, body.TYPE_BOTH #ekoTips, body.TYPE_BOTH #pncaTips
+{
+    display: none;
+}
+</style>
+<header class="contained-width" aria-label="header">
+    <div id="logo">
+        <a href="/"><img src="/images/logo.jpg" alt="Placeholder Logo" class="img-logo" style="width: 300px; height:auto;" /></a>
+    </div>
+    <div id="utility">
+        <div id="utilityLinks">
+           
+            <div id="headerSocial">
+                <a href="https://www.facebook.com/EmpoweredKidsON/" class="facebook" title="EKO Facebook" target="_blank"></a>
+                <a href="https://twitter.com/empoweredkidson?lang=en" class="twitter" title="EKO Twitter" target="_blank"></a>
+                <a href="https://www.linkedin.com/company/empowered-kids-ontario/" class="linkedin" title="EKO Linkedin" target="_blank"></a>
+                <a href="https://www.instagram.com/empoweredkidson/" class="instagram" title="EKO Instagram" target="_blank"></a>
+            </div>
+        </div>
+        <Hardcode:TextSize ID="TextSize1" runat="server" />
+        
+        
+    </div>
+    <div id="mobileSearchToggle"></div>
+    <div id="mobileMenu"> 
+        <div id="nav-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+    </div>
+</header>
+<div id="greenBarMobile"></div>
+<!-- header -->
+
+
+<div id="mainMenu" aria-label="main menu">
+ 
+    <nav class="contained-width">
+        <div class="mainmenu menu-horizontal">
+                        <Hardcode:Menu runat="server" ID="Menu" Parameters="1" />
+        </div>
+    </nav>
+    <div id="mobileSubMenu">
+           
+        <div id="mobileSocial">
+            <a href="https://www.facebook.com/EmpoweredKidsON/" class="facebook" title="EKO Facebook" target="_blank"></a>
+            <a href="https://twitter.com/empoweredkidson?lang=en" class="twitter" title="EKO Twitter" target="_blank"></a>
+            <a href="https://www.linkedin.com/in/eko-canada-8189b1108/" class="linkedin" title="EKO Linkedin" target="_blank"></a>
+        </div>
+    </div>
+</div><!-- mainmenu -->
+
+       
+        <!-- header -->
+
+	
+				
+        <!--######################## START MAIN ########################## -->
+    <div id="insideWrap" class="full-width">
+        <div class="contained-width inside" id="mainContentInside">
+            <div id="leftMenu">
+                
+                   
+            </div>
+    
+            <div id="rightInside">
+                      
+                <div id='insideContent'>
+                    <a name="content"></a>
+                    <div id="html_content">
+                        <asp:ContentPlaceHolder ID="Content" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </div>  
+                </div>
+		    </div>
+        </div>
+    </div>    
+		<!-- content -->
+
+        <!--######################## END MAIN ########################## -->
+  <div id="insideMemberSlider">
+ </div>   
+  <%-- <div id="springPreFooter">
+     <Hardcode:Content runat="server" Parameters="10505" />
+
+     <style>
+         #insideMemberSlider{
+             padding-bottom:0;
+             height: 167px;
+         }
+         #springPreFooter
+         {
+             background: url('/images/springFlower.png') no-repeat top left #f2f2f2;
+             background-size:200px auto;
+             text-align: center;
+             padding:80px;
+         }
+
+         #springPreFooter h2
+         {
+             color:var(--pink)!important;
+             margin-top:0px!important;
+         }
+         #springPreFooter span
+         {
+             color:var(--purple);
+             font-size: 18px;
+             font-weight: 500;
+             text-transform: uppercase;
+         }
+
+         #springPreFooter p
+         {
+             color:#444;
+             font-size: 22px;
+             max-width: 820px;
+             margin:0 auto;
+         }
+         #springPreFooter a.button
+         {
+             margin-top:22px; font-size:19px;
+             transition: all 0.2s ease;
+         }
+
+         #springPreFooter a.button:hover
+         {
+             transform: scale(1.05);
+             -ms-transform: scale(1.05);
+             -moz-transform: scale(1.05);
+             -webkit-transform: scale(1.05);
+             -o-transform: scale(1.05);
+             cursor: pointer;
+             background-color: var(--pink)!important;
+             border-color: var(--pink)!important;
+         }
+
+         
+     </style>
+     
+ </div>--%>
+
+        <Hardcode:Footer runat="server" ID="Footer1" />
+
+
+         
+    </form>
+ 
+   <%: System.Web.Optimization.Scripts.Render("~/bundles/slick") %>
+
+    <%-- Dont bundle this file, to avoid break the left menu click dropdown:--%>
+    <script src="/Libraries/smartmenus-1.2.1/jquery.smartmenus.js"></script>
+
+    <%: System.Web.Optimization.Scripts.Render("~/bundles/site") %>
+    <%: System.Web.Optimization.Scripts.Render("~/bundles/forum") %>
+ 
+   
+</body>
+</html>
+

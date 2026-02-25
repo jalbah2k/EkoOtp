@@ -1,0 +1,102 @@
+﻿*
+{
+    font-family: gill-sans-nova, Arial, sans-serif;
+}
+
+body#YafBody
+{
+    padding: 0;
+}
+
+body#YafBody #logo {
+    width: 200px;
+    display: inline-block;
+}
+
+body#YafBody div.menu-horizontal ul.sm.sm-blue.nav.navbar-nav {
+    flex-direction: inherit !important;
+}
+
+body, body.YafBody, body#YafBody, .card-header, .page-account-minilogin div, .card.mx-auto, .card-header{
+    background: var(--purple)!important;
+    border: 0;
+}
+
+.page-account-minilogin hr, .input-group-text, .page-account-minilogin .card-header i
+{
+    display: none!important;
+}
+
+.page-account-minilogin label
+{
+    color: #ffffff;
+    font-size: 0px;
+    position: fixed;
+    top: -99999px;
+    left: -99999px;
+}
+
+.page-account-minilogin .card-header
+{
+    padding-top: 0;
+}
+
+.page-account-minilogin input
+{
+    background: #64449c;
+    border-radius: 25px!important;
+    padding: 9px 24px;
+    color: #ffffff;
+    border: 0;
+    font-weight: 300;
+    font-size: 19px;
+}
+
+.page-account-minilogin a.btn-login
+{
+    color: #64449c;
+    border: 2px solid #64449c;
+    padding: 9px 24px;
+    border-radius: 25px!important;
+    background: transparent!important;
+    width: fit-content;
+    color: #ffffff!important;
+    border-color: #ffffff;
+}
+
+.page-account-minilogin a.btn-login:hover
+{
+    color: #fff;
+    border: 2px solid #fff;
+}
+
+.page-account-minilogin .card-header
+{
+    font-size: 26px;
+    color: #ffffff;
+}
+
+
+
+
+/* - - - - - - - -  - - - - - - -*/
+
+
+#forum .row
+{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+

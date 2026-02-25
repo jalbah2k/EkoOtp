@@ -1,0 +1,14 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Default.master.cs" Inherits="_Default" %><?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+    	<script type="text/javascript">
+	</script>
+    <link href="/CSS/Menu.css" rel="stylesheet" type="text/css" />
+	<link href="/CSS/Main.css" rel="stylesheet" type="text/css" />
+</head>
+<body><form runat="server"><asp:ContentPlaceHolder ID="admin" runat="server"/><div style="border:dashed 1px #aaaaaa;"><asp:ContentPlaceHolder id="Top" runat="server"/></div><br /><asp:ContentPlaceHolder id="Content" runat="server"/><br /><asp:ContentPlaceHolder id="Bottom" runat="server"/></form></body>
+</html>

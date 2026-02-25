@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class Controls_TipsTricks_TipsTricks : System.Web.UI.UserControl
+{
+    public Controls_TipsTricks_TipsTricks() { }
+    public Controls_TipsTricks_TipsTricks(string a) { }
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+    }
+}

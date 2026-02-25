@@ -1,0 +1,1 @@
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Selector.ascx.cs" Inherits="Controls_LangSelect_Selector" %><asp:Literal ID="lang" runat="server" Visible="false"/><asp:Literal ID="litLinks" runat="server"/>

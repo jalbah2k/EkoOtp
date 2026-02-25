@@ -1,0 +1,192 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="InsidePreview.master.cs" Inherits="Inside" %>
+
+<%@ Register TagPrefix="Hardcode" Src="Controls/BackToTop/BackToTop.ascx" TagName="BackToTop" %>
+<%@ Register TagPrefix="Hardcode" Src="/Controls/Session/Session.ascx" TagName="Session" %>
+<%@ Register TagPrefix="Hardcode" Src="Controls/WidgetsToolbar/WidgetsToolbar.ascx" TagName="WidgetsToolbar" %>
+<%@ Register TagPrefix="Custom" Namespace="ASB" Assembly="AutoSuggestBox" %>
+<%@ Register Src="~/Controls/Content/Content.ascx" TagPrefix="Hardcode" TagName="Content" %>
+<%@ Register Src="~/Controls/Menu/Menu.ascx" TagPrefix="Hardcode" TagName="Menu" %>
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head id="Head1" runat="server">
+
+    
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>    
+
+    
+
+    <!-- Mobile Specific Metas
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<!--     <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
+
+
+    <!-- FONT
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+   
+    <link rel="stylesheet" href="https://use.typekit.net/clv1wox.css">
+    <!-- CSS
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <asp:PlaceHolder runat="server"><%-- Required to add the version to css files --%>
+    
+    <!-- SmartMenus core CSS (required) -->
+    <link href="<%: Styles.Url("~/CSS/menu") %>" type="text/css" rel="stylesheet" />
+
+    <%--Site styles--%>
+    <link href="<%: Styles.Url("~/CSS/site") %>" type="text/css" rel="stylesheet" />
+    <link href="<%: Styles.Url("~/CSS/forum") %>" type="text/css" rel="stylesheet" />
+    <link href="<%: Styles.Url("~/CSS/slick") %>" type="text/css" rel="stylesheet" />
+
+
+<%--    <script src="https://use.fontawesome.com/8123fd5db7.js"></script>--%>
+
+    <!-- Favicon
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <!-- ****** faviconit.com favicons ****** -->
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/Images/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/Images/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/Images/favicons/favicon-16x16.png">
+
+	<!-- ****** faviconit.com favicons ****** -->
+    
+    <!-- Scripts
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <script type="text/javascript">
+        var GB_ROOT_DIR = "/JS/greybox/";
+    </script>
+
+      
+    <%: System.Web.Optimization.Scripts.Render("~/bundles/jquery") %>
+    <%if (Session["LoggedInID"] != null)
+        { %>
+    <%: System.Web.Optimization.Scripts.Render("~/bundles/jqueryui") %>
+    <%: System.Web.Optimization.Scripts.Render("~/bundles/jqueryeasing") %>
+    <%} %>
+	<%: System.Web.Optimization.Scripts.Render("~/bundles/backtotop") %>
+
+    </asp:PlaceHolder>
+
+   <%-- <script type="text/javascript" src="/js/clicker_action.js"></script>--%>
+    
+
+</head>
+<body id="body" class="inside insideMainTemplate">
+<div id="greenBar"></div>
+    
+<header class="contained-width" aria-label="header">
+    <div id="logo">
+        <img src="/images/logo.jpg" alt="Placeholder Logo" class="img-logo" style="width: 300px; height:auto;" />
+    </div>
+    <div id="utility">
+        <div id="utilityLinks">
+            
+            <div id="headerSocial">
+                <a href="https://www.facebook.com/EmpoweredKidsON/" class="facebook" title="EKO Facebook" target="_blank"></a>
+                <a href="https://twitter.com/empoweredkidson?lang=en" class="twitter" title="EKO Twitter" target="_blank"></a>
+                <a href="https://www.linkedin.com/company/empowered-kids-ontario/" class="linkedin" title="EKO Linkedin" target="_blank"></a>
+                <a href="https://www.instagram.com/empoweredkidson/" class="instagram" title="EKO Instagram" target="_blank"></a>
+            </div>
+        </div>
+        
+        
+    </div>
+
+</header>
+<!-- header -->
+    
+
+
+
+	<form id="form1" runat="server">
+		<asp:ScriptManager ID="sman" runat="server">
+
+		</asp:ScriptManager>
+        <div>
+          <%--Header--%>
+            <div id="mainMenu" aria-label="main menu">
+   
+            <nav class="contained-width">
+                <div class="mainmenu menu-horizontal">
+                    <Hardcode:Menu runat="server" ID="Menu" Parameters="1" />
+                </div>
+            </nav>
+   
+            </div><!-- mainmenu -->
+
+    
+
+	
+
+				
+        <!--######################## START MAIN ########################## -->
+        <div id="insideWrap" class="full-width">
+            <div class="contained-width inside" id="mainContentInside">
+               
+                <div id="rightInside" style="padding-left:30px;">                  
+                    <div id='insideContent'>
+ 
+                        <a name="content"></a>
+                        <div id="html_content">
+                            <asp:ContentPlaceHolder ID="Content" runat="server" />
+                        </div>  
+                    </div>
+                </div>
+    		</div>
+        </div>
+		<!-- content -->
+       
+        <div id="greenBar" style="margin-top:20px"></div>
+        
+        <footer class="full-width">
+            <div id="topFooter" class="full-width">
+                <div class="contained-width">
+                    <div id="footerLogo">
+                        <img src="../../Images/logo-footer.png" alt="EKO Logo footer">
+                        <div id="footerSocial">
+                            <a href="https://www.facebook.com/EmpoweredKidsON/" class="facebook" title="EKO Facebook" target="_blank"></a>
+                            <a href="https://twitter.com/empoweredkidson?lang=en" class="twitter" title="EKO Twitter" target="_blank"></a>
+                            <a href="https://www.linkedin.com/company/empowered-kids-ontario/" class="linkedin" title="EKO Linkedin" target="_blank"></a>
+                            <a href="https://www.instagram.com/empoweredkidson/" class="instagram" title="EKO Instagram" target="_blank"></a>
+                        </div>
+                    </div>
+                   
+                    <div>
+                        <div id="needHelp">
+                            <h3>Have a Question?</h3>
+                            <p style="color:#fff;">Email Nicole at:<br><a class="footerEmail" href="mailto:info@empoweredkidsontario">info@empoweredkidsontario</a></p>
+                        </div>
+                        <div id="needHelpPNCA">
+                            <h3>Have a Question?</h3>
+                            <p style="color:#fff;">For PNCA inquiries email Margaret at:<br><a class="footerEmail" href="mailto:margaret@margarethoward.ca">margaret@margarethoward.ca</a></p>
+                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+  
+         
+    </form>
+ 
+
+    <%-- Dont bundle this file, to avoid break the left menu click dropdown:--%>
+    <script src="../../Libraries/smartmenus-1.2.1/jquery.smartmenus.js"></script>
+
+    <%: System.Web.Optimization.Scripts.Render("~/bundles/site") %>
+    <%: System.Web.Optimization.Scripts.Render("~/bundles/forum") %>
+ 
+    <script>var mymenuid = '#Menu_1'</script>
+    <script src="../../Controls/Menu/smartmenu_activate.js" ></script>
+</body>
+</html>
+

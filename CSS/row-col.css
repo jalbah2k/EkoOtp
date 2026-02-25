@@ -1,0 +1,79 @@
+﻿.rowSub {
+    padding-top: 1px;
+    padding-bottom: 20px;
+
+}
+
+    .rowSub img{
+        max-width:unset!important;
+    }
+    .rowSub h2 {
+        margin-top: 0;
+    }
+    div.rowSub > div {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+.col-2 > div.rowSub, .grid2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 5vw;
+}
+
+.col-3 > div.rowSub, .grid3col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 30px;
+    grid-row-gap: 30px;
+}
+
+.col-4 > div.rowSub, .grid4col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-column-gap: 5vw;
+}
+
+.col-1.yellow, .col-2.yellow, .col-3.yellow, .col-4.yellow {
+    background: var(--yellow);
+}
+
+.col-1.grey, .col-2.grey, .col-3.grey, .col-4.grey {
+    background: var(--grey);
+}
+
+.col-1.green, .col-2.green, .col-3.green, .col-4.green {
+    background: #E8F4F2;
+}
+
+@media (max-width: 767px) {
+    body .callOutP {
+        font-size: 18px !important;
+    }
+
+    .col-3 > div.rowSub, .grid3col, .col-2 > div.rowSub, .grid2col {
+        grid-template-columns: 1fr;
+    }
+
+    .col-4 > div.rowSub, .grid4col {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .col-3 > div.rowSub, .grid3col, .col-2 > div.rowSub, .grid2col, .col-4 > div.rowSub, .grid4col {
+        grid-row-gap: 20px;
+    }
+
+    .col-1 .rowSub, .col-2 .rowSub, .col-3 .rowSub, .col-4 .rowSub {
+        padding-top: 6vw;
+        padding-bottom: 6vw;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .col-4 > div.rowSub, .grid4col {
+        grid-template-columns: 1fr;
+    }
+}
+
+

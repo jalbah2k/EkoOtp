@@ -1,0 +1,171 @@
+﻿.div-comment {
+    margin-bottom: 20px;
+    background-color: #efefef;
+    border-radius: 25px;
+    padding:18px;
+}
+.div-comment p{
+    margin-bottom:8px!important
+}
+.div-comment-parent {
+    margin-bottom: 20px;
+    padding: 20px 10px 10px 10px;
+    background-color: #f5f1f1;
+    position:relative;
+}
+.div-sp-link {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.div-sp-link > div,
+.div-sp-comment > div{
+    display: flex;
+    align-items: baseline;
+}
+.div-replies{
+    margin-top:20px;
+    margin-left:50px;
+}
+
+.div-replies .div-comment
+{
+    background-color: #fafafa;
+    border-radius: 25px;
+}
+
+.div-sp-comment {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+}
+.div-sp-comment > div:first-child span.sp-total-comments,
+.div-sp-comment > div:first-child span.sp-total-comments-qty{
+    color: var(--pink);
+    font-size:19px;
+    font-weight:400;
+}
+.div-sp-comment > div{
+    align-items: center!important;
+}
+
+.div-sp-link > div a {
+    margin-top: 0 !important;
+}
+strong {
+    font-weight: bold;
+}
+
+a.sp-link-admin,
+a.sp-link,
+a.read-more,
+a.icon_comment {
+    text-decoration: none !important;
+    border-bottom: none !important;
+}
+
+.sp-header
+{
+        color: var(--purple);
+    font-weight: 600;
+    font-size: 19px;
+}
+
+.div-sp-comment>div:first-of-type
+{
+    display: none;
+}
+
+.row.row-video
+{
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+.icon_comment
+{
+    position: absolute;
+    right:15px;
+    bottom:5px;
+}
+
+.icon_comment:before
+{
+    content:"Reply";
+}
+
+.icon_comment img
+{
+    display: none;
+}
+
+.div-sp-link
+{
+    position: relative;
+}
+a.read-more {
+    color: #444444!important;
+}
+
+.sp-letter {
+    border-radius: 50%;
+    padding: 3px 9px;
+    color: #fff;
+}
+
+.sp-header {
+    opacity: 0.8;
+}
+
+/*a.del-comment {
+    float: right;
+}*/
+
+a.lnk-close,
+a.lnk-close-admin {
+    float: right;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    text-decoration: none!important;
+    border-bottom:none!important
+}
+
+a.lnk-close img,
+a.lnk-close-admin img{
+    width:32px;
+    height:32px;
+}
+
+#myModal_Comment .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 9999; /* Sit on top */
+    left: 0;
+    top: 70px; /*0;*/
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(150 169 179 / 32%);
+    /*backdrop-filter: blur(2px);*/
+}
+
+#myModal_Comment .modal-content {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 15px;
+    -webkit-box-shadow: 3px 3px 5px -1px rgba(0,0,0,0.3);
+    -moz-box-shadow: 3px 3px 5px -1px rgba(0,0,0,0.3);
+    box-shadow: 3px 3px 5px -1px rgba(0,0,0,0.3);
+    border: 1px solid #bbbbbb;
+    margin: 15% auto; /* 5% from the top and centered */
+    border: 1px solid #888;
+    width: 80vw;
+    position: relative;
+    max-width: 800px; /* Could be more or less, depending on screen size */
+    cursor: pointer !important;
+    z-index: 999999;
+}
+
+#myModal_Comment .modal-content > div {
+    display: flex;
+    justify-content: center;
+}

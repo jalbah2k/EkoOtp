@@ -1,0 +1,25 @@
+     <param name="roles">A role collection.</param>
+            <returns><b>true</b> if the collections are disjoint, <b>false</b> otherwise.</returns>
+        </member>
+        <member name="P:skmMenu.RoleCollection.Count">
+            <summary>
+            Returns the number of roles in the collection.
+            </summary>
+            <value>An integer value greater than or equal to zero indicating the number of roles in the role collection.</value>
+        </member>
+        <member name="P:skmMenu.RoleCollection.Roles">
+            <summary>
+            Returns the list of roles as a string array.
+            </summary>
+            <remarks>The RoleCollection class only contains methods to add, remove, and check to see if a role exists in
+            the collection.  It does not provide a means to enumerate through the roles.  In order to enumerate through
+            the roles, use this property to retrieve the roles as a string array.</remarks>
+        </member>
+        <member name="P:skmMenu.RoleCollection.System#Web#UI#IStateManager#IsTrackingViewState">
+            <summary>
+            Specifies if the RoleCollection is tracking ViewState.  Required, since RoleCollection
+            implements the IStateManager interface.
+            </summary>
+        </member>
+    </members>
+</doc>

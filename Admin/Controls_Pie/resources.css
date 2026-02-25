@@ -1,0 +1,44 @@
+﻿/*#region Left Panel */
+
+.div-Rep .plus ~ div {
+    display: none;
+}
+
+.div-Rep .minus ~ div {
+    display: block;
+}
+
+.div-Rep .plus,
+.div-Rep .minus {
+    position: relative !important;
+}
+
+.div-Rep {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+
+.div-Rep .rb-enhanced input {
+    display: none;
+}
+
+.div-Rep .rb-enhanced input + label {
+    display: inline-block;
+    min-height: 18px;
+    color: #333333;
+    font-size: 14px;
+    font-weight: 400;
+    padding-left: 23px;
+    margin-left: 10px;
+    background: url(/images/lemonaid/buttonsNew/rb-off.png) no-repeat left top;
+    cursor: pointer;
+}
+.div-Rep .rb-enhanced input:checked + label {
+    background: url(/images/lemonaid/buttonsNew/rb-on.png) no-repeat left top;
+}
+
+
+.gvCateg, .gvSubCateg {
+    padding-left: 20px;
+}

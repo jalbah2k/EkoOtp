@@ -1,0 +1,10 @@
+﻿
+a[href*="javascript"].has-submenu .sub-arrow {
+    width: 100% !important;
+}
+
+.sm-blue a span.sub-arrow {
+    text-align: right;
+}
+
+

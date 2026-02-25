@@ -1,0 +1,181 @@
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ReNewsRoom.ascx.cs" Inherits="Admin_NewsRoom_NewsRoom" %>
+<%@ Register TagPrefix="CE" Namespace="CuteEditor" Assembly="CuteEditor" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register TagPrefix="i386" Namespace="i386.UI" Assembly="i386.UI" %>
+<link href="/CSS/LemonAid.css" rel="stylesheet" type="text/css" />
+<link href="/CSS/DarkStyle.css" rel="stylesheet" type="text/css" />
+<asp:ScriptManager ID="sm" runat="server" EnablePartialRendering="false"></asp:ScriptManager>
+<asp:UpdatePanel runat="server" ID="up1">
+<ContentTemplate>
+<script type="text/javascript" src="/js/JScript.js"></script>
+<script type="text/javascript" >
+    var winH = 520;
+    var winW = 860;
+</script>
+<style type="text/css">#divAdd {padding: 10px 0 10px 0} #spCB input{width:10px}</style>
+<table cellpadding="0" cellspacing="0" border="0"><tr><td rowspan="3"><img src="/images/lemonaid/icons/latestnews.png" /></td><td class="admin_header_white" valign="top" style="padding-left:0px;"><i386:FontLabel ID="FontLabel2" Font-Size="35px" Font-Names="Century Gothic" Width="380px" Height="50px" BorderWidth="0" runat="server" BackColor="#0078D8" ForeColor="#FFFFFF">Newsroom</i386:FontLabel></td></tr>
+        <tr><td style="padding-left:10px;color:#91caf7;font-size:16px;font-family:Arial; font-weight:bold;" valign="top" height="53">This area allows you to manage the news articles in the News Room.</td></tr>
+        </table><br />
+<asp:Panel ID="pnlList" runat="server">
+
+    <div id="whitey" runat="server"><table cellpadding="0" cellspacing="0" border="0" style="margin:0px; padding:0px; border-collapse:collapse;"><tr><td style="vertical-align:top; line-height:22px; margin:0;"><div style="float:left;position:relative;top:47px;"><img src="/images/lemonaid/partials/corners_tl.png" /></div><div style="float:right;position:relative;top:47px;left:2px;"><img src="/images/lemonaid/partials/corners_tr.png" /></div></td></tr>
+			<tr><td ><asp:GridView ID="GV_Main" runat="server" AllowSorting="True" AutoGenerateColumns="False" AllowPaging="true"
+        CellPadding="0" DataKeyNames="id" OnPageIndexChanging="GV_Main_PageIndexChanging"
+        OnRowDeleting="GV_Main_RowDeleting" OnRowEditing="GV_Main_RowEditing" OnSorting="GV_Main_Sorting"
+        GridLines="None" OnRowCommand="GV_Main_RowCommand" OnRowDataBound="GV_Main_RowDataBound">
+        <PagerStyle CssClass="newpagerstyle" HorizontalAlign="Center" ForeColor="#ffbb51" Font-Bold="true" Height="30"   />
+                    <HeaderStyle ForeColor="White" Font-Underline="false" HorizontalAlign="Left" CssClass="padbottom" Height="30" VerticalAlign="Top"  />
+        <RowStyle />
+        <Columns>
+        <asp:TemplateField ItemStyle-HorizontalAlign="Right" ItemStyle-BackColor="#409ae2"><ItemStyle Width="10"></ItemStyle></asp:TemplateField>
+        <asp:TemplateField ItemStyle-HorizontalAlign="Right" ItemStyle-BackColor="#409ae2"><ItemTemplate><img src="/images/lemonaid/partials/gridrow_left.png" /></ItemTemplate></asp:TemplateField>
+            <asp:BoundField DataField="title" HeaderText="Title" SortExpression="Title"
+                HeaderStyle-HorizontalAlign="Left" ItemStyle-BackColor="#409ae2">
+                <HeaderStyle HorizontalAlign="Left" />
+                <ItemStyle CssClass="itemrow" Width="350" HorizontalAlign="Left" VerticalAlign="Middle" />
+            </asp:BoundField>
+            <asp:BoundField DataField="language" HeaderText="Language" SortExpression="language"
+                HeaderStyle-CssClass="TemplateGridHeaderFont" HeaderStyle-HorizontalAlign="Left" ItemStyle-BackColor="#409ae2">
+                <HeaderStyle HorizontalAlign="Left" />
+                <ItemStyle CssClass="itemrow" Width="100" HorizontalAlign="Left" VerticalAlign="Middle" />
+            </asp:BoundField>
+            <asp:BoundField DataField="NewsDate" HeaderText="Date" SortExpression="NewsDate"
+                DataFormatString="{0:MMM d, yyyy}" ItemStyle-BackColor="#409ae2">
+                <HeaderStyle  HorizontalAlign="Left" Width='100px' />
+                <ItemStyle CssClass="itemrow" Width="100"  HorizontalAlign="Left" VerticalAlign="Middle" />
+            </asp:BoundField>
+            
+            <asp:TemplateField ItemStyle-BackColor="#409ae2"><ItemTemplate><img src="/images/lemonaid/partials/gridrow_right.png" /></ItemTemplate></asp:TemplateField>
+            <asp:TemplateField ItemStyle-HorizontalAlign="Right" ItemStyle-BackColor="#409ae2"><ItemStyle Width="10"></ItemStyle></asp:TemplateField>
+            <asp:TemplateField HeaderText="" ShowHeader="False" ItemStyle-BackColor="#409ae2">
+                <ItemTemplate>
+                   <asp:ImageButton ID="ImageButton1" ImageURL="/images/lemonaid/buttons/pencil.png" border="0"  AlternateText="Edit Item" title='Edit Item' runat="server" onclick="clickedit" CommandArgument='<%#Eval("id") %>' />
+                </ItemTemplate>
+                <HeaderStyle />
+                <ItemStyle HorizontalAlign="Center" />
+            </asp:TemplateField>
+            <asp:TemplateField ItemStyle-HorizontalAlign="Right" ItemStyle-BackColor="#409ae2"><ItemStyle Width="10"></ItemStyle></asp:TemplateField>
+            <asp:TemplateField HeaderText="" ShowHeader="False" ItemStyle-BackColor="#409ae2">
+                <ItemTemplate>
+                    <asp:ImageButton ID="lbDelete" runat="server" CommandName="Delete" ImageUrl="/images/lemonaid/buttons/ex.png" AlternateText="Delete" />
+                </ItemTemplate>
+                <ItemStyle HorizontalAlign="Center" />
+                <HeaderStyle  />
+            </asp:TemplateField>
+            <asp:TemplateField ItemStyle-HorizontalAlign="Right" ItemStyle-BackColor="#409ae2"><ItemStyle Width="10"></ItemStyle></asp:TemplateField>
+            <asp:TemplateField ><ItemTemplate><img src="/images/lemonaid/partials/shadowr.png" height="49" width="4" /></ItemTemplate></asp:TemplateField>
+        </Columns>
+    </asp:GridView>
+    </td></tr><tr><td style="background-image:url('/images/lemonaid/partials/shadow.png');background-repeat:repeat-x;vertical-align:top; line-height:22px; margin:0; width:100%"><div style="float:left;position:relative;top:-19px;margin:0;"><img src="/images/lemonaid/partials/corners_bl.png" /></div><div style="float:right;position:relative;top:-19px;left:2px;"><img src="/images/lemonaid/partials/corners_br.png" /></div></td></tr><tr><td></td></tr>
+		  </table></div><i386:ImageOverButton ID="bttn_Add_Question" runat="server" CssClass="button" 
+                OnClick="clickadd" ImageOverUrl="/images/lemonaid/buttons/add_over.png" ImageUrl="/images/lemonaid/buttons/add.png" />
+
+</asp:Panel>
+<asp:Panel ID="pnlAdd" runat="server" Visible="false">
+<script type="text/javascript" id="jscal1x">
+	var cal1x = new CalendarPopup("testdiv1");
+	document.write(getCalendarStyles());
+    </script>
+    <style type="text/css">
+        td.left{width: 15%; background-color:White;}
+        td{text-align: left;}
+        #main{margin: 10px 0px 10px 15px}
+        body {background-color: #2F8DCB;}
+        div.width{width:750px}
+        div img{cursor: pointer}
+    </style>
+    <script type="text/javascript">
+    	function ClickTab(tab) {
+    		var tEn = document.getElementById("spEnglish");
+    		var tFr = document.getElementById("spFrench");
+    		switch (tab) {
+    			case 1:
+    				tEn.style.display = "";
+    				tFr.style.display = "none";
+    				document.getElementById("entab").src = "/images/icons/englishtabon.png";
+    				document.getElementById("frtab").src = "/images/icons/frenchtab.png";
+    				break;
+    			case 2:
+    				tEn.style.display = "none";
+    				tFr.style.display = "";
+    				document.getElementById("frtab").src = "/images/icons/frenchtabon.png";
+    				document.getElementById("entab").src = "/images/icons/englishtab.png";
+    				break;
+    		}
+    	}
+    </script>
+	<table cellpadding="0" cellspacing="0" border="0" style="  margin:0px; padding:0px; border-collapse:collapse;"><tr><td colspan="3" style="vertical-align:top; line-height:22px;"><div style="float:left;position:relative;top:22px;"><img src="/images/lemonaid/partials/corners_tl.png" /></div><div style="float:right;position:relative;top:22px;left:2px;"><img src="/images/lemonaid/partials/corners_tr.png" /></div></td></tr>
+			<tr><td colspan="3" style="height:8px; line-height:8px; background-color:#409ae2;">&nbsp;</td></tr>
+			<tr><td style="width:12px; background-color:#409ae2;">&nbsp;</td><td>
+		<table cellpadding="0" cellspacing="0" border="0" style="background-color:#409ae2;">
+		 
+             <tr>
+                <td class="admin_bodytext_blue">
+                    Language :
+                </td>
+                <td><table border="0" cellpadding="0" cellspacing="0"><tr><td><img src="/images/lemonaid/partials/gridrow_left2.png" /></td><td style="background-image:url('/images/lemonaid/partials/gridrow_bg2.png');background-repeat:repeat-x;"><asp:DropDownList ID="ddlLang" runat="server" width="140" /></td></td><td><img src="/images/lemonaid/partials/gridrow_right2.png" /></td></tr></table>
+            </tr>
+            <tr>
+                <td class="admin_bodytext_blue">Date :</td>
+                <td colspan="2" style="text-align: left;position:relative;">
+                    <table border="0" cellpadding="0" cellspacing="0"><tr><td><img src="/images/lemonaid/partials/gridrow_left2.png" /></td><td style="background-image:url('/images/lemonaid/partials/gridrow_bg2.png');background-repeat:repeat-x;width:140px;"><asp:TextBox ID="tbDate" runat="server" Style="width: 110px;position:relative;font-family:Arial;" CssClass="textbox"></asp:TextBox>
+                <asp:ImageButton ID="Img_EventDate_Start" runat="Server" AlternateText="Click to show calendar"
+                                CausesValidation="False" ImageUrl="/images/icons/datepicker.gif" width="21" Height="17"/>
+                    <cc1:CalendarExtender ID="Cal_Start_Date" runat="server" PopupButtonID="Img_EventDate_Start"
+                                TargetControlID="tbDate">
+                            </cc1:CalendarExtender></td><td><img src="/images/lemonaid/partials/gridrow_right2.png" /></td></tr></table>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="admin_bodytext_blue">
+                    Title :
+                </td>
+                <td>
+                    <table border="0" cellpadding="0" cellspacing="0"><tr><td><img src="/images/lemonaid/partials/gridrow_left2.png" /></td><td style="background-image:url('/images/lemonaid/partials/gridrow_bg2.png');background-repeat:repeat-x;"><asp:TextBox ID="tbTitle" runat="server" style="font-family:Arial;" Width="500" CssClass="textbox"></asp:TextBox></td><td><img src="/images/lemonaid/partials/gridrow_right2.png" /></td></tr></table>
+                </td>
+
+            </tr>
+            <tr>
+                <td style=" vertical-align:top; padding-bottom:10px;" class="admin_bodytext_blue">
+                    Short Description : 
+                </td>
+                <td>
+                    <CE:Editor id="Editor2" runat="server" BackColor="#e3f0fb" width="525" Text="<span style='font-family:Arial;font-size:11px'> </span>"></CE:Editor>
+                </td>
+
+            </tr>
+            <tr><td colspan="2">&nbsp;</td></tr>
+            <tr>
+                <td style="vertical-align:top;" class="admin_bodytext_blue">
+                    Description :
+                </td>
+                <td>
+					<CE:Editor id="Editor1" runat="server" width="525" BackColor="#e3f0fb" Text="<span style='font-family:Arial;font-size:11px'> </span>"></CE:Editor>
+                </td>
+
+            </tr>
+            <tr>
+                <td class="admin_bodytext_blue">
+                    Featured? :
+                </td>
+                <td align="left"><asp:CheckBox ID="cbFeature" runat="server" />
+                </td>
+            </tr>
+            </table> </td><td style="width:12px; background-color:#409ae2;background-image:url('/images/lemonaid/partials/shadowr.png'); background-repeat:repeat-y; background-position:right;">&nbsp;</td></tr><tr><td colspan="3" style="height:8px; line-height:8px; background-color:#409ae2;">&nbsp;</td></tr><tr><td colspan="3" style="background-image:url('/images/lemonaid/partials/shadow.png');background-repeat:repeat-x;vertical-align:top; line-height:22px; margin:0; width:100%"><div style="float:left;position:relative;top:-19px;margin:0;"><img src="/images/lemonaid/partials/corners_bl.png" /></div><div style="float:right;position:relative;top:-19px;left:2px;"><img src="/images/lemonaid/partials/corners_br.png" /></div></td></tr>
+		  </table>
+            <br />
+        <i386:ImageOverButton ID="imgSave" runat="server" CssClass="button" ImageUrl="/images/lemonaid/buttons/save.png" ImageOverUrl="/images/lemonaid/buttons/save_over.png"
+            ValidationGroup="publication" OnClick="imgSave_Click" />
+        <span style="padding-left: 10px">
+            <i386:ImageOverButton ID="ImageButton2" runat="server" ImageUrl="/images/lemonaid/buttons/back.png" ImageOverUrl="/images/lemonaid/buttons/back_over.png" border="0" alt='cancel' title='cancel' onclick="clickcancel" style="cursor: pointer" />
+        </span>
+    <div id="testdiv1" style="position:absolute;top:0;left:0;z-index: 1000; visibility: hidden; background-color: white;"></div>
+</asp:Panel>
+</ContentTemplate>
+</asp:UpdatePanel>
+<asp:UpdateProgress ID="UpdateProgress1" runat="server">
+    <ProgressTemplate>
+      <div class="updateprogress">Update in progress...</div>
+    </ProgressTemplate>
+    </asp:UpdateProgress>

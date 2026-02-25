@@ -1,0 +1,335 @@
+﻿#YafBody {
+    padding-right: 0!important;
+    padding-left: 0!important;
+}
+body#YafBody div.menu-horizontal ul.sm.sm-blue.nav.navbar-nav {
+    flex-direction: inherit !important;
+}
+.menu-horizontal .sm-blue > li {
+   /* width: fit-content;*/
+}
+
+#Menu_1 > li {
+    width: 20%;
+}
+
+body#YafBody #mobileSearch,
+body#YafBody #mobileSearch input,
+body#YafBody .searchPanel_mobile {
+    width: 100%;
+}
+
+@media (max-width: 767px){
+    .menu-horizontal .sm-blue > li {
+        width: 100%;
+    }
+    #Menu_1 > li {
+        width: 100%;
+    }
+    #YafBody .contained-width
+    {
+        padding: 0;
+    }
+
+    .page-myaccount .list-group-item
+    {
+        text-align: left!important;
+    }
+
+    .page-myaccount .float-start
+    {
+        float: initial!important;
+    }
+
+}
+
+
+/* - - - - - - - -  - - - - - - -*/
+body#YafBody .searchPanel, input[type="text"], select, textarea {
+    text-transform:none!important;
+}
+
+#forum .page-myaccount > div.row, #forum .page-account-login p, #forum .page-account-login h1, #forum .page-posts .collapse .row, #forum .page-posts > div.row,
+#forum .page-postmessage > div.row, #forum .page-profile-changepassword > div.row, #forum .page-profile-subscriptions > div.row, #forum nav[aria-label="breadcrump"], #forum .page-userprofile > div.row,
+#forum .page-board > div.row, #forum .page-topics > div.row, #forum .page-posttopic > div.row, #forum .page-profile-editprofile > div.row,
+#forum .page-mymessages > div.row, #forum .page-postprivatemessage > div.row, #forum .page-privatemessage > div.row {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+#forum .btn-secondary
+{
+        color: var(--purple);
+    background-color: #ffffff;
+}
+
+#forum .btn-primary i
+{
+    color: #ffffff!important;
+}
+
+#utilityLinks a, #forum .breadcrumb-item.active{
+    color: var(--purple);
+}
+
+#forum .text-secondary {
+    color: var(--green)!important;
+}
+
+#forum .text-success, #forum nav[aria-label="breadcrump"] a {
+    color: var(--pink)!important;
+}
+
+#forum .text-warning {
+    color: var(--green)!important;
+}
+
+#forum .list-group-item.active, #forum .bg-primary, #forum .list-group-item.link-light.bg-primary
+{
+    border-color: var(--purple);
+    background-color: var(--purple);
+}
+
+#forum .page-userprofile .list-group-item.link-light.bg-primary
+{
+    display: none!important;
+}
+
+#forum .page-userprofile .list-group
+{
+    border: 1px solid #aaaaaa;
+    border-radius: 25px;
+    overflow: hidden;
+    background-color: #f8f8f8;
+}
+
+#forum .page-userprofile .list-group-item
+{
+    background-color: #f8f8f8;
+}
+
+#forum input[type='text'], #forum select, #forum textarea
+{
+    background-color: var(--grey)!important;
+}
+
+#forum .alert-info
+{
+    background-color: #efefef;
+    color: #333333!important;
+    border: 0!important;
+}
+
+#forum .fa-chevron-up, #forum .fa-chevron-down, #forum .fa-arrow-circle-left, #forum .fa-arrow-circle-right, #forum .btn-sm.hc-user.hc-name, #forum .fa-ellipsis-h, #forum .fa-user-circle, #forum .fa-heart
+{
+    color: var(--purple)!important;
+}
+
+#forum .page-board .row a, #forum .btn-link span.ms-1, #forum .page-topics .row a 
+{
+    color: var(--pink);
+}
+#forum #topFooter a {
+    color: #E5A9E0 /*pink on the footer*/
+}
+
+#forum .fa-folder.text-warning
+{
+    color: var(--pink)!important;
+    position: relative;
+    left: 8px;
+}
+
+#forum .btn-primary
+{
+    background-color: var(--purple)!important;
+    border-radius: 25px;
+    padding: 8px 20px!important;
+    margin-bottom: 14px;
+    color: #ffffff!important;
+    border-color: var(--purple);
+}
+
+.dropdown-toggle
+{
+    color: #ffffff!important;
+}
+
+.fst-italic {
+    color: #707070 !important;
+}
+
+#forum .text-secondary.fa-info-circle, #forum .text-secondary.fa-comment, #forum .fa-reply
+{
+    color: var(--purple)!important;
+}
+
+#forum .card.bg-light.card-post-last
+{
+    border: 0;
+}
+
+.card-header
+{
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--purple);
+    position: relative;
+}
+
+
+#forum .card.mb-3, #forum .page-topics .row.mb-3 .card
+{
+    border-radius: 25px;
+    border-color: #aaa;
+    overflow: hidden;
+}
+
+/*Menu Search Fix*/
+form[action="/Membership/Admin/Users"] #forum .card.mb-3, form[action="/Membership/Admin/Users"] #forum .page-topics .row.mb-3 .card
+{
+    overflow:visible;
+}
+/*Menu Search Fix*/
+
+.overflow-visible {
+    overflow:visible;
+}
+
+#forum .card-body.py-1.ps-2
+{
+    text-align: right;
+    background: #fff;
+}
+
+#forum .btn-group .btn-secondary, .btn-secondary
+{
+    background: #fff;
+    border: 0!important;
+}
+
+#forum .bg-light
+{
+    background-color: #fff;
+}
+
+#forum .text-muted, #forum .text-secondary {
+    color: #444 !important;
+    margin-top: 0px;
+}
+
+/* https://ekonew.bluelemonmedia.com/Membership/Profile/Subscriptions */
+#forum .form-check input[type="radio"] {
+    border-radius: 50% !important;
+    float: left !important;
+    margin-left: -1.5em !important;
+    width: 1em;
+    height: 1em;
+    margin-top: .25em;
+    vertical-align: top;
+    /*background-color: #fff;*/
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border: 1px solid rgba(0,0,0,.25);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+}
+
+#forum .form-check input:checked[type="radio"] {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23fff'/%3e%3c/svg%3e");
+    background-color: #3761b5!important;
+}
+
+#forum .form-check input[type=checkbox] {
+    border-radius: .25em;
+    float: left;
+    margin-left: -1.5em;
+    margin-top: 0.3em;
+}
+#forum .form-check input:checked[type=checkbox] {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
+    background-color: #3761b5;
+    border-color: #3761b5;
+}
+/**/
+I.color-pink {
+    color: #a23193 !important;
+}
+
+button[type=button] {
+    display: inline-block;
+    /*margin-right: 18px;*/
+    border-radius: 30px;
+    font-size: 17px;
+    font-weight: 500;
+    padding: 9px 24px 10px;
+    border: 2px solid var(--purple)!important;
+    text-transform: lowercase;
+    text-decoration: none;
+}
+button.slick-arrow{
+    border:none!important;
+}
+button.bootbox-cancel {
+    color: var(--purple) !important;
+    background: #ffffff !important;
+}
+.button1, body input[type="submit"], .efButton, .button-primary, .load-more, .bootbox-accept, .button.link, #singleDetails a.button {
+    color: #ffffff!important;
+    background: var(--purple)!important;
+}
+ul.sm.nav.navbar-nav {
+    flex-wrap: unset!important;
+}
+/*
+.btn-secondary {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d
+}
+
+.btn-secondary:hover {
+    color: #fff;
+    background-color: #5c636a;
+    border-color: #565e64
+}
+*/
+
+#YafBody .bootbox.modal.fade.bootbox-confirm.show {
+    z-index: 99999999 !important;
+}
+
+.btn.disabled, .btn:disabled, fieldset:disabled .btn {
+    opacity: .85!important;
+}
+
+.div-h5,
+.div-h6 {
+    margin-top: 0;
+    margin-bottom: .5rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+.div-h5 {
+    font-size: 1.25rem;
+}
+.div-h6 {
+    font-size: 1rem;
+}
+
+.div-h5.modal-title {
+    color: var(--purple);
+    font-weight: 400;
+    font-size: 25px;
+    margin: 0 0 6px 0;
+    line-height: 1.1;
+}
+
+.btn-scroll {
+    right: 80px!important;
+}

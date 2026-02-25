@@ -1,0 +1,75 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class OACRS_Signup : System.Web.UI.UserControl
+{
+    string dbConn = ConfigurationManager.AppSettings.Get("CMServer");
+
+    public OACRS_Signup() { }
+    public OACRS_Signup(string p) { }
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!Page.IsPostBack)
+        {
+            PopulateDropDowns();
+
+        }
+
+    }
+    protected void btSubmint_Click(object sender, EventArgs e)
+    {
+        if (rvName.IsValid && rvTitle.IsValid && rvEmail.IsValid)
+        {
+            string sql = "OACRS_MembersInsert";
+            DataTable dt = new DataTable();
+            SqlDataAdapter da = new SqlDataAdapter(sql, dbConn);
+            da.SelectCommand.CommandType = CommandType.StoredProcedure;
+            da.SelectCommand.Parameters.AddWithValue("@Name", tbName.ToString());
+            da.SelectCommand.Parameters.AddWithValue("@Title", tbName.ToString());
+            da.SelectCommand.Parameters.AddWithValue("@Treatment", tbName.ToString());
+            da.SelectCommand.Parameters.AddWithValue("@Organization", tbName.ToString());
+            da.SelectCommand.Parameters.AddWithValue("@Address", tbName.ToString());
+            da.SelectCommand.Parameters.AddWithValue("@City", tbName.ToString());
+            da.SelectCommand.Parameters.AddWithValue("@Postal", tbName.ToString());
+            da.SelectCommand.Parameters.AddWithValue("@Email", tbName.ToString());
+            da.SelectCommand.Parameters.AddWithValue("@Committee", SelectedCommittees);
+
+            da.Fill(dt);
+        }
+    }
+
+    private string SelectedCommittees
+    {
+        get
+        {
+            string ret = "";
+            foreach (ListItem li in cbListInterest.Items)
+            {
+                if (li.Selected)
+                    ret += (ret.Length > 0 ? "," : "") + li.Value;
+            }
+            return ret;
+        }
+    }
+
+    private void PopulateDropDowns()
+    {
+        string sql = "select * from OACRS_WorkGroups";
+        DataSet ds = new DataSet();
+        SqlDataAdapter da = new SqlDataAdapter(sql, dbConn);
+        da.Fill(ds);
+
+        cbListInterest.DataSource = ds.Tables[0];
+        cbListInterest.DataTextField = "name";
+        cbListInterest.DataValueField = "id";
+        cbListInterest.DataBind();
+    }
+}

@@ -1,0 +1,396 @@
+﻿body
+{
+    margin:0px;
+    border:0px;
+}
+
+.pagerstyle, .pagerstyle span, pagerstyle td
+{
+	font-size:14px;
+	color:#f58020;
+	font-weight:bold;
+}
+
+.pagerstyle a, .pagerstyle a:hover, .pagerstyle a:visited
+{
+	font-size:14px;
+	color:#ffffff;
+	text-decoration:none;
+	font-weight:bold;
+}
+
+.admin_menu
+{
+	background-color:#ffffff;
+	font-size:20px;
+	color:#0078d8;
+	width:120px;
+	height:20px;
+	cursor:default;
+	font-weight:bold;
+	padding-right:15px;
+	padding-left:15px;
+	z-index:50001;
+}
+
+.admin_menu_over
+{
+	background-color:#ffffff;
+	font-size:20px;
+	color:#ff9c00;
+	width:120px;
+	height:20px;
+	cursor:default;
+	font-weight:bold;
+	padding-right:15px;
+	padding-left:15px;
+	z-index:50001;
+	
+
+}
+
+.admin_submenu
+{
+	background-color:#ffffff;
+	font-size:16px;
+	color:#0078d8;
+	
+	
+	width:190px;
+	cursor:default;
+	
+	padding-top:8px;
+	padding-bottom:8px;
+	padding-left:15px;
+	
+	padding-right:17px;
+	vertical-align:top;
+	
+	z-index:50001;
+	
+	
+
+
+	
+
+}
+
+.admin_submenu_over
+{
+	background-color:#ffffff;
+	font-size:16px;
+	
+	color:#ff9c00;
+	
+	width:190px;
+	cursor:default;
+	
+	padding-top:8px;
+	padding-bottom:8px;
+	padding-left:32px;
+	padding-right:0px;
+	vertical-align:top;
+	z-index:50001;
+	
+	
+
+	
+}
+
+.editor_button_top_on
+	
+{
+	color:#ffffff;
+	border:0px #7e9db9 solid;
+	border-bottom-width:0px;
+	background-color:Transparent;
+	cursor:pointer;
+	font-size:20px;
+	padding-top:15px;
+
+}
+
+.editor_button_top_off
+{
+	color:#7e92ab;
+	border:0px #7e9db9 solid;
+	border-bottom-width:0px;
+	background-color:Transparent;
+	cursor:pointer;
+	font-size:20px;
+	padding-top:15px;
+
+}
+
+.editor_button_top_off:hover
+{
+	color:#7e92ab;
+	border:0px #7e9db9 solid;
+	border-bottom-width:0px;
+	background-color:Transparent;
+	cursor:pointer;
+	font-size:20px;
+	padding-top:15px;
+	text-decoration:underline;
+
+}
+
+.fixedtopcenter
+{
+  position:fixed;
+    left:0px;
+    right:0px;
+    border:0px;
+    z-index:1000;
+}
+
+.fixedcenter
+{
+    position:fixed;
+    top:0px;
+    left:0px;
+    right:0px;
+    border:0px;
+    z-index:-1;
+    width:800px;
+    height:100%;
+    margin:auto;
+
+}
+
+.fixedtopcenter table, .fixedtopcenter td, .fixedtopcenter th
+{
+    margin:0px;
+    padding:0px;
+    border:0px;
+}
+
+.fixedtopcenter .spacer
+{
+    position: relative;
+    display:inline-block;
+    float:none!important;
+    width:auto!important;
+}
+
+.fixedtopcenter .spacer input, .fixedtopcenter .spacer select
+{
+    margin:0px;
+    padding:0px;
+    height:auto;
+}
+
+.admin_overlay
+{
+    background-color:#1370ab;
+    width:800px;
+    height:85px;
+    margin:auto;
+    padding:0px 10px 0px 10px;
+    
+    /*filter:alpha(opacity=80);
+	-moz-opacity:0.8;
+	-khtml-opacity: 0.8;
+	opacity: 0.8;*/
+    
+}
+
+.admin_header_white
+{
+    color:#fffcd9;
+    font-size:36px;
+    font-family:Calibri;
+    font-weight:bold;
+}
+
+.admin_bodytext_white
+{
+    color:#ffffff;
+    font-size:12px;
+    font-family:Arial;
+    font-weight:bold;
+}
+
+.admin_bodytext_blue
+{
+	color:#2e8dcd;
+	font-size:12px;
+	font-family:Arial;
+}
+
+.admin_bodytext_orange
+{
+    color:#f89c53;
+    font-size:12px;
+    font-family:Arial;
+    font-weight:bold;
+}
+
+.admin_title_blue
+{
+	color:#002745;
+	font-family:Arial;
+	font-size:16px;
+	font-weight:bold;
+}
+
+.admin_subtitle_red
+{
+	color:#B8000C;
+	font-family:Arial;
+	font-size:14px;
+	font-weight:bold;
+}
+
+.admin_subtitle_white
+{
+	color:#ffffff;
+	font-family:Arial;
+	font-size:14px;
+	font-weight:bold;
+}
+
+
+.WhiteTable
+{
+	background-color: transparent;
+}
+
+/* TEMPLATE MAKER */
+
+.TemplateGrid
+{
+	border:0px;
+}
+
+.TemplateGridHeader, .TemplateGridHeader a, .TemplateGridHeader a:visited, .TemplateGridHeader a:link, .TemplateGridHeader th a, .TemplateGridHeader th a:visited, .TemplateGridHeader th a:link
+{
+	/*background-image:url('/images/admin/bluetableheader.gif');*/
+	background-repeat:repeat-x;
+	height:22px;
+	color:#ffffff;
+	font-size:13px;
+	font-weight:bold;
+	text-decoration:none;
+	padding:0px;
+}
+
+.TemplateGridHeaderFont, .TemplateGridHeaderFont a, .TemplateGridHeaderFont a:visited
+{
+	color:#ffffff;
+	font-size:13px;
+	font-weight:bold;
+	text-decoration:none;
+	padding:3px;
+}
+
+.TemplateGridItem
+{
+	background-color:#f2f2f2;
+	border:3px solid #ffffff;
+}
+
+.TemplateGridItemFont
+{
+	color:#2f8dcb;
+	font-weight:bold;
+	font-size:12px;
+	padding:5px;
+}
+
+.TemplateGridAltItem
+{
+	background-color:#d3e2f3;
+	border:3px solid #ffffff;
+}
+
+.TemplateAdd
+{
+	color:#6ab16a;
+	font-weight:bold;
+	font-size:13px;
+	padding:5px;
+}
+
+.TemplatePager
+{
+	color:#3f9ddb;
+	font-weight:bold;
+	font-size:12px;
+	text-decoration:none;
+}
+
+.TemplatePager a
+{
+	color:#0f6dab;
+	font-weight:bold;
+	font-size:12px;
+	text-decoration:none;
+}
+
+#divTopExternal *{
+	font-family: Arial, 'sans serif'!important;
+	
+}
+#divTopExternal input,
+#divTopExternal textarea,
+#divTopExternal select {
+	color:#000!important;
+}
+
+#divTopExternal input[type='file'] {
+	background: transparent !important;
+	background-color: transparent !important;
+	border-radius: initial !important;
+	border:none!important;
+	font-size: 15px!important;
+}
+
+#divTopExternal input[type="image"] {
+	background: transparent !important
+}
+#divTopExternal input[type='checkbox']{
+	width:auto!important;
+}
+#divTopExternal input[type="text"],
+#divTopExternal textarea,
+#divTopExternal select {
+	position: relative;
+	font-size: 15px;
+	background-color: #fff !important;
+	border: 1px solid #D1D1D1 !important;
+	border-radius: 4px;
+	box-shadow: none;
+	box-sizing: border-box;
+	behavior: url(/js/PIE-2.0beta1/PIE.htc);
+}
+
+#divTopExternal input[type="text"]:not(.dates),
+#divTopExternal textarea {
+	height: 25px;
+	padding: 6px 10px;
+}
+#divTopExternal input[type="text"] {
+	border-radius: 4px;
+}
+
+	#divTopExternal input[type="text"].watermarked {
+		border-radius: 4px;
+	}
+
+	#divTopExternal input[type="text"].txtdate {
+		padding: 2px 4px;
+	}
+
+#divTopExternal input[type="text"].txtdate ~ img {
+	display: inline-block !important;
+	margin-left: 5px;
+}
+
+#divTopExternal .watermarked {
+	font-family: 'Muli', sans-serif!important;
+	font-size: 12px!important;
+	font-style: italic!important;
+	color: Gray!important;
+	vertical-align: middle;
+}

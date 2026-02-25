@@ -1,0 +1,303 @@
+﻿ .header,.header2,.header3 {
+color:#009f99;
+font-size:20px;
+font-weight:bold;
+font-family:Arial, Tahoma;
+}
+.header2{color:#ac3100;}
+.header3{color:#000000;}
+
+
+.subheader  {
+color:#000000;
+font-family:Arial, Tahoma;
+font-size:15px;
+font-weight:bold;
+}
+
+.title
+{
+  font-family:arial;
+  font-size:15px;
+  color:#752100;
+  font-weight:bold;
+}
+
+.bodytext, .bodytext input,.bodytext select{
+color:#6B6B6B;
+font-family:arial;
+font-size:14px;
+}
+.bodytext input,.bodytext select
+{
+   color:#00716f;
+    background-color:#faf7d4;
+}
+
+.required
+{
+color:#ff0000;
+/*font-size:11px;*/	
+}
+
+.diritem
+{
+    color:#007f7e;
+}
+
+div.TextBoxL{width:14px; height:49px;background:url(/images/lemonaid/gridrow_left.png)  no-repeat; float:left; }
+div.TextBoxR{width:16px;height:49px; background:url(/images/lemonaid/gridrow_right.png)  no-repeat; float:left; }
+div.TextBoxM{height:49px; padding-top:3px; vertical-align:top; background:url(/images/lemonaid/gridrow_bg.png) repeat-x; float:left; }
+div.TextBoxM input{ background-color:Transparent; border: none 0; height:25px;}
+div.TextBoxM select{border: #faf7d4; height:23px;  width:auto; border-style:none; }
+
+
+
+div.TextBoxT{width:589px; height:12px;background:url(/images/osla/multiline_top.jpg)  no-repeat;  }
+div.TextBoxC{width:589px; background:url(../images/osla/multiline_bg.jpg) repeat-y;}
+div.TextBoxB{width:589px; height:12px;background:url(/images/osla/multiline_btm.jpg)  no-repeat; }
+div.TextBoxC textarea{ background-color:Transparent; border: none 0; width:570px; }
+
+
+div.Caption,div.Caption2 {float:left; margin:0 10px 0 0; padding-top:7px}
+div.Caption2{margin:0 10px;}
+div.space1{width:10px;float:left; height:31px}
+div.inlineL{float:left}
+div.inlineR{float:right}
+.hidden{display: none}
+
+#tableFirst td{height:31px;vertical-align:middle;}
+
+td.textright
+{
+    text-align:right;
+}
+td.textleft
+{
+    text-align:left;
+}
+
+div.relevant,div.relevantOn,div.relevantOff,
+div.twostyle,div.twostyleOn,div.threestyle,div.threestyleOn,div.fourstyle,div.fourstyleOn,
+div.twostyleOff,
+div.yesnostyle,div.yesnostyleOn
+{
+    font-family:arial;
+    font-size:14px;
+    vertical-align:middle;
+    text-align:center;
+    height:31px;
+    cursor:pointer;
+    padding-top:7px;
+}
+
+div.relevantOn,div.twostyleOn,div.threestyleOn,div.fourstyleOn,div.yesnostyleOn
+{   
+     color:#ffffff;
+}
+
+div.relevant,div.twostyle,div.threestyle,div.fourstyle,div.yesnostyle
+{   
+     color:#00716F;
+}
+
+div.twostyleOff
+{   
+     color:#989898;
+     cursor:auto;
+}
+
+div.relevant
+{
+    background:url(/images/osla/relevant.jpg)  no-repeat;
+    width:213px;
+}
+div.relevantOn
+{
+    background:url(/images/osla/relevant_on.jpg)  no-repeat;
+    width:213px;
+}
+div.relevantOff
+{
+    background:url(/images/osla/relevant.jpg)  no-repeat;
+    color:#979797;
+    width:213px;
+}
+div.twostyle,div.twostyleOff
+{
+    background:url(/images/osla/two.jpg)  no-repeat;
+    width:283px;
+}
+div.twostyleOn
+{
+    background:url(/images/osla/two_on.jpg)  no-repeat;
+    width:283px;
+}
+div.threestyle
+{
+    background:url(/images/osla/three.jpg)  no-repeat;
+    width:185px;
+}
+div.threestyleOn
+{
+    background:url(/images/osla/three_on.jpg)  no-repeat;
+    width:185px;
+}
+
+div.fourstyle
+{
+    background:url(/images/osla/four.jpg)  no-repeat;
+    width:131px;
+}
+div.fourstyleOn
+{
+    background:url(/images/osla/four_on.jpg)  no-repeat;
+    width:131px;
+}
+
+div.yesnostyle
+{
+    background:url(/images/osla/yesno.jpg)  no-repeat;
+    width:70px;
+}
+div.yesnostyleOn
+{
+    background:url(/images/osla/yesno_on.jpg)  no-repeat;
+    width:70px;
+}
+
+div.addClinician
+{
+    background:url(/images/osla/Add_Clinician.jpg)  no-repeat;
+    width:124px;
+    height:25px;
+    cursor:pointer;
+    float:right;
+}
+
+input.navigation,input.navigationDone,
+input.navigationOver,input.navigationOn
+{
+    width:290px;
+    height:38px;
+    border: none 0 transparent;
+    font-family:Arial;
+    font-size:14px;
+	font-weight:bold;
+    vertical-align:middle;
+    padding-left:45px;
+    text-align:left;
+}
+input.navigation
+{
+    color: #a9a5a5;
+    background:url(/images/osla/leftmenu.jpg) no-repeat 0 0;
+    cursor:default;
+}
+
+input.navigationDone
+{
+    color: #515050;
+    background:url(/images/osla/leftmenu.jpg) no-repeat 0 0;
+    cursor:pointer;
+}
+input.navigationOver
+{
+    color: #016f6e;
+    background:url(/images/osla/leftmenu.jpg) no-repeat 0 0;
+    cursor:pointer;
+}
+input.navigationOn
+{
+    color: #ab2e00;
+    background:url(/images/osla/leftmenu_over.jpg) no-repeat 0 0;
+    cursor:default;
+}
+div.navigation
+{
+    position:absolute; 
+    margin-top:-20px;
+    margin-left:-310px;
+    width:290px; 
+}
+
+div.signup
+{
+    margin-top:-45px;
+}
+
+div.next
+{
+    position:absolute;
+    right:-15px   
+}
+
+td.next
+{
+    padding-top:10px; 
+    padding-bottom:10px;
+}
+
+div.pnlContent
+{
+    margin: 40px 0; 
+}
+
+td.dirtop
+{
+    background-image:url('/images/osla/CHILtop.jpg'); 
+    background-repeat:no-repeat; 
+    width:616px;
+    height:10px; 
+    line-height:10px;   
+}
+td.dirmid
+{
+    background-image:url('/images/osla/CHIL_bg.jpg'); 
+    background-repeat:repeat-y; 
+    width:616px;
+    height:10px; 
+    line-height:10px;
+}
+td.dirbottom
+{
+    background-image:url('/images/osla/CHIL_btm.jpg'); 
+    background-repeat:no-repeat; 
+    width:616px;height:10px; 
+    line-height:10px; 
+    padding-bottom:12px;
+}
+
+td.doctop
+{
+    background-image:url('/images/osla/table_top.jpg'); 
+    background-repeat:no-repeat; 
+    width:619px;
+    height:11px; 
+    line-height:11px;   
+}
+td.docmid
+{
+    background-image:url('/images/osla/table_bg.jpg'); 
+    background-repeat:repeat-y; 
+    width:619px;
+    line-height:10px;
+}
+td.docbottom
+{
+    background-image:url('/images/osla/table_btm.jpg'); 
+    background-repeat:no-repeat; 
+    width:619px;height:11px; 
+    line-height:11px; 
+    padding-bottom:12px;
+}
+.docViewButton
+{
+    width:58px;height:59px; 
+    border: none 0 transparent;
+}
+.docCommand
+{
+    width:58px;height:59px; 
+    border: none 0 transparent;
+}

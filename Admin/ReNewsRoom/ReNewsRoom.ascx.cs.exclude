@@ -1,0 +1,296 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using CuteEditor;
+
+public partial class Admin_NewsRoom_NewsRoom : System.Web.UI.UserControl
+{
+    protected string id;
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            DataTable dt = new DataTable();
+            SqlDataAdapter da = new SqlDataAdapter("select * from languages", _connection);
+            da.SelectCommand.CommandType = CommandType.Text;
+            da.Fill(dt);
+            ddlLang.DataSource = dt;
+            ddlLang.DataTextField = "name";
+            ddlLang.DataValueField = "id";
+            ddlLang.DataBind();
+        }
+
+        BindData();
+
+        if (!IsPostBack)
+        {
+            BindEditor(Editor1);
+            BindEditor(Editor2);
+
+            tbDate.Attributes.Add("onkeypress", "return false;");
+        }
+    }
+
+    private void BindEditor(Editor Editor)
+    {
+        string TemplateItemList = "CssClass,PasteText,Bold,Italic,Underline,|,JustifyLeft,JustifyCenter,JustifyRight,JustifyFull,|,InsertOrderedList,InsertUnorderedList,|,InsertLink,InsertImage,InsertFlash,InsertMedia,InsertDocument,|,RemoveFormat,CleanCode";
+        Editor.TemplateItemList = TemplateItemList;
+        Editor.ResizeMode = CuteEditor.EditorResizeMode.None;
+        Editor.Height = 200;
+
+        Editor.EditorWysiwygModeCss = "/css/main.css";
+        Editor.PreviewModeCss = "/css/main.css";
+
+        CuteEditor.ToolControl toolctrl = Editor.ToolControls["CssClass"];
+
+        if (toolctrl != null)
+        {
+            CuteEditor.RichDropDownList dropdown = (CuteEditor.RichDropDownList)toolctrl.Control;
+            //the first item is the caption
+            CuteEditor.RichListItem richitem = dropdown.Items[0];
+            //clear the items from configuration files
+            dropdown.Items.Clear();
+            //add the caption
+            dropdown.Items.Add(richitem);
+            //add value only
+            dropdown.Items.Add("<span style='font-family: Arial, Helvetica, sans-serif;	font-size : 12px;color : #000000; line-height:18px;'>Main Body</span>", "Main Body", "bodytext");
+            dropdown.Items.Add("<span style='font-family : Arial, Verdana, Sans Serif;font-weight: bold;font-size : 14px;color : #8a7090;'>SubTitle</span>", "SubTitle", "subtitle");
+            dropdown.Items.Add("<span style='font-family : Arial, Verdana, Sans Serif;font-weight: bold;font-size : 16px;color : #8a7090;'>Title</span>", "Title", "title");
+            dropdown.Items.Add("<span style='font-family:Comic Sans MS, Arial, Helvetica, sans-serif;	font-size : 24px; color : #595959;'>Header</span>", "Header", "header");
+
+
+            //add html and text and value
+            //dropdown.Items.Add("<span class='BoldGreen'>Bold      Green Text</span>","Bold      Green Text","BoldGreen");
+        }
+    }
+    private bool BindData()
+    {
+        DataTable dt = new DataTable();
+        dt = getTable(sqlSelect);
+        if (dt.Rows.Count > 0)
+        {
+            whitey.Visible = true;
+        }
+        else
+            whitey.Visible = false;
+
+        //   {
+        DataView DV = dt.DefaultView;
+        if (!(sortExpression == string.Empty))
+        {
+            DV.Sort = sortExpression;
+        }
+        this.GV_Main.DataSource = DV;
+        this.GV_Main.DataBind();
+        //   }
+        return (dt.Rows.Count > 0);
+    }
+
+    protected string sortExpression
+    {
+        set { ViewState["sortExpression"] = value; }
+        get
+        {
+            if (ViewState["sortExpression"] == null)
+                return "";
+            else
+                return (string)ViewState["sortExpression"];
+        }
+
+    }
+
+    #region dal
+    protected string _connection = ConfigurationManager.AppSettings.Get("CMServer");
+    protected string sqlSelect = "ReNewsRoomSelectAdmin";
+    protected string sqlDelete = "ReNewsRoomDelete";
+    protected string sqlInsert = "ReNewsRoomInsert";
+    protected string sqlUpdate = "ReNewsRoomUpdate";
+
+    private DataTable getTable(string cmd,SqlParameter[] prms)
+    {
+        DataTable dt = new DataTable();
+        SqlDataAdapter da = new SqlDataAdapter(cmd, _connection);
+        da.SelectCommand.CommandType = CommandType.StoredProcedure;
+        da.SelectCommand.Parameters.AddRange(prms);
+        da.Fill(dt);
+        return dt;
+    }
+
+    private DataTable getTable(string cmd)
+    {
+        return getTable(cmd, new SqlParameter[] {});
+    }
+
+    private DataTable getTable(string cmd, SqlParameter prm)
+    {
+        return getTable(cmd, new SqlParameter[] { prm});
+    }
+
+    private string ProcessRecord(string sql, SqlParameter[] prms)
+    {
+        SqlCommand cmd = new SqlCommand(sql, new SqlConnection(_connection));
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddRange(prms);
+        cmd.Connection.Open();
+        string ret = Convert.ToString( cmd.ExecuteScalar());
+        cmd.Connection.Close();
+        return ret;
+    }
+
+    private string ProcessRecord(string sql, List<SqlParameter> prms)
+    {
+        return ProcessRecord(sql, prms.ToArray());
+    }
+
+
+    private void DeleteRecord()
+    {
+        ProcessRecord(sqlDelete,new SqlParameter[]{new SqlParameter( "@id", id)});
+    }
+    #endregion dal
+
+    #region GriedView
+
+    protected void GV_Main_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.FindControl("lbDelete") != null)
+        {
+            ((ImageButton)e.Row.FindControl("lbDelete")).
+                Attributes.Add("OnClick", "return confirm('Are you sure to delete this article?');");
+        }
+
+        if (e.Row.RowType==DataControlRowType.DataRow)
+        {
+            if (e.Row.Cells[2].Text.Length > 40)
+            {
+                e.Row.Cells[2].Text = e.Row.Cells[2].Text.Substring(0, 37) + "...";
+            }
+            else
+            {
+
+            }
+        }
+    }
+
+    protected void GV_Main_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        GV_Main.PageIndex = e.NewPageIndex;
+        BindData();
+    }
+    protected void GV_Main_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+
+    }
+    protected void GV_Main_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+        id = GV_Main.DataKeys[e.RowIndex].Value.ToString();
+        DeleteRecord();
+        BindData();
+    }
+    protected void GV_Main_RowEditing(object sender, GridViewEditEventArgs e)
+    {
+
+    }
+    protected void GV_Main_Sorting(object sender, GridViewSortEventArgs e)
+    {
+        string _direction = "ASC";
+
+        if (sortExpression.Contains(e.SortExpression))
+        {
+            string[] _sorting = sortExpression.Split(' ');
+            if ((_sorting.Length == 2 && _sorting[1] == _direction) || _sorting.Length == 1)
+                _direction = "DESC";
+        }
+        sortExpression = e.SortExpression + " " + _direction;
+
+        BindData();
+    }
+    #endregion GriedView
+
+    protected string NewsID
+    {
+        set { ViewState["nid"] = value; }
+        get { return Convert.ToString(ViewState["nid"]); }
+    }
+
+    private void PopulateFields()
+    {
+
+        if (!string.IsNullOrEmpty(NewsID))
+        {
+            DataTable dt = getTable(sqlSelect, new SqlParameter("@id", NewsID));
+            if (dt.Rows.Count > 0)
+            {
+                DataRow rw = dt.Rows[0];
+                tbTitle.Text = rw["title"].ToString();
+                Editor2.Text = rw["DetailsShort"].ToString();
+                Editor1.Text = rw["Details"].ToString();
+                ddlLang.ClearSelection();
+                ddlLang.Items.FindByValue(rw["lang"].ToString()).Selected = true; ;
+                tbDate.Text = ((DateTime)rw["NewsDate"]).ToString("yyyy/MM/dd");
+                cbFeature.Checked = Convert.ToBoolean(rw["feature"]);
+            }
+        }
+    }
+
+    protected void imgSave_Click(object sender, ImageClickEventArgs e)
+    {
+        Save();
+        // Page.ClientScript.RegisterClientScriptBlock(GetType(), "close", "parent.parent.window.location.reload();", true);
+    }
+
+    private void Save()
+    {
+        string sql = string.IsNullOrEmpty(NewsID) ? sqlInsert : sqlUpdate;
+        List<SqlParameter> prms=new List<SqlParameter>();
+
+        if (!string.IsNullOrEmpty(NewsID))
+            prms.Add(new SqlParameter("@id", NewsID));
+
+        prms.Add(new SqlParameter("@title", tbTitle.Text));
+        prms.Add(new SqlParameter("@DetailsShort", Editor2.Text));
+
+        prms.Add(new SqlParameter("@Details", Editor1.Text));
+        prms.Add(new SqlParameter("@NewsDate", tbDate.Text));
+        prms.Add(new SqlParameter("@Lang", ddlLang.SelectedValue));
+        prms.Add(new SqlParameter("@Feature", cbFeature.Checked));
+        this.ProcessRecord(sql, prms);
+
+        pnlList.Visible = true;
+        pnlAdd.Visible = false;
+
+        BindData();
+    }
+
+    public void clickedit(object s, EventArgs e)
+    {
+        NewsID = ((ImageButton)s).CommandArgument;
+        PopulateFields();
+        pnlList.Visible = false;
+        pnlAdd.Visible = true;
+    }
+
+    public void clickcancel(object s, EventArgs e)
+    {
+        pnlList.Visible = true;
+        pnlAdd.Visible = false;
+    }
+
+    public void clickadd(object s, EventArgs e)
+    {
+        NewsID = "";
+        pnlList.Visible = false;
+        pnlAdd.Visible = true;
+
+        tbTitle.Text = "";
+        Editor1.Text = "";
+        Editor2.Text = "";
+        tbDate.Text = "";
+    }
+}

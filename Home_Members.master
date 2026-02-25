@@ -1,0 +1,261 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Home_Members.master.cs" Inherits="Home_Members" %>
+
+<%@ Register TagPrefix="Hardcode" Src="~/Controls/BackToTop/BackToTop.ascx" TagName="BackToTop" %>
+<%@ Register TagPrefix="Hardcode" Src="~/Controls/Session/Session.ascx" TagName="Session" %>
+<%@ Register TagPrefix="Hardcode" Src="~/Controls/WidgetsToolbar/WidgetsToolbar.ascx" TagName="WidgetsToolbar" %>
+<%@ Register TagPrefix="Custom" Namespace="ASB" Assembly="AutoSuggestBox" %>
+<%@ Register Src="~/Controls/Content/Content.ascx" TagPrefix="Hardcode" TagName="Content" %>
+<%@ Register Src="~/Controls/Breadcrumbs/Breadcrumbs.ascx" TagPrefix="Hardcode" TagName="Breadcrumbs" %>
+
+
+<%@ Register Src="~/Header.ascx" TagPrefix="Hardcode" TagName="Header" %>
+<%@ Register Src="~/Footer.ascx" TagPrefix="Hardcode" TagName="Footer" %>
+<%@ Register Src="~/Controls/EKO_Directory_Logos/EKO_Directory_Logos.ascx" TagPrefix="Hardcode" TagName="EKO_Directory" %>
+<%@ Register Src="~/Controls/eFormPopup/eFormPopup.ascx" TagPrefix="Hardcode" TagName="eForm" %>
+<%@ Register Src="~/Controls/EKO_Search/EKO_Search.ascx" TagPrefix="Hardcode" TagName="EKO_Search" %>
+<%@ Register Src="~/Controls/QuickLinks/QuickLinks.ascx" TagPrefix="Hardcode" TagName="QuickLinks" %>
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head id="Head1" runat="server">
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KFXPPXP');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- MEMBERS ONLY (EKO+PNCA) Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-FNWMXD8TGC"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-FNWMXD8TGC');
+        </script>
+    <!-- End MEMBERS ONLY (EKO+PNCA) Google Tag Manager -->
+
+    <!-- PNCA Members (plus joint EKO/PNCA Members) Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-CTWL0FHHSY"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-CTWL0FHHSY');
+        </script>
+    <!-- End PNCA Members (plus joint EKO/PNCA Members)  Google Tag Manager -->
+
+
+    
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>    
+
+    
+
+    <!-- Mobile Specific Metas
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <!--   <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86, user-scalable=no">
+
+    <%--<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">--%>
+
+    <!-- FONT
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+   
+    <link rel="stylesheet" href="https://use.typekit.net/clv1wox.css">
+
+    <!-- CSS
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <asp:PlaceHolder runat="server"><%-- Required to add the version to css files --%>
+ 
+    <!-- SmartMenus core CSS (required) -->
+    <link href="<%: Styles.Url("~/CSS/menu") %>" type="text/css" rel="stylesheet" />
+
+    <%--Site styles--%>
+    <link href="<%: Styles.Url("~/CSS/site") %>" type="text/css" rel="stylesheet" />
+    <link href="<%: Styles.Url("~/CSS/forum") %>" type="text/css" rel="stylesheet" />
+    <link href="<%: Styles.Url("~/CSS/slick") %>" type="text/css" rel="stylesheet" />
+    <link href="<%: Styles.Url("~/CSS/home-member.css") %>" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="/CSS/memberhome.css?v=<%= "" + ConfigurationManager.AppSettings.Get("CSSVersion") %>">
+
+   <%-- <script src="https://use.fontawesome.com/8123fd5db7.js"></script>--%>
+
+    <!-- Favicon
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <!-- ****** faviconit.com favicons ****** -->
+	<link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/Images/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/Images/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/Images/favicons/favicon-16x16.png">
+
+	<!-- ****** faviconit.com favicons ****** -->
+    
+    <!-- Scripts
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <script type="text/javascript">
+        var GB_ROOT_DIR = "/JS/greybox/";
+    </script>
+
+      
+    <%: System.Web.Optimization.Scripts.Render("~/bundles/jquery") %>
+    <%if (Session["LoggedInID"] != null)
+        { %>
+    <%: System.Web.Optimization.Scripts.Render("~/bundles/jqueryui") %>
+    <%: System.Web.Optimization.Scripts.Render("~/bundles/jqueryeasing") %>
+    <%} %>
+	<%: System.Web.Optimization.Scripts.Render("~/bundles/backtotop") %>
+
+    </asp:PlaceHolder>
+
+   <%-- <script type="text/javascript" src="/js/clicker_action.js"></script>--%>
+    
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-18819492-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-18819492-1');
+</script>
+<style>
+   /* #quickLinkIcon_51
+    {
+        display: none!important;
+    }
+
+    html body.home-member .QuickLinkIcons a:before
+    {
+        background-size: contain!important;
+    }*/
+</style>
+</head>
+<body id="body" class="home-member">
+            <div role="navigation" aria-label="Skip to main content" class="nosize"><a href="#content" title="Skip to main content">Skip content</a></div>
+
+
+    
+
+
+
+	<form id="form1" runat="server">
+		<asp:ScriptManager ID="sman" runat="server">
+			<Scripts>
+				<%--<asp:ScriptReference Path="/js/webkit.js" />--%>
+			</Scripts>
+		</asp:ScriptManager>
+
+        <div>
+            <Hardcode:eForm runat="server" ID="eForm1" param="2129" Visible="false" />
+
+		    <asp:ContentPlaceHolder ID="admin" runat="server" />
+		    <div style="position: absolute; left: 50%; top: 85px; z-index: 999999;">
+			    <Hardcode:Session runat="server" id="sessioncontrol" visible="false"></Hardcode:Session></div>
+		    <Hardcode:BackToTop ID="BackToTop1" runat="server" />
+
+             <asp:ContentPlaceHolder ID="Alert" runat="server"></asp:ContentPlaceHolder>
+
+            <Hardcode:Header runat="server" />
+	
+	        <asp:ContentPlaceHolder ID="Banner" runat="server" />
+
+				
+        <!--######################## START MAIN ########################## -->
+         <div id="insideWrap" class="full-width">
+            <div class="inside insideMemberHome" id="mainContentInside">
+                <% if (!InsideClass.Contains("no-inside-menu"))
+                {%>
+                  <div id="leftMenu">
+                    <asp:Literal ID="litMenuTitle" runat="server"></asp:Literal>
+                    <asp:ContentPlaceHolder ID="LeftMenu" runat="server" />
+                  </div>
+                <%} %>
+
+                <div id="rightInside">
+                    <div id="breadcrumbs">
+                        <Hardcode:Breadcrumbs runat="server" ID="Breadcrumbs" />
+                    </div>
+                    <div id="insideBanner">
+                        <asp:ContentPlaceHolder ID="InsideBanner" runat="server" />
+                    </div>
+                    <div id='insideContent'>
+                        <a name="content"></a>
+                        <div id="html_content" class="memberIntro">
+                            <div id="resSearchResults">
+                                <div>
+                                    <Hardcode:QuickLinks runat="server" ID="QuickLinks" parameter="1" /></div>
+                            </div>
+                            <div id="memberHomeFeed">
+                                <div id="memberAlert">
+                                    <h2>Welcome John Smith</h2>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
+                                </div>
+                                <% if (!IsPncaOnly)
+                                    { %>
+                                <asp:ContentPlaceHolder ID="Content" runat="server" />
+                                <%}
+                                    else
+                                    { %>
+                                <Hardcode:Content runat="server" ID="Content1" parameters="10517" />
+                                <%} %>
+                            </div>
+                            <div id="memberHomeSearch">
+                                <video controls=""><source src="/videos/Real Conversations_Clip.mp4"></video>
+                                <a href="/realconversations" class="link-pink">
+                                    <img src="/images/RC_wordmark.png" />
+                                    Engage with the Real Conversations Series
+                                </a>
+                                <hr />
+                                <Hardcode:EKO_Search runat="server" ID="EKO_Search" />
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+
+		        </div>
+            </div>
+		    <!-- content -->
+            <div id="insideMemberSlider">
+                <Hardcode:EKO_Directory runat="server" ID="EKO_Directory" />
+            </div>
+
+            <!--######################## END MAIN ########################## -->
+       
+        <Hardcode:Footer runat="server" ID="Footer1" />
+
+        </div>
+        
+         
+    </form>
+ 
+    <%: System.Web.Optimization.Scripts.Render("~/bundles/slick") %>
+
+    <%-- Dont bundle this file, to avoid break the left menu click dropdown:--%>
+    <script src="/Libraries/smartmenus-1.2.1/jquery.smartmenus.js"></script>
+
+    <%: System.Web.Optimization.Scripts.Render("~/bundles/site") %>
+    <%: System.Web.Optimization.Scripts.Render("~/bundles/forum") %>
+ 
+    <asp:ContentPlaceHolder ID="Scripts" runat="server" />
+
+<div class="preLoad">
+    <img src="/images/mh-notifications-hover.svg" alt="">
+    <img src="/images/mh-resources-hover.svg" alt="">
+    <img src="/images/mh-watercooler-hover.svg" alt="">
+    <img src="/images/mh-news-hover.svg" alt="">
+    <img src="/images/mh-account-hover.svg" alt="">
+</div>
+
+
+</body>
+</html>
+

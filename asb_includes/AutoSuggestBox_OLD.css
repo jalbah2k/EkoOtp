@@ -1,0 +1,52 @@
+	.asbMenu 
+	{
+		/*border: 1px solid #b4def6;*/
+		border: 1px solid #c5c5c5;
+		background: #ffffff;
+		position: absolute;
+		right:0px;
+		padding: 0;
+		white-space: nowrap;
+		z-index:102;
+		/*width:138px;*/
+		width:255px;
+	}
+	
+	.asbMenuBase
+	{
+		position: absolute;
+		z-index:100;
+		/*top:75px;
+		left:175px;*/
+	}
+	
+					
+	.asbMenuItem
+	{
+		font-family:Arial;
+		font-size:11px;
+		/*color: #459aca;*/
+		color: #aaaaaa;
+		background: #ffffff;
+		cursor: hand;
+		cursor: pointer;
+		padding: 6px;
+		z-index:100;
+		text-align:left;
+	}
+	
+	.asbSelMenuItem
+	{	
+		font-family:Arial;
+		font-size:11px;
+		/*color: blue;
+		background: lightblue;*/
+		color: #FFFFFF;
+		background: #3d3d3d;
+		cursor: hand;
+		cursor: pointer;
+		white-space: nowrap;
+		padding: 6px;
+		z-index:100;
+		text-align:left;
+	}

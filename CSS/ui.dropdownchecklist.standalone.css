@@ -1,0 +1,78 @@
+/** Minimal stand-alone css for dropdownchecklist support
+    We highly recommend using JQuery ThemeRoller instead  
+*/
+.ui-dropdownchecklist {
+    font-family:Arial, Helvetica, Sans Serif;
+    color:#666666;
+	font-size: 14px;
+	/*font-size: medium;
+	color: black;*/
+}
+.ui-dropdownchecklist-selector 
+{
+    position: relative;
+	/*height: 20px;*/
+	border: 1px solid #D1D1D1;
+	background: #fff;
+	
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -khtml-border-radius: 4px;
+	border-radius:4px;
+	box-shadow:none;
+	box-sizing:border-box;
+	
+	behavior:url(/js/PIE-2.0beta1/PIE.htc);
+}
+.ui-state-hover, .ui-state-active {
+	border-color: #5794bf;
+}
+.ui-dropdownchecklist-dropcontainer {
+	background-color: #fff;
+	border: 1px solid #999;
+	height: 200px;
+}
+.ui-dropdownchecklist-item {
+}
+.ui-dropdownchecklist-item.ui-state-default 
+{
+    border: 0px;
+    background: none;
+}
+.ui-state-hover {
+	/*background-color: #39f;*/
+}
+.ui-state-disabled label {
+	color: #ccc;
+}
+.ui-dropdownchecklist-group {
+	font-weight: bold;
+	font-style: italic;
+}
+.ui-dropdownchecklist-indent {
+	padding-left: 7px;
+}
+/* Font size of 0 on the -selector and an explicit medium on -text required to eliminate 
+   descender problems within the containers and still have a valid size for the text */
+.ui-dropdownchecklist-selector-wrapper {
+    width: 100% !important;
+	vertical-align: middle;
+	font-size: 0px;
+}
+.ui-dropdownchecklist-selector
+{
+    width: 100% !important;
+    /*padding: 1px 2px 2px 2px;*/
+    /*padding: 0px 2px 0px 2px;*/
+    padding: 6px 10px;
+    font-size: 0px;
+}
+.ui-dropdownchecklist-text {
+    width: 100% !important;
+	font-size: 14px;
+	/*font-size: medium;
+	 line-height: 20px; */
+}
+.ui-dropdownchecklist-group {
+	padding: 1px 2px 2px 2px;
+}

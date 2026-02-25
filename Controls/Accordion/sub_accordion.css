@@ -1,0 +1,113 @@
+﻿/* SUB-ACCORDION */
+
+.sub-accordion-section-title {
+    width: 100%;
+    padding: 15px;
+    cursor: pointer;
+}
+
+.sub-accordion-section-title {
+    width: calc(100% - 100px);
+    padding: 15px 70px 15px 30px;
+    display: inline-block;
+    background-color: #EAEAEA;
+    border: 0;
+    color: #444444;
+    transition: all linear 0.1s;
+    text-decoration: none;
+    border-radius: 8px;
+    background: url('/Images/MSK/faq-arrow.png') no-repeat right 30px center #EAEAEA;
+    font-size: 25px;
+}
+
+.sub-accordion-wrapper a.sub-accordion-section-title, .sub-accordion-wrapper a.sub-accordion-section-title h2 {
+    /*width: 100%;*/
+    color: #444444;
+    margin-top: 32px;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 25px;
+    line-height: 1;
+    font-weight: 700;
+    font-family: 'Fira Sans', Montserrat, sans-serif;
+}
+
+    .sub-accordion-wrapper a.sub-accordion-section-title h2 {
+        margin: 5px 0 !important;
+    }
+
+.sub-accordion-wrapper h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #2f2f2f;
+}
+
+.sub-accordion-wrapper h4 {
+    color: #4A5A64;
+    font-family: 'Fira Sans', Montserrat, sans-serif;
+    font-size: 19px;
+    line-height: 1.2;
+    font-weight: bold;
+    margin-bottom: 15px;
+    margin-top: 0;
+}
+
+
+.sub-accordion-section-title.active {
+    background-color: #C3C1C1;
+    text-decoration: none;
+    background: url('/Images/MSK/faq-close.png') no-repeat right 30px center #EAEAEA;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    font-size: 25px;
+}
+
+.sub-accordion-section-title:hover {
+    background-color: #C3C1C1;
+    text-decoration: none;
+    font-size: 25px;
+}
+
+.sub-accordion-section:last-child .sub-accordion-section-title {
+    border-bottom: none;
+}
+
+.sub-accordion-section-content {
+    padding: 15px 30px;
+    display: none;
+    background: #F7F7F7;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.sub-accordion-section {
+    margin-bottom: 32px;
+}
+
+.sub-accordion-wrapper h2 {
+    margin-bottom: 0 !important;
+}
+
+.sub-accordion-section-content h2 {
+    margin-bottom: 10px !important;
+}
+
+.sub-accordion-section.one-column {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.sub-accordion-section.two-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 20px;
+}
+/* END FAQ PAGE */
+@media only screen and ( max-width: 767px) {
+
+    .sub-accordion-section.two-columns {
+        display: grid;
+        grid-template-columns: 98%;
+    }
+}

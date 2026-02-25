@@ -1,0 +1,185 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Text;
+
+public partial class Home_Members : System.Web.UI.MasterPage
+{
+    //public string enSearch = "SEARCH INTRANET...";
+    //public string frSearch = "Recherche sur le site...";
+
+    public string LangPrefix
+    {
+        get
+        {
+            return CMSHelper.GetLanguagePrefix();
+        }
+    }
+    public string Language
+    {
+        get
+        {
+            //return CMSHelper.GetCleanQueryString("lang", "1");
+            return CMSHelper.GetLanguageNumber();
+        }
+    }
+    public string mypage
+    {
+        set { ViewState["mypage"] = value;}
+        get { return ViewState["mypage"].ToString(); }
+    }
+
+    public string InsideClass
+    {
+        set { ViewState["InsideClass"] = value; }
+        get { return ViewState["InsideClass"].ToString(); }
+    }
+
+    public bool IsPncaOnly { set; get; }
+
+    enum MemberType { EKO = 1, BC, PNCA, EKO_PNCA };
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        IsPncaOnly = false;
+
+        if (!IsPostBack)
+        {
+            //if (Session["LoggedInID"] != null)
+            //{
+            //    sessioncontrol.Visible = true;
+
+            //    int userid = int.Parse(Session["LoggedInID"].ToString());
+            //    if (((Permissions.Get(userid, int.Parse(Session["PageID"].ToString())) > 1) && Permissions.ManageArea(userid))
+            //        || userid == 1)
+            //    {
+            //        ContentTBL.Visible = true;
+            //        WidgetsToolbar1.Visible = true;
+            //    }
+            //}
+            //else
+            //{
+            //    ContentTBL.Visible = false;
+            //    WidgetsToolbar1.Visible = false;
+            //}
+
+            {
+
+                GetMenuTitle();
+                //GetPageTitle();
+
+                if (Session["LoggedInID"] != null)
+                {
+                    DataTable dtu = new DataTable();
+
+                    SqlDataAdapter da = new SqlDataAdapter("select OrganizationType_New from eko.Members where userid=@id", ConfigurationManager.AppSettings["CMServer"]);
+                    da.SelectCommand.CommandType = CommandType.Text;
+                    da.SelectCommand.Parameters.AddWithValue("@id", Session["LoggedInID"].ToString());
+                    da.Fill(dtu);
+
+                    try
+                    {
+                        if (dtu.Rows.Count > 0 && Convert.ToInt32(dtu.Rows[0]["OrganizationType_New"]) == (int)MemberType.PNCA)
+                        {
+                            IsPncaOnly = true;
+
+                            string script = "$(document).ready(function () { $('.QuickLinkIcons a[href$= \"membernews\"]').attr(\"style\", \"display:none!important\");});";
+                            this.Page.ClientScript.RegisterClientScriptBlock(GetType(), "hide", script, true);
+                        }
+                    }
+                    catch { }
+                }
+
+            }
+
+            if (Session["LoggedInID"] != null)
+            {
+                DataTable dt = new DataTable();
+
+                SqlDataAdapter da = new SqlDataAdapter("select * from eko.MemberSurvey where UserId=@id", ConfigurationManager.AppSettings["CMServer"]);
+                da.SelectCommand.CommandType = CommandType.Text;
+                da.SelectCommand.Parameters.AddWithValue("@id", Session["LoggedInID"].ToString());
+                da.Fill(dt);
+
+                if(dt.Rows.Count != 0)
+                    eForm1.Visible = false;
+            }
+            else
+                eForm1.Visible = false;
+
+        }
+    }
+
+    
+    private void GetMenuTitle()
+    {
+        SqlConnection sqlconn = new SqlConnection(ConfigurationManager.AppSettings["CMServer"]);
+
+        SqlDataAdapter dapt = new SqlDataAdapter("select name from Menus where id = (select param from Content where control='menu' and id = (select Content_ID from pages_content_zone where Page_ID=@id and Zone_ID=24))  select title, seo, InsideClass from Pages where id=@id", sqlconn);
+        dapt.SelectCommand.Parameters.AddWithValue("@id", Session["PageID"].ToString());
+        DataSet ds = new DataSet();
+        dapt.Fill(ds);
+        DataTable dt = ds.Tables[0];
+
+        if (dt.Rows.Count > 0)
+            litMenuTitle.Text = "<h2>" + dt.Rows[0]["name"].ToString() + "</h2>";
+
+        if (ds.Tables[1].Rows.Count > 0)
+        {
+            mypage = ds.Tables[1].Rows[0]["seo"].ToString();
+            InsideClass = ds.Tables[1].Rows[0]["InsideClass"].ToString();
+        }
+
+    }
+
+    protected void Page_PreRender(object sender, EventArgs e)
+    {
+       
+        {
+            StringBuilder script = new StringBuilder();
+            script.Append(Environment.NewLine + "$(document).ready(function () {" + Environment.NewLine);
+            //script.Append(Environment.NewLine + "$(body).addClass(\"no-inside-menu\").removeClass(\"yes-inside-menu\");" + Environment.NewLine);
+            script.Append(Environment.NewLine + String.Format("$(body).addClass(\"{0}\");", InsideClass) + Environment.NewLine);
+            if (Session["LoggedInID"] != null)
+            {
+                script.Append(Environment.NewLine + String.Format("$(body).addClass(\"{0}\");", "logged-in") + Environment.NewLine);
+            }
+            //if (InsideClass.Contains("no-inside-menu"))
+            //{
+            //    script.Append(Environment.NewLine + "alert('kk');$('#leftMenu').css(\"display\", \"none!important;\");alert('22222');" + Environment.NewLine);
+            //}
+
+            script.Append(Environment.NewLine + "});" + Environment.NewLine);
+
+            InjectContent(Scripts, script.ToString(), true);
+        }
+    }
+
+    public void InjectContent(ContentPlaceHolder placeholder, string content, bool addScriptTags)
+    {
+        Literal lit = new Literal();
+        if (addScriptTags)
+            lit.Text = "<script>" + content + "</script>";
+        else
+            lit.Text = content;
+
+        placeholder.Controls.Add(lit);
+    }
+    protected void Search(object sender, EventArgs e)
+    {
+        //if (tbSearchMob.Text.Trim().Length > 0 && tbSearchMob.Text != enSearch && tbSearchMob.Text != frSearch)
+        //{
+        //    Session["SearchTerm"] = tbSearchMob.Text;            
+        //    Response.Redirect(LangPrefix + "search");
+        //}
+        //else
+        //{
+        //    Session["SearchTerm"] = null;
+        //}
+    }
+
+}

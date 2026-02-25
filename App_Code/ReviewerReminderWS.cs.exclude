@@ -1,0 +1,159 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Services;
+
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.IO;
+using System.Text;
+using System.Net;
+using System.Net.Mail;
+
+/// <summary>
+/// Summary description for ReviewerReminderWS
+/// </summary>
+[WebService(Namespace = "http://bruyere.bluelemonmedia.com/")]
+[WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
+// To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
+// [System.Web.Script.Services.ScriptService]
+public class ReviewerReminderWS : System.Web.Services.WebService {
+
+    public ReviewerReminderWS () {
+
+        //Uncomment the following line if using designed components 
+        //InitializeComponent(); 
+    }
+
+    [WebMethod]
+    public string HelloWorld() {
+        return "Hello World";
+    }
+
+    [WebMethod]
+    public bool DoReminderAuto()
+    {
+        bool bres = false;
+
+
+        if (!CheckIP())
+            return bres;
+
+        string sqlCmd = @"SELECT  p.id as PageId, p.name as PageName, p.language, p.title, p.seo, p.Active, p.Reviewer, p.ReviewFrequency, p.IsReviewed, p.NextReviewDate, Users.username, 
+                      Users.name AS FullName, Users.email, Users.id UserId
+                    FROM         Pages AS p INNER JOIN
+                                          Users ON p.Reviewer = Users.id
+                    WHERE     (p.NextReviewDate <= CAST(GETDATE() AS date)) 
+                    AND p.id not in (select PageId from PagesNotificationForRevision where RevisionDate is not null)
+                    AND (Users.reviewer = 1)
+                    AND Users.status = 'active'";
+
+        SqlConnection sqlConn = new SqlConnection(ConfigurationSettings.AppSettings["CMServer"]);
+        SqlDataAdapter dapt = new SqlDataAdapter(sqlCmd, sqlConn);
+
+        DataSet ds = new DataSet();
+        dapt.Fill(ds);
+
+        DataTable dt = ds.Tables[0];
+
+        foreach (DataRow dr in dt.Rows)
+        {
+            if (bres = SendReminder(dr["Email"].ToString(), dr["FullName"].ToString(), dr["language"].ToString(), dr["seo"].ToString()))
+            {
+                SqlCommand cmd = new SqlCommand("update Pages set IsReviewed=0 where id=@PageId insert into PagesNotificationForRevision (PageId, UserId) values(@PageId, @UserId)", sqlConn);
+
+                cmd.Parameters.AddWithValue("@PageId", dr["PageId"].ToString());
+                cmd.Parameters.AddWithValue("@userid", dr["UserId"].ToString());
+                cmd.Connection.Open();
+                cmd.ExecuteNonQuery();
+                cmd.Connection.Close();
+
+                bres = true;
+            }
+        }
+        SendNotification("Auto Reminder process", "Testing web services.<br />Affected rows:" + dt.Rows.Count.ToString(), new MailAddress("juan@bluelemonmedia.com"), "", true);
+
+        return bres;
+    }
+       
+    private bool SendReminder(string email, string name, string language, string seo)
+    {
+        bool bres = true;
+        string url = "https://" + ConfigurationSettings.AppSettings["SiteUrl"] + "/" + language + "/" + seo;
+        string MAIL_TO = email;
+        string MAIL_SUBJECT = "Bruyere Page Revision Reminder";
+        string MAIL_BODY = String.Format("Dear {0}<br /><br />, This is to notify you that as Brueyere website Reviewer you should review the content of the page {1}. Please mark the page as Reviewed when you are done.", name, url);
+
+        try { SendNotification(MAIL_SUBJECT, MAIL_BODY, new MailAddress(MAIL_TO, name), "", true); }
+        catch { bres = false; }
+
+        return bres;
+    }
+
+    private void SendNotification(string subj, string body, MailAddress email, string att, bool IsHtml)
+    {
+        //Dictionary<string, string> mp = GetMailer();
+
+        SqlDataAdapter dapt = new SqlDataAdapter("select * from config where name in ('SMTP_Server','SMTP_PWD','SMTP_Port','MAIL_FROM','MAIL_FROM_Name','SMTP_UID')", ConfigurationManager.AppSettings["CMServer"]);
+        DataTable dt = new DataTable();
+        DataSet ds = new DataSet();
+        dapt.Fill(ds);
+
+        string SMTP_Server = ds.Tables[0].Select("name='SMTP_Server'")[0]["value"].ToString();
+        string SMTP_Port = ds.Tables[0].Select("name='SMTP_Port'")[0]["value"].ToString();
+        string SMTP_UID = ds.Tables[0].Select("name='SMTP_UID'")[0]["value"].ToString();
+        string SMTP_PWD = ds.Tables[0].Select("name='SMTP_PWD'")[0]["value"].ToString();
+        string MAIL_FROM = ds.Tables[0].Select("name='MAIL_FROM'")[0]["value"].ToString();
+        string MAIL_FROM_Name = ds.Tables[0].Select("name='MAIL_FROM_Name'")[0]["value"].ToString();
+
+
+        SmtpClient smtp = new SmtpClient(SMTP_Server, Int32.Parse(SMTP_Port));
+        if (Email.UseSmtpCredentials)
+        {
+            smtp.Credentials = new System.Net.NetworkCredential(SMTP_UID, SMTP_PWD);
+            //smtp.UseDefaultCredentials = true;
+        }
+        smtp.EnableSsl = Email.EnableSsl;
+
+        MailMessage message = new MailMessage();
+        message.From = new MailAddress(MAIL_FROM, MAIL_FROM_Name);
+        message.IsBodyHtml = true;
+        message.Subject = subj;
+        message.Body = body;
+        message.To.Clear();
+
+        message.To.Add(email);
+
+        string cc = ConfigurationManager.AppSettings["MAIL_CC"];
+        if (cc != "")
+            message.CC.Add(cc);
+
+        if ((cc = ConfigurationManager.AppSettings["MAIL_BCC"]) != "")
+            message.Bcc.Add(cc);
+
+        message.Attachments.Clear();
+        if (att.Length > 0)
+            message.Attachments.Add(new Attachment(att));
+
+        message.IsBodyHtml = IsHtml;
+        smtp.Send(message);
+    }
+
+    private bool CheckIP()
+    {
+        string Remote_Addr = HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"].ToString().Trim();
+
+        if (
+            !Remote_Addr.Contains("70.38.8.82")
+            && !Remote_Addr.Contains("127.0.0.1")
+            && !Remote_Addr.Contains("70.25.18.147")        //Office
+            // && !Remote_Addr.Contains("142.46.215")            
+            )
+        {
+            return false;
+        }
+        return true;
+    }
+}

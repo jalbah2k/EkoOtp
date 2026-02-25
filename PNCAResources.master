@@ -1,0 +1,203 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="PNCAResources.master.cs" Inherits="EKOResources" %>
+
+<%@ Register TagPrefix="Hardcode" Src="~/Controls/BackToTop/BackToTop.ascx" TagName="BackToTop" %>
+<%@ Register TagPrefix="Hardcode" Src="~/Controls/Session/Session.ascx" TagName="Session" %>
+<%@ Register TagPrefix="Custom" Namespace="ASB" Assembly="AutoSuggestBox" %>
+<%@ Register Src="~/Controls/Content/Content.ascx" TagPrefix="Hardcode" TagName="Content" %>
+
+
+<%@ Register Src="~/Header.ascx" TagPrefix="Hardcode" TagName="Header" %>
+<%@ Register Src="~/Footer.ascx" TagPrefix="Hardcode" TagName="Footer" %>
+<%--<%@ Register Src="~/Controls/EKO_Directory_Logos/EKO_Directory_Logos.ascx" TagPrefix="Hardcode" TagName="EKO_Directory" %>--%>
+<%@ Register Src="~/Controls/eFormPopup/eFormPopup.ascx" TagPrefix="Hardcode" TagName="eForm" %>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head id="Head1" runat="server">
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KFXPPXP');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- MEMBERS ONLY (EKO+PNCA) Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-FNWMXD8TGC"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-FNWMXD8TGC');
+        </script>
+    <!-- End MEMBERS ONLY (EKO+PNCA) Google Tag Manager -->
+
+    <!-- PNCA Members (plus joint EKO/PNCA Members) Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-CTWL0FHHSY"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-CTWL0FHHSY');
+        </script>
+    <!-- End PNCA Members (plus joint EKO/PNCA Members)  Google Tag Manager -->
+
+
+
+
+    
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    
+    
+
+    
+
+    <!-- Mobile Specific Metas
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%--<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">--%>
+
+    <!-- FONT
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+    <link rel="stylesheet" href="https://use.typekit.net/clv1wox.css">
+
+
+    <!-- CSS
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <asp:PlaceHolder runat="server"><%-- Required to add the version to css files --%>
+ 
+    <!-- SmartMenus core CSS (required) -->
+    <link href="<%: Styles.Url("~/CSS/menu") %>" type="text/css" rel="stylesheet" />
+
+    <%--Site styles--%>
+    <link href="<%: Styles.Url("~/CSS/site") %>" type="text/css" rel="stylesheet" />
+    <link href="<%: Styles.Url("~/CSS/forum") %>" type="text/css" rel="stylesheet" />
+    <link href="<%: Styles.Url("~/CSS/slick") %>" type="text/css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="/css/res.css?v=<%= "" + ConfigurationManager.AppSettings.Get("CSSVersion") %>" />
+
+   <%-- <script src="https://use.fontawesome.com/8123fd5db7.js"></script>--%>
+
+   
+    <!-- Favicon
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <!-- ****** faviconit.com favicons ****** -->
+	<link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/Images/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/Images/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/Images/favicons/favicon-16x16.png">
+
+	<!-- ****** faviconit.com favicons ****** -->
+	<!-- Scripts
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+	<script type="text/javascript">
+        var GB_ROOT_DIR = "/JS/greybox/";
+    </script>
+
+	<%: System.Web.Optimization.Scripts.Render("~/bundles/jquery") %>
+ 
+    <%if (Session["LoggedInID"] != null)
+    { %>
+        <%: System.Web.Optimization.Scripts.Render("~/bundles/jqueryui") %>
+        <%: System.Web.Optimization.Scripts.Render("~/bundles/jqueryeasing") %>
+    <%} %>
+
+	<%--<%: System.Web.Optimization.Scripts.Render("~/bundles/fitvids") %>--%>
+	<%: System.Web.Optimization.Scripts.Render("~/bundles/backtotop") %>
+
+    <%--<script type="text/javascript" src="/libraries/jquery.maskedinput-master/dist/jquery.maskedinput.min.js"></script>--%>
+	<%--<script type="text/javascript" src="/libraries/jwplayer/jwplayer.js"></script>--%>
+
+    </asp:PlaceHolder>
+
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-18819492-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-18819492-1');
+</script>
+</head>
+<body id="body" class="inside no-inside-menu">
+            <div role="navigation" aria-label="Skip to main content" class="nosize"><a href="#content" title="Skip to main content">Skip content</a></div>
+
+
+    
+
+
+
+	<form id="form1" runat="server">
+		<asp:ScriptManager ID="sman" runat="server">
+			<Scripts>
+				<%--<asp:ScriptReference Path="/js/webkit.js" />--%>
+			</Scripts>
+		</asp:ScriptManager>
+
+        <div>
+           <%--<Hardcode:eForm runat="server" ID="eForm1" param="1119" />--%>
+
+		    <asp:ContentPlaceHolder ID="admin" runat="server" />
+		    <div style="position: absolute; left: 50%; top: 85px; z-index: 999999;">
+			    <Hardcode:Session runat="server" id="sessioncontrol" visible="false"></Hardcode:Session></div>
+		    <Hardcode:BackToTop ID="BackToTop1" runat="server" />
+
+         <asp:ContentPlaceHolder ID="Alert" runat="server"></asp:ContentPlaceHolder>
+
+        <Hardcode:Header runat="server" />
+	
+	<asp:ContentPlaceHolder ID="Banner" runat="server" />
+				
+        <!--######################## START MAIN ########################## -->
+
+        <div class="full-width inside insideResources" id="mainContentInside">
+            
+            <div id='insideContent'>
+
+
+                <a name="content"></a>
+                <div id="html_content">
+                    <asp:ContentPlaceHolder ID="Content" runat="server" />
+                </div>  
+        </div>
+
+
+		</div>
+		<!-- content -->
+
+        <%-- <div id="insideMemberSlider">
+             <Hardcode:EKO_Directory runat="server" ID="EKO_Directory" />
+        </div>--%>
+
+        <!--######################## END MAIN ########################## -->
+       
+        <Hardcode:Footer runat="server" ID="Footer1" />
+
+        </div>
+        
+         
+    </form>
+ 
+    <%: System.Web.Optimization.Scripts.Render("~/bundles/slick") %>
+
+    <%-- Dont bundle this file, to avoid break the left menu click dropdown:--%>
+    <script src="/Libraries/smartmenus-1.2.1/jquery.smartmenus.js"></script>
+
+    <%: System.Web.Optimization.Scripts.Render("~/bundles/site") %>
+    <%: System.Web.Optimization.Scripts.Render("~/bundles/forum") %>
+ 
+    <asp:ContentPlaceHolder ID="Scripts" runat="server" />
+</body>
+</html>
+
