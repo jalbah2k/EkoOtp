@@ -345,6 +345,25 @@ public class CMSHelper
             outputFile.Write(string.Format(webConfigTemplate, group, "g" + id));
         }
     }
+
+    static public void CreatePublicConfigFile(string path)
+    {
+        string webConfigTemplate = @"<?xml version=""1.0"" ?>
+<configuration>
+    <system.web>
+        <authorization>
+            <allow users=""*"" />
+        </authorization>
+    </system.web>
+</configuration>
+                                    ";
+
+        string fileName = path.TrimEnd('/') + @"/web.config";
+        using (StreamWriter outputFile = new StreamWriter(fileName))
+        {
+            outputFile.Write(string.Format(webConfigTemplate));
+        }
+    }
     static public void ClearLoginSession()
     {
         //clear main login session variable

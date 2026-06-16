@@ -3596,7 +3596,7 @@ body.inside.no-inside-menu #html_content
 
 	.inside.insideMainTemplate #leftMenu
 	{
-		padding-bottom: 95px;
+		padding-bottom: 188px;		/*95px;*/
 		position: relative;
 	}
 
@@ -3851,6 +3851,9 @@ body.inside.no-inside-menu #html_content
 		display: block;
 		width: fit-content;
 	}
+		.button.dark-green {
+			color: #398086;
+		}
 
 	#nav-icon span
 	{
@@ -4048,7 +4051,7 @@ body.inside.no-inside-menu #html_content
     /*#region Left Menu Mobile */
 	#leftMenuDropWrap {
 		width: 90vw;
-		margin: 0 5vw;
+		margin: 0;	/* 5vw;*/
 		padding: 10px 0;
 		position: relative;
 		z-index: 99;
@@ -4126,13 +4129,15 @@ body.inside.no-inside-menu #html_content
 	}
 	#leftMenu .sm-blue>li:first-of-type a{
 		border-top: 10px solid var(--green);
-    border-radius: 0;
-    padding-top: 7px!important;
+		border-radius: 0;
+		padding-top: 7px!important;
+
 	}
 	#leftMenu .sm-blue a {
-	   padding: 0 15px 6px 15px;
-    width: calc(100% - 30px)!important;
-    display: block;
+		padding: 0 15px 6px 15px;
+		width: calc(100% - 30px) !important;
+		display: block;
+		color: var(--purple)!important;
 	}
 
 	body #leftMenu .sm-blue a:after {
@@ -5200,10 +5205,13 @@ a, a *
 	display: none;
 }
 
-#forum_ctl02_PmTabs .list-group .form-check
-{
+h5.card-title ~ .fw-bold {
+	display: block;
+}
+
+#forum_ctl02_PmTabs .list-group .form-check {
 	position: absolute;
-	margin-left:-70px;
+	margin-left: -70px;
 }
 
 #forum_ctl02_PmTabs .list-group .list-group-item {

@@ -110,10 +110,10 @@
 </script>
 
 <style type="text/css">
-    /*#insideWrap
+   /* #insideWrap
     {
-        background: url('/Images/ekosp1.png') no-repeat top right!important;
-        background-size: 20vw auto;
+        background: url(/Images/ekoss27-banner.jpg) no-repeat top left !important;
+        background-size: 11vw auto !important;
     }*/
 
     
@@ -147,14 +147,15 @@
         #buttonsTop
         {
             float: left!important;
-            top: 30px;
+            top: 10px;
             position: relative;
         }
     }
-    /*h1
+    h1
     {
-        display: none!important;
-    }*/
+        /*display: none!important;*/
+        color:#2f1a51!important;
+    }
 
     #listStats
     {
@@ -204,44 +205,59 @@
         -o-transform: scale(1.05);
         cursor: pointer;
     }
+    #leftMenu{
+        padding-top:0;
+        padding-left:20px;
+        background-color:#2f1a51!important;
+    }
+    #leftMenu ul li a,
+    #leftMenu ul li a:after {
+        color:#fff!important;
+    }
+    #leftMenu ul li a:before{
+        background-color:#fff!important;
+    }
+
+    #leftMenu ul.sm-blue>li>a:after {
+        background: url(/Images/menu-left-arrowNew.png) no-repeat;
+        background-size: contain;
+    }
+    
+    #leftMenu li a.has-submenu.current:after,
+    #leftMenu li a.has-submenu:hover:after{
+        bottom:-13px;
+    }
+    body #leftMenu .sm-blue ul a.has-submenu:after{
+        background: url(/Images/plus-new-white.svg) no-repeat !important;
+    }
+      /*#insideWrap {
+          background:#2f1a51 !important;
+      }*/
+      body.yes-inside-menu #rightInside{
+          background:#fff!important;
+      }
+
     @media only screen and (min-width: 768px) {
-        body.inside.insideMainTemplate #insideMemberSlider:before {
-            content: "";
-            background: url(/Images/ekosp2.png) no-repeat left bottom transparent;
-            /*background-size: calc((100vw - 900px) /2) auto;
-            height: calc(((100vw - 900px) /2)*1.7791005291);*/
-            background-size: 300px auto;
-            height:535px;
-            width: 100%;
+
+       #insideWrap {
+            position: relative;
+        }
+
+        #insideWrap::before {
+            content: '';
             position: absolute;
-            bottom: 243px;
-            z-index: 999;
+            top: 0;
+            left: 0;
+            width: calc((100% - 1200px) / 2);
+            height: 100%;
+            background: url(/Images/ekoss27-banner.jpg) no-repeat top right;
+            background-size: 100% 100%;
+            z-index: 0;
+            pointer-events: none;
+            transform: rotate(180deg);
         }
     }
-  /*  #insideWrap:before
-    {
-        content: "";
-        background-image: url(/Images/spring-lite.png);
-        background-size: 150px auto;
-        background-repeat: no-repeat;
-        background-position: top left;
-        pointer-events: none;
-        position: top left;
-    }*/
-
-    /*#flowers
-    {
-        background: url('/Images/ekosp2.png') no-repeat bottom left!important;
-        width:30vw;
-        height: 63vh;
-        max-height: 420px;
-        background-size: contain!important;
-        left:0;
-        bottom:0;
-        position: fixed;
-        pointer-events: none;
-        z-index: 999999999;
-    }*/
+ 
 
     #mainContentInside>div, body #mainContentInside {
         background-color: rgba(255, 255, 255, 0.2);
@@ -258,9 +274,9 @@
     }
 
     #listStats li {
-  opacity: 0;
-  transform: scale(0.8);
-  transition: opacity 0.5s, transform 0.5s;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: opacity 0.5s, transform 0.5s;
     }
 
     /* Apply animation effect when the 'show' class is added */
@@ -341,7 +357,7 @@
 
         <Hardcode:Header runat="server" />
 	
-	<asp:ContentPlaceHolder ID="Banner" runat="server" />
+	<%--<asp:ContentPlaceHolder ID="Banner" runat="server" />--%>
 				
         <!--######################## START MAIN ########################## -->
         <div id="insideWrap" class="full-width">
@@ -354,7 +370,7 @@
                                     <asp:Literal runat="server" ID="litPageTitle"></asp:Literal>
                                 </span>
                                 <div id="dropWrap">
-                                    <a href="/springsymposium2025"><img src="/images/EKO-SS-wordmark-FNL.png" style="width:250px; height:auto;" alt="Logo of Spring Symposium 2025"></a>
+                                    <a href="/ekoss2027"><img src="/images/EKOSS 2027 wordmark - white.png" style="width:250px; height:auto;" alt="Logo of Spring Symposium 2027"></a>
                                     <asp:ContentPlaceHolder ID="LeftMenu" runat="server" />
                                 </div>
                             </div>
@@ -362,9 +378,10 @@
                 </div>
                 <div id="rightInside">
                     <div id="buttonsTop" style="float:right; clear: both; display: block;">
-                        <%--<a href="/2025-submittingyourabstracts" class="button button" style="background: var(--pink)!important; border-color: var(--pink)!important; color: #fff!important;">Submit an Abstract</a>--%>
-                        <%--<a href="/getadvancenoticeaboutRegistration" class="button button-primary">Count me in!</a>--%>
-                        <%--<a href="/ekoss2025-register" class="button button-primary">register now!</a>--%>
+                         <div style="float:right; clear: both; display: block;">
+                             <a href="/getadvancenoticeaboutRegistration" class="button button-primary" style="background: #398086 !important; border-color: #398086 !important; color: #fff!important;">Count me in!</a>
+                             <a href="/ekoss2027-partnership" class="button button" style="background: #398086 !important; border-color: #398086 !important; color: #fff!important;">partner with us</a>
+                         </div>
                     </div><br><br>
                     <div id="breadcrumbs">
                         <Hardcode:Breadcrumbs runat="server" ID="Breadcrumbs" />
@@ -384,58 +401,12 @@
                             <div>
                             <asp:ContentPlaceHolder ID="Content" runat="server" />
                             </div>
-                            <br><hr>
-
-                            <div>
-                                <h2>The 2025 EKO Spring Symposium featured:<br><br>
-                                </h2><ul id="listStats"><li><strong>350</strong>delegates
-                                </li><li><strong>2</strong>days
-                                </li><li><strong>3</strong>in-person keynotes
-                                </li><li><strong>1</strong>advance online keynote
-                                </li><li><strong>30</strong>concurrent Sessions
-                                </li><li><strong>20</strong>posters
-                                <%--</li><li><strong>20</strong>hours of content--%>
-                                </li><li><strong>+106K</strong>social media reach
-                                <%--</li><li><strong>70</strong>expert Speakers and Panelists--%>
-                                <%--</li><li><strong>1</strong>people’s choice award for best poster --%>
-                                    <%--</li><li><strong>1</strong>1 runner up for best poster--%>
-                                </li><li><strong>15</strong>tribute award recipients
-                                <%--</li><li><strong>100</strong>schmooza palooza networkers--%>
-                                <%--</li><li><strong>9</strong>tribute award recipients--%>
-                                </li><li><strong>90dB+</strong>noise level of the schmooza palooza
-                                </li><li><strong>+8,500</strong>app page views
-                                </li><li><strong>27</strong>concurrent session presentations on the app
-                                </li><li><strong>14</strong>posters shared on the app
-                                </li><li><strong>7</strong>roving reporters doing live coverage
-                                </li><li><strong>+10,000</strong>live content impressions
-                                </li><li><strong>12%</strong>live content engagement rate
-                                </li><li><strong>2.3M</strong>Paige Layle’s TikTok audience
-                                </li><li><strong>50</strong>signed magic cards our illusionist gave away
-                                </li><li><strong>8</strong>laugh count from Ahren Belisle’s performances                                    
-                                </li><li><strong>3</strong>AlayaCare-caricaturists working at the opening night reception                                    
-                                    </b>
-
-                                </li></ul>
-                                <%--<h3 style="margin-top:30px!important;">That’s thousands of opportunities for your organization’s name to be shared with #EKOSS2025.</h3>--%>
-
-                               <%-- <div style="margin-top:40px; background: var(--purple); border-radius: 20px; padding:30px">
-                                    <h2 style="color:#fff!important; margin-top:0px!important;">Become an EKO Spring Symposium Partner
-                                    </h2>
-                                    <p style="color:#fff!important;">Join Canada&#8217;s unrivaled child development conference, where 350 leaders, clinicians,
-                                    researchers, students and trainees, policymakers, families and youth, influencers and
-                                    champions will come together to inspire and inform, equipping change agents to take strategic
-                                    action to address challenges related to integrated care, health equity, accessibility, and
-                                    inclusion&#8212;all to ensure kids with disabilities and developmental differences live their best lives.
-                                    </p>
-                                    <p style="color:#fff!important;">EKO has a track record of hosting a remarkable gathering that attracts leaders, innovators, up-
-                                    and-coming professionals, and sought-after speakers.</p>
-                                    <p><a href="/partnerwithus" class="button button-primary" style="background:#fff!important; color:var(--purple)!important; font-weight: bold; font-size:21px;">partner with us!</a>
-                                    </p>
-                                </div> --%>
-                            </div>            
+                            <br>           
                         </div>
+                        <img src="/images/2025 highlights.png" style="width:100%;" alt="2025 EKO Spring Symposium stats: 350 delegates, 106K+ social reach, 12% live engagement rate, and Schmooza noise levels above 90 dB" />
                 </div>
     		</div>
+        </div>
         </div>
 		<!-- content -->
         <div id="insideMemberSlider">
