@@ -58,15 +58,35 @@ public partial class Controls_SearchText_SearchText : System.Web.UI.UserControl
 
     protected void Search(object sender, EventArgs e)
     {
+        System.Diagnostics.Debug.WriteLine("RAW tbSearch.Text = [" + tbSearch.Text + "]");
+
         if (tbSearch.Text.Trim().Length > 0 && tbSearch.Text != enSearch && tbSearch.Text != frSearch)
         {
-			string term = QueryStringHelper.AntiXssEncoder_HtmlEncode(tbSearch.Text.Trim(), true);
-			
+            // Strip any tags, KEEP the apostrophe, URL-encode properly.
+            string clean = System.Text.RegularExpressions.Regex.Replace(tbSearch.Text.Trim(), "<.*?>", "");
+            string term = Server.UrlEncode(clean);   // ' -> %27 (safe), NOT &#39;
+
+            System.Diagnostics.Debug.WriteLine("ENCODED term = [" + term + "]");  // should show %27, no &#39;
+
             if (((_Default)this.Page)._topmenuid == "5" || Session["MemberId"] != null)
-                Response.Redirect(LangPrefix + "membersearch?q=" + Server.UrlEncode(term));
+                Response.Redirect(LangPrefix + "membersearch?q=" + term);
             else
-                Response.Redirect(LangPrefix + "search?q=" + Server.UrlEncode (term));
+                Response.Redirect(LangPrefix + "search?q=" + term);
         }
-       
     }
+
+    // protected void Search(object sender, EventArgs e)
+    // {
+    //     if (tbSearch.Text.Trim().Length > 0 && tbSearch.Text != enSearch && tbSearch.Text != frSearch)
+    //     {
+    //string term = QueryStringHelper.AntiXssEncoder_HtmlEncode(tbSearch.Text.Trim(), true);
+
+    //         if (((_Default)this.Page)._topmenuid == "5" || Session["MemberId"] != null)
+    //             Response.Redirect(LangPrefix + "membersearch?q=" + Server.UrlEncode(term));
+    //         else
+    //             Response.Redirect(LangPrefix + "search?q=" + Server.UrlEncode (term));
+    //     }
+
+    // }
+
 }

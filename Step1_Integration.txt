@@ -1,0 +1,336 @@
+============================================================
+EKO SEMANTIC SEARCH -- STEP 1 (Resources) -- INTEGRATION GUIDE
+============================================================
+
+WHAT STEP 1 DOES
+----------------
+Adds a meaning-based (semantic) layer to the RESOURCES section of search
+only. Keyword search (Resources_Search_New) runs unchanged; semantic
+results are fused into the same Resources list via Reciprocal Rank
+Fusion. Results that semantic found but keyword did NOT are flagged with
+a small badge (toggleable). All other search sections (Pages, News,
+Member Directory, Forum) are completely untouched.
+
+Permissions: semantic ranking is restricted to the exact set of resource
+IDs the user is allowed to see -- taken from Resources_Search_New's own
+@mytable result set. No parallel permission logic.
+
+
+FILES IN THIS STEP
+------------------
+  App_Code/SemanticSearch.cs          (provided)
+  SemanticSearch_Step1.sql            (provided -- run in RESOURCES db)
+  Admin/ReindexResources.aspx(.cs)    (below)
+  SearchResults.ascx.cs               (small patch, below)
+  web.config                          (appSettings below)
+
+
+============================================================
+1. web.config  (CMS root app)
+============================================================
+<appSettings>
+  <!-- provider: openai (US) or azure (e.g. Canada Central). Configurable
+       so the data-residency decision can be made later. -->
+  <add key="Search.Embedding.Provider"   value="openai" />
+  <add key="Search.Embedding.ApiKey"     value="REPLACE_WITH_KEY" />
+  <add key="Search.Embedding.Model"      value="text-embedding-3-small" />
+  <add key="Search.Embedding.Dimensions" value="1536" />
+  <!-- only used when Provider=azure: full deployment URL incl api-version -->
+  <add key="Search.Embedding.AzureEndpoint" value="" />
+
+  <!-- similarity floor; tune after observing real queries (0.20-0.35) -->
+  <add key="Search.Embedding.MinScore"   value="0.25" />
+
+  <!-- which sections get semantic search. Step 1 = resources only.
+       Later phases just add to this CSV (e.g. "resources,news,page"). -->
+  <add key="Search.SemanticTypes"        value="resources" />
+
+  <!-- trial visibility of the "semantic-only" badge; flip to false to hide -->
+  <add key="Search.ShowSemanticBadge"    value="true" />
+
+  <!-- resources index settings -->
+  <add key="Search.Resources.ConnectionName"  value="dbResources" />
+  <add key="Search.Resources.PublishedStatus" value="SET_ME" />   <!-- the Status int meaning "live" -->
+  <add key="Search.Resources.LanguageId"      value="1" />        <!-- English -->
+</appSettings>
+
+In Global.asax Application_Start (TLS 1.2 for Framework 4.x on older Windows Server):
+
+    System.Net.ServicePointManager.SecurityProtocol |=
+        System.Net.SecurityProtocolType.Tls12;
+
+SECRET HANDLING: keep Search.Embedding.ApiKey out of source control the
+same way you handle connection strings (e.g. appSettings file= attribute
+pointing at an untracked file).
+
+
+============================================================
+2. SQL
+============================================================
+Run SemanticSearch_Step1.sql against the RESOURCES database.
+Then set Search.Resources.PublishedStatus in web.config to the integer in
+dbo.Status that means published/live (the value Resources_Search_New is
+normally called with as @Status).
+
+If on SQL Server 2014 or older: edit Resources_GetByIds to use your
+existing dbo.fSplitString instead of STRING_SPLIT (note in the .sql).
+
+
+============================================================
+3. Admin/ReindexResources.aspx  (protect like your other admin tools)
+============================================================
+<%@ Page Language="C#" AutoEventWireup="true"
+    CodeFile="ReindexResources.aspx.cs" Inherits="Admin_ReindexResources" %>
+<!DOCTYPE html>
+<html><head runat="server"><title>Reindex Resource Embeddings</title></head>
+<body>
+  <form id="form1" runat="server">
+    <asp:Button ID="btnRun" runat="server" Text="Run Resource Indexer"
+        OnClick="btnRun_Click" />
+    <asp:Literal ID="litResult" runat="server" />
+  </form>
+</body></html>
+
+--- Admin/ReindexResources.aspx.cs ---
+using System;
+using System.Web.UI;
+using EkoSearch;
+
+public partial class Admin_ReindexResources : Page
+{
+    protected void btnRun_Click(object sender, EventArgs e)
+    {
+        // First run embeds the whole library and may take a few minutes.
+        Server.ScriptTimeout = 600;
+        var r = ResourceEmbeddingIndexer.RunAll();
+        if (r.Error != null)
+            litResult.Text = "<p style='color:red'>" + Server.HtmlEncode(r.Error) + "</p>";
+        else
+            litResult.Text = "<p>Embedded " + r.Embedded + ", removed " + r.Removed + ".</p>";
+    }
+}
+
+Run it once manually, then verify:
+    SELECT COUNT(*) FROM ResourceEmbedding;   -- in the Resources DB
+Schedule nightly afterward (Windows Task Scheduler hitting the URL, same
+pattern you use for other jobs), or call ResourceEmbeddingIndexer.RunAll()
+after a resource is saved/published.
+
+
+============================================================
+4. PATCH: SearchResults.ascx.cs
+============================================================
+Three small edits. Only the Resources path changes; every other section
+runs exactly as before.
+
+--- 4a. add "using" at top ---
+using EkoSearch;
+
+--- 4b. add a flag to SearchClass (bottom of file) ---
+public class SearchClass
+{
+    public string Type;
+    public string Title;
+    public string StoredProcedure;
+    public string AllResultsPage;
+    public string ConnectionString;
+    public string QueryString_SearchParm;
+    public bool   SemanticEnabled;   // NEW
+}
+
+In InitClasses(), set it from config (keeps it parameterized/general):
+    c4.SemanticEnabled = SearchConfig.SemanticEnabledFor(c4.Type);  // resources
+(You can set it for c1/c2/c3 too; config controls activation, so leaving
+the line on every class is harmless and future-proofs Pages/News.)
+
+--- 4c. replace the body of Search_FTS with the version below ---
+The only new logic is the "if (_myClass.SemanticEnabled ...)" block and
+the render loop honoring fused order + badge. getTable(), RemoveNoiseWords(),
+and the keyword call are unchanged.
+
+private int Search_FTS(string keywords)
+{
+    int total = 0;
+    litContent.Text = "";
+    litTitle.Text = "<h2>" + _myClass.Title + "</h2>";
+
+    string comm = _myClass.StoredProcedure;
+    string lcid = LCIDs[Convert.ToInt32(Session["Language"]) - 1];
+
+    // Keyword path: noise-stripped term (as today)
+    string searchTerm = RemoveNoiseWords(keywords, lcid);
+    myFTS = new FullTextSearch.FullTextSearch(searchTerm);
+
+    List<SqlParameter> param = new List<SqlParameter>();
+    param.Add(new SqlParameter("@keywords", myFTS.NormalForm));
+    param.Add(new SqlParameter("@lang", Convert.ToInt32(Session["Language"])));
+    param.Add(new SqlParameter("@LCID", lcid));
+    if ((comm == "SearchPagesFTS" || comm == "Resources_Search_New") && Session["LoggedInID"] != null)
+        param.Add(new SqlParameter("@userid", Session["LoggedInID"].ToString()));
+
+    // Fill the FULL dataset (Resources_Search_New returns @mytable too).
+    DataSet ds = getDataSet(comm, param.ToArray());
+    DataTable dt = ds.Tables[0];
+    total = dt.Rows.Count;
+
+    // ---- Semantic fusion: Resources section only ----
+    bool doSemantic = _myClass.SemanticEnabled
+                      && comm == "Resources_Search_New"
+                      && Session["LoggedInID"] != null;
+
+    if (doSemantic)
+    {
+        // keyword-ranked ids (dt is already ordered by score DESC)
+        List<int> keywordIds = new List<int>();
+        foreach (DataRow r in dt.Rows) keywordIds.Add(Convert.ToInt32(r["id"]));
+
+        // permitted+filtered universe = @mytable, the LAST result set
+        List<int> permitted = new List<int>();
+        DataTable my = ds.Tables[ds.Tables.Count - 1]; // @mytable: single "id" column
+        if (my != null && my.Columns.Contains("id"))
+            foreach (DataRow r in my.Rows) permitted.Add(Convert.ToInt32(r["id"]));
+
+        // ORIGINAL (un-stripped) term goes to the embedder
+        List<SemanticHit> sem = ResourceSemanticSearch.Search(keywords, permitted, 50);
+
+        if (sem.Count > 0)
+        {
+            List<FusedHit> fused = ResourceSemanticSearch.Fuse(keywordIds, sem, 50);
+
+            // display rows: reuse keyword rows; fetch any semantic-only ids
+            Dictionary<int, DataRow> rowById = new Dictionary<int, DataRow>();
+            foreach (DataRow r in dt.Rows) rowById[Convert.ToInt32(r["id"])] = r;
+
+            List<int> missing = new List<int>();
+            foreach (FusedHit h in fused)
+                if (!rowById.ContainsKey(h.ResourceId)) missing.Add(h.ResourceId);
+
+            if (missing.Count > 0)
+            {
+                DataTable extra = getDataSet("Resources_GetByIds",
+                    new SqlParameter[] { new SqlParameter("@Ids", string.Join(",", missing)) }
+                ).Tables[0];
+                foreach (DataRow r in extra.Rows) rowById[Convert.ToInt32(r["id"])] = r;
+            }
+
+            total = fused.Count;
+            RenderHeader(total);
+
+            int shown = _partial ? Math.Min(total, _records) : total;
+            for (int i = 0; i < shown; i++)
+            {
+                FusedHit h = fused[i];
+                DataRow r;
+                if (!rowById.TryGetValue(h.ResourceId, out r)) continue;
+
+                string badge = "";
+                if (h.Source == HitSource.SemanticOnly && SearchConfig.ShowSemanticBadge)
+                    badge = " <span class='sem-badge' title='Suggested by meaning-based search'>suggested</span>";
+
+                litContent.Text += String.Format(
+                    "<div><a href='{0}'>{1}</a>{2}</div><br>",
+                    r["seo"].ToString(), r["title"].ToString(), badge);
+            }
+
+            TrackSearch(keywords, total);
+            return total;
+        }
+        // sem.Count == 0 -> fall through to plain keyword rendering below
+    }
+
+    // ---- Original keyword-only rendering (unchanged behavior) ----
+    if (dt.Rows.Count == 0) { litMessage.Text = "<h3>No results</h3>"; TrackSearch(keywords, 0); return 0; }
+    RenderHeader(dt.Rows.Count);
+    int n = _partial ? Math.Min(dt.Rows.Count, _records) : dt.Rows.Count;
+    for (int i = 0; i < n; i++)
+    {
+        DataRow dr = dt.Rows[i];
+        litContent.Text += String.Format("<div><a href='{0}'>{1}</a></div><br>",
+            dr["seo"].ToString(), dr["title"].ToString());
+    }
+    TrackSearch(keywords, dt.Rows.Count);
+    return total;
+}
+
+--- 4d. small helpers (add to the control) ---
+// Same as the old getTable but returns the whole DataSet (so we can read @mytable)
+private DataSet getDataSet(string cmd, SqlParameter[] param)
+{
+    SqlDataAdapter da = new SqlDataAdapter(cmd,
+        new SqlConnection(ConfigurationManager.AppSettings.Get(_myClass.ConnectionString)));
+    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+    da.SelectCommand.Parameters.AddRange(param);
+    DataSet ds = new DataSet();
+    da.Fill(ds);
+    return ds;
+}
+
+private void RenderHeader(int totalRows)
+{
+    if (_partial && totalRows > _records)
+        litMessage.Text = String.Format(
+            "<h3>Displaying {0} of {1} {2} results - <a href='/{3}?{5}={4}'>View All</a></h3>",
+            _records, totalRows, _myClass.Type, _myClass.AllResultsPage, SearchTerm, _myClass.QueryString_SearchParm);
+    else
+        litMessage.Text = String.Format("<h3>Displaying {0} {1} results</h3>", totalRows, _myClass.Type);
+}
+
+private void TrackSearch(string keywords, int count)
+{
+    using (SqlConnection conn = new SqlConnection(ConfigurationManager.AppSettings.Get("CMServer")))
+    {
+        SqlCommand cmd = new SqlCommand("SearchTracking", conn);
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@keywords", keywords);
+        cmd.Parameters.AddWithValue("@ResultsCount", count);
+        conn.Open(); cmd.ExecuteNonQuery();
+    }
+}
+
+NOTE: DoSearch() currently calls Search_FTS then SearchTracking. Since
+TrackSearch is now called inside Search_FTS, remove the SearchTracking
+block from DoSearch to avoid double-logging (leave DoSearch's deepin++ and
+the Search_FTS call).
+
+
+--- 4e. CSS for the badge (your site stylesheet) ---
+.sem-badge{
+  display:inline-block; margin-left:.4em; padding:0 .45em;
+  font-size:.7em; line-height:1.6; vertical-align:middle;
+  border-radius:.6em; background:#efe7f5; color:#5b2a86;
+}
+
+
+============================================================
+5. ROLLOUT ORDER
+============================================================
+1. Run SemanticSearch_Step1.sql (Resources DB).
+2. Drop SemanticSearch.cs in App_Code.
+3. Add web.config keys; set PublishedStatus; add TLS line in Global.asax.
+4. Create Admin/ReindexResources.aspx; run once; verify ResourceEmbedding
+   row count looks right.
+5. Apply the SearchResults.ascx.cs patch.
+6. Test logged-in Resources search with a "wrong terminology" query
+   (e.g. "kid won't eat" -> should surface ARFID resources). Confirm the
+   "suggested" badge appears on semantic-only finds.
+7. Confirm anonymous search and the other four sections are unchanged.
+
+ROLLBACK: revert SearchResults.ascx.cs. The table/procs/cache are inert
+when nothing calls them.
+
+
+============================================================
+6. NOTES / SAFETY (step 1)
+============================================================
+- No generative AI here: every result is a real indexed resource row;
+  nothing is invented. Semantic = better matching, not text generation.
+- Permission safety: semantic candidates come only from @mytable, the
+  same permission+category-filtered set the keyword proc trusts. Category,
+  sub-category and Favourite filters therefore apply to both paths for free.
+- Anonymous users: Resources are member-only; @userid is not passed and
+  the section does not run for them -- unchanged from today.
+- Graceful degradation: if the embedding API is unreachable, semantic
+  returns empty and the section renders keyword-only (no user-visible error).
+- The "standard"/FORMSOF keyword quirk and noise-word stripping affect
+  only the keyword path; the semantic path embeds the raw query and is
+  unaffected -- a visible quality win for awkward queries.

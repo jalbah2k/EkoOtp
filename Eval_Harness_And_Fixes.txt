@@ -1,0 +1,170 @@
+============================================================
+EVALUATION HARNESS + FIXES
+  A) Apostrophe fix for the keyword (FTS) path
+  B) Score display for semantic hits (admin-only via ?debug=1)
+  C) Search results logging table + proc (tuning evidence)
+============================================================
+
+
+============================================================
+A) APOSTROPHE FIX  (SearchResults.ascx.cs)
+============================================================
+The existing RemoveNoiseWords() passes any term containing ' or "
+through UNCHANGED, so an apostrophe reaches CONTAINS/FREETEXT and errors.
+Add a sanitizer and apply it to the keyword term only. (The embedder
+needs no escaping -- apostrophes are harmless there.)
+
+--- add helper ---
+private string SanitizeForFts(string term)
+{
+    if (string.IsNullOrEmpty(term)) return term;
+    term = term.Replace('\u2018', '\'').Replace('\u2019', '\''); // curly -> straight
+    term = term.Replace("'", "''");   // double for CONTAINS/FREETEXT
+    return term;
+}
+
+--- apply where the keyword term is built (around line 160) ---
+string searchTerm = RemoveNoiseWords(keywords, LCIDs[Convert.ToInt32(Session["Language"]) - 1]);
+searchTerm = SanitizeForFts(searchTerm);          // <-- ADD
+myFTS = new FullTextSearch.FullTextSearch(searchTerm);
+
+IMPORTANT: pass the ORIGINAL 'keywords' (with the apostrophe intact) to
+the embedder, NOT the sanitized one:
+    ResourceSemanticSearch.Search(keywords, permitted, ...)   // raw term
+
+** Confirm first: if FullTextSearch.FullTextSearch or Resources_Search_New
+   already escapes/parameterizes internally, doubling here could
+   double-escape. Paste the exact server error to verify before shipping. **
+
+
+============================================================
+B) SCORE DISPLAY  (SearchResults.ascx.cs, Resources branch)
+============================================================
+Shows the cosine score next to each semantic hit, but ONLY when an admin
+appends ?debug=1. Members never see it.
+
+--- helper: is this an admin/reviewer? (adjust to your real check) ---
+private bool IsDebugViewer()
+{
+    if (Request.QueryString["debug"] != "1") return false;
+    // tie to your reviewer/admin flag; placeholder uses session presence.
+    // Replace with your real admin test, e.g. a lookup of Users.reviewer.
+    return Session["LoggedInID"] != null;
+}
+
+--- in the Resources branch, after you have 'sem' ---
+Dictionary<int, float> semScore = new Dictionary<int, float>();
+foreach (SemanticHit h in sem) semScore[h.ResourceId] = h.Score;
+bool showScores = IsDebugViewer();
+
+--- in the render loop, build the line ---
+string badge = "";
+if (h.Source == HitSource.SemanticOnly && SearchConfig.ShowSemanticBadge)
+    badge = " <span class='sem-badge' title='Suggested by meaning-based search'>suggested</span>";
+
+string dbg = "";
+if (showScores)
+{
+    float sc; string src = h.Source.ToString();
+    if (semScore.TryGetValue(h.ResourceId, out sc))
+        dbg = String.Format(" <small style='color:#999'>[{0} {1:0.000}]</small>", src, sc);
+    else
+        dbg = String.Format(" <small style='color:#999'>[{0}]</small>", src);
+}
+
+litContent.Text += String.Format("<div><a href='{0}'>{1}</a>{2}{3}</div><br>",
+    r["seo"].ToString(), r["title"].ToString(), badge, dbg);
+
+Now /membersearch?q=dfgdetgerd&debug=1 will show each result's score.
+Gibberish should show scores clustered just above the floor -- that's how
+you SEE that minScore is too low.
+
+
+============================================================
+C) LOGGING TABLE + PROC  (Resources DB, or wherever you prefer)
+============================================================
+Captures every query's results with score, source, and rank so you can
+tune minScore from real data and show EKO what semantic adds.
+
+CREATE TABLE dbo.SearchEval
+(
+    EvalId      INT IDENTITY PRIMARY KEY,
+    RunUtc      DATETIME NOT NULL CONSTRAINT DF_SearchEval_RunUtc DEFAULT (GETUTCDATE()),
+    Query       NVARCHAR(400) NOT NULL,
+    UserId      INT NULL,
+    ResourceId  INT NOT NULL,
+    Source      VARCHAR(20) NOT NULL,   -- KeywordOnly | SemanticOnly | Both
+    Score       REAL NULL,              -- cosine score if semantic, else NULL
+    Rank        INT NOT NULL            -- 1-based position in fused list
+);
+GO
+
+CREATE PROCEDURE dbo.SearchEval_Log
+    @Query NVARCHAR(400), @UserId INT, @ResourceId INT,
+    @Source VARCHAR(20), @Score REAL, @Rank INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    INSERT dbo.SearchEval (Query, UserId, ResourceId, Source, Score, Rank)
+    VALUES (@Query, @UserId, @ResourceId, @Source, @Score, @Rank);
+END
+GO
+
+--- C# logging call: only when ?debug=1 (so you don't log every public
+    search). Add inside the Resources branch after 'fused' is built. ---
+if (IsDebugViewer())
+{
+    string conn = SearchConfig.ConnString(SearchConfig.ResourcesConnName);
+    int? uid = Session["LoggedInID"] != null
+        ? (int?)Convert.ToInt32(Session["LoggedInID"]) : null;
+    using (var cn = new System.Data.SqlClient.SqlConnection(conn))
+    {
+        cn.Open();
+        for (int i = 0; i < fused.Count; i++)
+        {
+            FusedHit h = fused[i];
+            float? sc = null;
+            float tmp; if (semScore.TryGetValue(h.ResourceId, out tmp)) sc = tmp;
+            using (var cmd = new System.Data.SqlClient.SqlCommand("dbo.SearchEval_Log", cn))
+            {
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Query", keywords);
+                cmd.Parameters.AddWithValue("@UserId", (object)uid ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@ResourceId", h.ResourceId);
+                cmd.Parameters.AddWithValue("@Source", h.Source.ToString());
+                cmd.Parameters.AddWithValue("@Score", (object)sc ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@Rank", i + 1);
+                cmd.ExecuteNonQuery();
+            }
+        }
+    }
+}
+
+
+============================================================
+HOW TO TUNE minScore WITH THIS
+============================================================
+1. Set debug on: append &debug=1 to the member search URL.
+2. Run a batch of queries: real ones + "dfgdetgerd" (gibberish) +
+   known-item queries. Each logs to SearchEval.
+3. Read the data:
+
+   -- What scores does gibberish produce? (these define your noise floor)
+   SELECT Query, ResourceId, Source, Score, Rank
+   FROM dbo.SearchEval
+   WHERE Query = 'dfgdetgerd'
+   ORDER BY Rank;
+
+   -- Score distribution of semantic hits across all test queries
+   SELECT Source, COUNT(*) AS n,
+          MIN(Score) AS lo, AVG(Score) AS avg, MAX(Score) AS hi
+   FROM dbo.SearchEval
+   WHERE Score IS NOT NULL
+   GROUP BY Source;
+
+4. Set Search.Embedding.MinScore just ABOVE the gibberish scores
+   (likely ~0.30-0.40), recycle app pool, re-test:
+     - gibberish should now return ~0 results
+     - real mismatch queries should still return the good matches
+5. Once tuned, you can turn logging off (it only runs under ?debug=1
+   anyway) and flip Search.ShowSemanticBadge to false for members.

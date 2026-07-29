@@ -1,0 +1,136 @@
+============================================================
+Admin/ReindexResources  --  manual button + scheduled trigger
+============================================================
+Replaces the simpler version from the Step 1 guide. Adds a
+token-protected querystring trigger so Windows Task Scheduler can run the
+indexer unattended, while still supporting the manual button.
+
+Security model:
+  - The querystring trigger requires a secret token that matches an
+    appSettings value. Without it, ?run=1 does nothing.
+  - Keep the page in an admin-only folder as well (defence in depth) -- the
+    token is what lets the *scheduler* in without a login.
+
+------------------------------------------------------------
+web.config -- add one key (pick a long random value)
+------------------------------------------------------------
+<add key="Search.Reindex.Token" value="REPLACE_WITH_LONG_RANDOM_STRING" />
+
+------------------------------------------------------------
+Admin/ReindexResources.aspx
+------------------------------------------------------------
+<%@ Page Language="C#" AutoEventWireup="true"
+    CodeFile="ReindexResources.aspx.cs" Inherits="Admin_ReindexResources" %>
+<!DOCTYPE html>
+<html>
+<head runat="server"><title>Reindex Resource Embeddings</title></head>
+<body>
+  <form id="form1" runat="server">
+    <asp:Button ID="btnRun" runat="server" Text="Run Resource Indexer"
+        OnClick="btnRun_Click" />
+    <asp:Literal ID="litResult" runat="server" />
+  </form>
+</body>
+</html>
+
+------------------------------------------------------------
+Admin/ReindexResources.aspx.cs
+------------------------------------------------------------
+using System;
+using System.Configuration;
+using System.Web.UI;
+using EkoSearch;
+
+public partial class Admin_ReindexResources : Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        // Unattended trigger for Task Scheduler:
+        //   /Admin/ReindexResources?run=1&token=THE_SECRET
+        if (!IsPostBack && Request.QueryString["run"] == "1")
+        {
+            string expected = ConfigurationManager.AppSettings["Search.Reindex.Token"];
+            string given    = Request.QueryString["token"];
+
+            // constant-ish comparison; require a configured token
+            if (string.IsNullOrEmpty(expected) || !SlowEquals(expected, given))
+            {
+                Response.StatusCode = 403;
+                Response.Write("Forbidden");
+                Response.End();
+                return;
+            }
+
+            RunIndexer();      // writes a plain-text result the scheduler can log
+            Response.End();
+        }
+    }
+
+    protected void btnRun_Click(object sender, EventArgs e)
+    {
+        RunIndexer();
+    }
+
+    private void RunIndexer()
+    {
+        Server.ScriptTimeout = 600;   // first full run can take minutes
+        var r = ResourceEmbeddingIndexer.RunAll();
+
+        string msg = (r.Error != null)
+            ? "ERROR: " + r.Error
+            : "Embedded " + r.Embedded + ", removed " + r.Removed + ".";
+
+        // For the scheduled call, emit plain text (shows up in curl/PS output/logs)
+        if (Request.QueryString["run"] == "1")
+        {
+            Response.ClearContent();
+            Response.ContentType = "text/plain";
+            Response.Write(msg);
+        }
+        else
+        {
+            litResult.Text = "<p>" + Server.HtmlEncode(msg) + "</p>";
+        }
+    }
+
+    // Length-constant comparison so the token can't be guessed via timing.
+    private static bool SlowEquals(string a, string b)
+    {
+        if (a == null || b == null) return false;
+        if (a.Length != b.Length) return false;
+        int diff = 0;
+        for (int i = 0; i < a.Length; i++) diff |= a[i] ^ b[i];
+        return diff == 0;
+    }
+}
+
+============================================================
+Windows Task Scheduler -- nightly run
+============================================================
+Create a Basic Task -> Daily (e.g. 3:00 AM) -> Start a program:
+
+  Program/script:   powershell.exe
+  Arguments:        -NonInteractive -Command "try { $r = Invoke-WebRequest -Uri 'https://www.empoweredkidsontario.ca/Admin/ReindexResources?run=1&token=THE_SECRET' -UseBasicParsing -TimeoutSec 600; Write-Output $r.Content } catch { Write-Output $_.Exception.Message; exit 1 }"
+
+Notes:
+  - Replace THE_SECRET with the Search.Reindex.Token value.
+  - -TimeoutSec 600 matches Server.ScriptTimeout for the first big run;
+    nightly incremental runs finish in seconds because unchanged resources
+    are skipped (SourceHash check).
+  - The task writes the result line to its output; "Last Run Result" =
+    0x0 means success. Set the task to "Run whether user is logged on or
+    not."
+  - Because the scheduler is EXTERNAL to IIS, it keeps working across
+    app-pool recycles -- unlike an in-process Global.asax timer.
+
+============================================================
+Optional: immediate freshness on resource save
+============================================================
+Anywhere a resource is Approved/edited/Suspended, you can also call:
+
+    EkoSearch.ResourceEmbeddingIndexer.RunAll();
+
+This makes the change searchable right away. The nightly task then acts as
+a safety net (and does the stale-suspended cleanup) for anything a save
+hook misses. RunAll() is incremental, so calling it on save is cheap, but
+if you prefer a per-resource path later I can add a RunOne(resourceId).

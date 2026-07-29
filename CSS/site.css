@@ -5534,3 +5534,19 @@ body.tributeaward-new #leftMenuDropWrap {
 
 
 	/*#endregion */
+
+/*#region New Search */
+
+.sem-badge {
+    display: inline-block;
+    margin-left: .4em;
+    padding: 0 .45em;
+    font-size: .7em;
+    line-height: 1.6;
+    vertical-align: middle;
+    border-radius: .6em;
+    background: #efe7f5;
+    color: #5b2a86;
+}
+
+/*#endregion */

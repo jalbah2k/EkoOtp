@@ -351,28 +351,30 @@ public partial class _Default : System.Web.UI.Page
 
         if (_seo == "error")
             Response.Redirect("/error.aspx");
-			
-		UrlParameterWhitelistValidator validator = new UrlParameterWhitelistValidator();
-        var filteredQueryString = validator.ValidateAndFilter(this, "/" + _seo);	
 
-        if (!IsPostBack && Session["Redirected"] == null)
+        if (_seo.ToLower() != "search" && _seo.ToLower() != "membersearch")
         {
-            string originalUrl = HttpUtility.UrlDecode(Request.Url.AbsoluteUri);
+            UrlParameterWhitelistValidator validator = new UrlParameterWhitelistValidator();
+            var filteredQueryString = validator.ValidateAndFilter(this, "/" + _seo);
 
-            //Perform URL sanitization here
-            string sanitizedUrl = HttpUtility.UrlDecode(QueryStringHelper.SanitizeAndModifyUrl(originalUrl));
-
-            if (!string.Equals(originalUrl, sanitizedUrl, StringComparison.OrdinalIgnoreCase))
+            if (!IsPostBack && Session["Redirected"] == null)
             {
-                Session["Redirected"] = true;
-                Response.Redirect(sanitizedUrl, false);
-                Context.ApplicationInstance.CompleteRequest();
+                string originalUrl = HttpUtility.UrlDecode(Request.Url.AbsoluteUri);
+
+                //Perform URL sanitization here
+                string sanitizedUrl = HttpUtility.UrlDecode(QueryStringHelper.SanitizeAndModifyUrl(originalUrl));
+
+                if (!string.Equals(originalUrl, sanitizedUrl, StringComparison.OrdinalIgnoreCase))
+                {
+                    Session["Redirected"] = true;
+                    Response.Redirect(sanitizedUrl, false);
+                    Context.ApplicationInstance.CompleteRequest();
+                }
             }
         }
-        else
-        {
-            Session["Redirected"] = null; // Reset after successful load
-        }
+
+        Session["Redirected"] = null; 
+
 
 
         // check if user is still authenticated but session variable is expired
