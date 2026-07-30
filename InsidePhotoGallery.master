@@ -69,6 +69,7 @@
     <link href="<%: Styles.Url("~/CSS/slick") %>" type="text/css" rel="stylesheet" />
 
 
+
     <!-- Favicon
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <!-- ****** faviconit.com favicons ****** -->
@@ -92,7 +93,6 @@
     <%: System.Web.Optimization.Scripts.Render("~/bundles/jqueryeasing") %>
     <%} %>
 	<%: System.Web.Optimization.Scripts.Render("~/bundles/backtotop") %>
-
 
     </asp:PlaceHolder>
 

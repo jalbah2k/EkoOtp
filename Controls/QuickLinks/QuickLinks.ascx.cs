@@ -148,7 +148,7 @@ public partial class QuickLinks : System.Web.UI.UserControl
                 string strConnectionString = ConfigurationManager.ConnectionStrings["yafnet"].ToString();
                 string commandString = @"select count(*) as qty from yaf_UserPMessage where (flags & 1) = 0 and UserID in 
                                             (select UserID from yaf_User where ProviderUserKey in 
-                                            (select yaf_userid COLLATE SQL_Latin1_General_CP1_CI_AS from EKO.dbo.Users where id=@userid))";
+                                            (select yaf_userid COLLATE SQL_Latin1_General_CP1_CI_AS from EKO_OTP.dbo.Users where id=@userid))";
                 DataTable dt = new DataTable();
 
                 using (SqlConnection connection = new SqlConnection(strConnectionString))
