@@ -48,11 +48,11 @@ public partial class Admin_Controls_Resources : System.Web.UI.UserControl
         {
             string sqlcmd = " select * from status ";
             sqlcmd += " select * from Languages ";
-            sqlcmd += " select * from eko.dbo.Groups where id in (select Group_id from eko.dbo.Users_Groups_Access where User_id=@userid and access_level>1) or @userid=1 order by name ";
+            sqlcmd += " select * from eko_otp.dbo.Groups where id in (select Group_id from eko_otp.dbo.Users_Groups_Access where User_id=@userid and access_level>1) or @userid=1 order by name ";
             sqlcmd += " select id, title from Resources where status = 1 " +
                 "and (@userid = 1 or" +
                 "       id in (select ResourceId from Resource_Types_Link where GroupId in " +
-                "           (select id from ResourcesGroups where groupid in (select Group_id from eko.dbo.Users_Groups_Access where User_id=@userid and access_level>1)))   " +
+                "           (select id from ResourcesGroups where groupid in (select Group_id from eko_otp.dbo.Users_Groups_Access where User_id=@userid and access_level>1)))   " +
                 "   )" +
                 "order by LTRIM(title)";
             sqlcmd += " select IconGroup from ResourceDocuTypes group by IconGroup order by IconGroup";

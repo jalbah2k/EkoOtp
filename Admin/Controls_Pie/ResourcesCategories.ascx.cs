@@ -29,7 +29,7 @@ public partial class Admin_Controls_Pie_ResourcesCategories : System.Web.UI.User
         using (SqlConnection conn = new SqlConnection(ConfigurationManager.AppSettings.Get("dbResources")))
         {
             SqlDataAdapter dapt = new SqlDataAdapter(@" select * from Languages
-                                                        select * from eko.dbo.Groups where id in (select Group_id from eko.dbo.Users_Groups_Access where User_id=@userid and access_level>1) or @userid=1 order by name "
+                                                        select * from eko_otp.dbo.Groups where id in (select Group_id from eko_otp.dbo.Users_Groups_Access where User_id=@userid and access_level>1) or @userid=1 order by name "
                                     , conn);
             dapt.SelectCommand.Parameters.AddWithValue("@userid", Session["LoggedInID"].ToString());
             dapt.Fill(ds);
