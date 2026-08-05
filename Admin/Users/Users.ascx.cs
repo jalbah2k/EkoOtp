@@ -48,6 +48,7 @@ public partial class Admin_Users_Users : System.Web.UI.UserControl
         {
             SqlCommand cmd = new SqlCommand(commandString, connection);
             cmd.Parameters.AddWithValue("@userid", Session["LoggedInID"].ToString());
+            cmd.CommandTimeout = 50;
 
             if (ddlGroups.SelectedValue != "0")
                 cmd.Parameters.AddWithValue("@groupid", ddlGroups.SelectedValue);
