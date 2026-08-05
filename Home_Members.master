@@ -14,6 +14,8 @@
 <%@ Register Src="~/Controls/eFormPopup/eFormPopup.ascx" TagPrefix="Hardcode" TagName="eForm" %>
 <%@ Register Src="~/Controls/EKO_Search/EKO_Search.ascx" TagPrefix="Hardcode" TagName="EKO_Search" %>
 <%@ Register Src="~/Controls/QuickLinks/QuickLinks.ascx" TagPrefix="Hardcode" TagName="QuickLinks" %>
+<%@ Register Src="~/Controls/Whatisnew/Whatisnew.ascx" TagPrefix="Hardcode" TagName="Whatisnew" %>
+
 
 
 
@@ -201,6 +203,10 @@
                                 </div>
                                 <% if (!IsPncaOnly)
                                     { %>
+                                
+                                <Hardcode:Whatisnew runat="server" ID="Whatisnew" />
+
+                                <br /><hr />
                                 <asp:ContentPlaceHolder ID="Content" runat="server" />
                                 <%}
                                     else

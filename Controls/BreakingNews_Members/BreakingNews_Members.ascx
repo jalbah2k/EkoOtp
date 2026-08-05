@@ -14,7 +14,6 @@
 
 </script>
 <div class="newsWrap breaking-news">
-   
         <%if (ShowHeader)
             { %>
         <h1>Member News</h1>
