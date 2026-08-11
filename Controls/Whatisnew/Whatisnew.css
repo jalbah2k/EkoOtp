@@ -1,0 +1,90 @@
+.whats-new {
+    margin: 0 0 24px;
+}
+
+.whats-new > h2 {
+    margin: 0 0 12px;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--darkgrey, #414346);
+    line-height: 1.3;
+}
+
+.whats-new .load-more {
+    margin-top: 16px;
+    cursor: pointer;
+}
+
+.whats-new-list {
+    background: #fff;
+    border: 1px solid #e6e6e6;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.whats-new-row {
+    display: grid;
+    grid-template-columns: 110px minmax(0, 1fr) 70px auto;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 20px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.whats-new-row:last-child {
+    border-bottom: none;
+}
+
+.whats-new-type {
+    color: #999999;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+.whats-new-title {
+    color: #333333;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.35;
+    min-width: 0;
+}
+
+.whats-new-date {
+    color: #999999;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.whats-new-action {
+    color: var(--purple, #573494) !important;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none !important;
+    white-space: nowrap;
+    justify-self: end;
+}
+
+.whats-new-action:hover {
+    color: var(--darkpurple, #4b2a85) !important;
+    text-decoration: underline !important;
+}
+
+@media only screen and (max-width: 768px) {
+    .whats-new-row {
+        grid-template-columns: 1fr auto;
+        grid-template-areas:
+            "type date"
+            "title title"
+            "action action";
+        gap: 6px 12px;
+        padding: 16px;
+    }
+
+    .whats-new-type { grid-area: type; }
+    .whats-new-title { grid-area: title; }
+    .whats-new-date { grid-area: date; text-align: right; }
+    .whats-new-action { grid-area: action; justify-self: start; }
+}
