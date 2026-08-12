@@ -7,8 +7,10 @@ using System.Web.Http;
 
 public class LoadWhatisNewController : ApiController
 {
-    // GET api/LoadWhatisNew/{pageNumber}/{pageSize}
-    public string Get(int offset, int records)
+
+
+    // GET api/LoadWhatisNew/{pageNumber}/{pageSize}/{publish}/{category}
+    public string Get(int offset, int records, int publish = 0, int category = 0)
     {
         int userid = 0;
 

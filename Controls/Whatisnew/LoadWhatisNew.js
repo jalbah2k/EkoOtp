@@ -12,7 +12,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "GET",
-            url: "/api/LoadWhatisNew/" + pageNumber + "/" + pageSize,
+            url: "/api/LoadWhatisNew/" + pageNumber + "/" + pageSize + "/0/0",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
@@ -22,7 +22,7 @@ $(document).ready(function () {
 
                     $.ajax({
                         type: "GET",
-                        url: "/api/LoadWhatisNew/" + pageNumber + "/" + pageSize,
+                        url: "/api/LoadWhatisNew/" + pageNumber + "/" + pageSize + "/0/0",
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                         success: function (nextResponse) {
