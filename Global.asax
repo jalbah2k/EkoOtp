@@ -10,6 +10,19 @@
 
 <script runat="server">
 
+    protected void Application_PostAuthorizeRequest(object sender, EventArgs e)
+    {
+        var ctx = HttpContext.Current;
+        if (ctx == null || ctx.Request == null) return;
+
+        string path = ctx.Request.AppRelativeCurrentExecutionFilePath;
+        if (path != null && path.StartsWith("~/api/", StringComparison.OrdinalIgnoreCase))
+        {
+            // ReadOnly, not Required — Required serializes concurrent AJAX calls per session
+            ctx.SetSessionStateBehavior(System.Web.SessionState.SessionStateBehavior.ReadOnly);
+        }
+    }
+
     void Application_BeginRequest(object sender, EventArgs e)
     {
         string[] folders = { "/uploads/", "/Data/", "/Documents/", "/eFormsUploads/", "/ImageCropper/",
@@ -46,7 +59,6 @@
     void Application_Start(object sender, EventArgs e)
     {
 
-        //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
         ServicePointManager.SecurityProtocol |=SecurityProtocolType.Tls12;
 
         RouteConfig.RegisterRoutes(RouteTable.Routes);

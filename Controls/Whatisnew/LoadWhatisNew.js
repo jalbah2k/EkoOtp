@@ -1,6 +1,6 @@
 $(document).ready(function () {
     var pageNumber = 2;
-    var pageSize = typeof records !== "undefined" ? records : 5;
+    var pageSize = typeof records !== "undefined" ? records : 6;
     var loading = false;
 
     $('#span_load_more_whatisnew').click(function () {
@@ -12,7 +12,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "GET",
-            url: "/api/LoadWhatisNew/" + pageNumber + "/" + pageSize + "/0/0",
+            url: "/api/LoadWhatisNew/" + pageNumber + "/" + pageSize,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
@@ -22,7 +22,7 @@ $(document).ready(function () {
 
                     $.ajax({
                         type: "GET",
-                        url: "/api/LoadWhatisNew/" + pageNumber + "/" + pageSize + "/0/0",
+                        url: "/api/LoadWhatisNew/" + pageNumber + "/" + pageSize,
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                         success: function (nextResponse) {

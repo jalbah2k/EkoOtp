@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 
 public static class WhatisNewHelper
 {
-    public static DataTable LoadPage(int pageNumber, int pageSize)
+    public static DataTable LoadPage(int pageNumber, int pageSize, int userid, bool IgnoreLastVisit = false)
     {
         if (pageNumber < 1) pageNumber = 1;
         if (pageSize < 1) pageSize = 5;
@@ -18,6 +18,10 @@ public static class WhatisNewHelper
             da.SelectCommand.CommandType = CommandType.StoredProcedure;
             da.SelectCommand.Parameters.AddWithValue("@PageNumber", pageNumber);
             da.SelectCommand.Parameters.AddWithValue("@PageSize", pageSize);
+            da.SelectCommand.Parameters.AddWithValue("@UserId", userid);
+            if(IgnoreLastVisit)
+                da.SelectCommand.Parameters.AddWithValue("@IgnoreLastVisit", 1);
+
             da.Fill(dt);
         }
 

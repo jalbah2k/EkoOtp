@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 public partial class Whatisnew : System.Web.UI.UserControl
 {
-    public int records = 5;
+    public int records = 6;
     public bool bLoadMore = false;
 
     public Whatisnew() { }
@@ -27,21 +27,39 @@ public partial class Whatisnew : System.Web.UI.UserControl
 
     private void BindData()
     {
-        //get yaf_LogLogins and take CreatedOn  
-        var logindate = DateTime.Now;
-        DataTable dt = WhatisNewHelper.LoadPage(1, records);
-        DataView dv = dt.DefaultView;
-        //dv.RowFilter = "ActivityDate > " + logindate.ToString();
-        Repeater1.DataSource = dv;
-        Repeater1.DataBind();
+        int userid = 0;
 
-        if (dt.Rows.Count == 0)
+        if (Session["LoggedInID"] == null ||
+            !int.TryParse(Session["LoggedInID"].ToString(), out userid))
         {
-            this.Visible = false;
             return;
         }
 
-        if (bLoadMore = dt.Rows.Count >= records)
+
+        //get yaf_LogLogins and take CreatedOn  
+        DateTime logindate = DateTime.Now;
+        DataTable dt = WhatisNewHelper.LoadPage(1, records, userid);
+
+        bLoadMore = dt.Rows.Count >= records;
+        if (bLoadMore)
+        {
+            dt.Rows.Remove(dt.Rows[records - 1]);
+        }
+
+
+        if (dt.Rows.Count == 0)
+        {
+            //this.Visible = false;
+            // return;
+
+            dt = WhatisNewHelper.LoadPage(1, records - 1, userid, true);
+        }
+
+        Repeater1.DataSource = dt;
+        Repeater1.DataBind();
+
+
+        if (bLoadMore)
         {
             try
             {

@@ -206,8 +206,8 @@
                                 
                                 <Hardcode:Whatisnew runat="server" ID="Whatisnew" />
 
-                                <br /><hr />
-                                <asp:ContentPlaceHolder ID="Content" runat="server" />
+                                <%--<br /><hr />
+                                <asp:ContentPlaceHolder ID="Content" runat="server" />--%>
                                 <%}
                                     else
                                     { %>

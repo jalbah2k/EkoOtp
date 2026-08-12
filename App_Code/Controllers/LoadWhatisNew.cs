@@ -7,10 +7,18 @@ using System.Web.Http;
 
 public class LoadWhatisNewController : ApiController
 {
-    // GET api/LoadWhatisNew/{pageNumber}/{pageSize}/{publish}/{category}
-    public string Get(int offset, int records, int publish = 0, int category = 0)
+    // GET api/LoadWhatisNew/{pageNumber}/{pageSize}
+    public string Get(int offset, int records)
     {
-        DataTable dt = WhatisNewHelper.LoadPage(offset, records);
+        int userid = 0;
+
+        if (HttpContext.Current.Session["LoggedInID"] == null ||
+            !int.TryParse(HttpContext.Current.Session["LoggedInID"].ToString(), out userid))
+        {
+            return "";
+        }
+
+        DataTable dt = WhatisNewHelper.LoadPage(offset, records, userid);
 
         if (dt.Rows.Count == 0)
             return string.Empty;
