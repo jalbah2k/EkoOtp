@@ -1,6 +1,6 @@
 $(document).ready(function () {
     var pageNumber = 2;
-    var pageSize = typeof records !== "undefined" ? records : 6;
+    var pageSize = typeof records !== "undefined" ? records : 5;
     var loading = false;
 
     $('#span_load_more_whatisnew').click(function () {
