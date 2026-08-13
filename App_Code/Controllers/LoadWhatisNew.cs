@@ -2,14 +2,13 @@ using System;
 using System.Data;
 using System.Globalization;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Http;
 
 public class LoadWhatisNewController : ApiController
 {
-
-
-    // GET api/LoadWhatisNew/{pageNumber}/{pageSize}/{publish}/{category}
+    //GET api/LoadWhatisNew/{pageNumber}/{pageSize}/{publish}/{category}
     public string Get(int offset, int records, int publish = 0, int category = 0)
     {
         int userid = 0;
@@ -32,6 +31,13 @@ public class LoadWhatisNewController : ApiController
             string type = Convert.ToString(dr["Type"]);
             string id = Convert.ToString(dr["Id"]);
             string title = Convert.ToString(dr["Title"]);
+            string displayTitle = title;
+
+            if (type.Equals("WatercoolerReplies", StringComparison.OrdinalIgnoreCase))
+            {
+                displayTitle = Regex.Replace(title ?? string.Empty, @"^\s*\d+\s+repl(?:y|ies)\s+in:\s*", "", RegexOptions.IgnoreCase);
+            }
+
             string dateText = string.Empty;
 
             if (dr["ActivityDate"] != DBNull.Value)
@@ -44,19 +50,17 @@ public class LoadWhatisNewController : ApiController
             string url;
             WhatisNewHelper.GetAction(type, id, title, out actionText, out url);
 
-
             sb.Append("<div class=\"whats-new-row\">");
             sb.AppendFormat("<span class=\"whats-new-type\">{0}</span>", HttpUtility.HtmlEncode(type.Replace("WatercoolerReplies", "Watercooler")));
-            sb.AppendFormat("<span class=\"whats-new-title\">{0}</span>", HttpUtility.HtmlEncode(title));
+            sb.AppendFormat("<span class=\"whats-new-title\">{0}</span>", HttpUtility.HtmlEncode(displayTitle));
             sb.AppendFormat("<span class=\"whats-new-date\">{0}</span>", HttpUtility.HtmlEncode(dateText));
             sb.AppendFormat(
                 "<a href=\"{0}\" class=\"whats-new-action\" title=\"{1}\">{2}</a>",
                 HttpUtility.HtmlAttributeEncode(url),
-                HttpUtility.HtmlAttributeEncode(title),
+                HttpUtility.HtmlAttributeEncode(displayTitle),
                 HttpUtility.HtmlEncode(actionText));
             sb.Append("</div>");
         }
-
         return sb.ToString();
     }
 }

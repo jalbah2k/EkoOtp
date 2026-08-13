@@ -2,6 +2,7 @@ using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 
 public static class WhatisNewHelper
 {
@@ -58,10 +59,9 @@ public static class WhatisNewHelper
                 break;
             case "watercoolerreplies":
                 actionText = "View thread";
-                url = String.Format("/membership/posts/t{0}-{1}", id, title.Trim().Replace(" ", "-"));        //Kishor: you should remove this prefix e.g.'3 replies in: '
+                string cleanTitle = Regex.Replace(title, @"^\s*\d+\s+repl(?:y|ies)\s+in:\s*", "", RegexOptions.IgnoreCase);
+                url = String.Format("/membership/posts/t{0}-{1}", id, cleanTitle.Trim().Replace(" ", "-"));
                 break;
-
-
         }
     }
 }
