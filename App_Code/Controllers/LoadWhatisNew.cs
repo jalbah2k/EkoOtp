@@ -42,10 +42,11 @@ public class LoadWhatisNewController : ApiController
 
             string actionText;
             string url;
-            WhatisNewHelper.GetAction(type, id, out actionText, out url);
+            WhatisNewHelper.GetAction(type, id, title, out actionText, out url);
+
 
             sb.Append("<div class=\"whats-new-row\">");
-            sb.AppendFormat("<span class=\"whats-new-type\">{0}</span>", HttpUtility.HtmlEncode(type));
+            sb.AppendFormat("<span class=\"whats-new-type\">{0}</span>", HttpUtility.HtmlEncode(type.Replace("WatercoolerReplies", "Watercooler")));
             sb.AppendFormat("<span class=\"whats-new-title\">{0}</span>", HttpUtility.HtmlEncode(title));
             sb.AppendFormat("<span class=\"whats-new-date\">{0}</span>", HttpUtility.HtmlEncode(dateText));
             sb.AppendFormat(

@@ -39,7 +39,7 @@ public static class WhatisNewHelper
         return dt;
     }
 
-    public static void GetAction(string type, string id, out string actionText, out string url)
+    public static void GetAction(string type, string id, string title, out string actionText, out string url)
     {
         switch ((type ?? string.Empty).Trim().ToLowerInvariant())
         {
@@ -49,13 +49,19 @@ public static class WhatisNewHelper
                 break;
             case "watercooler":
                 actionText = "Join discussion";
-                url = "/membership/posts/t" + id;
+                url = String.Format("/membership/posts/t{0}-{1}", id, title.Trim().Replace(" ", "-"));        //e.g. /membership/posts/t6978-This-is-new-topic-to-use-as-a-test
                 break;
             case "news":
             default:
                 actionText = "Read news";
                 url = "/membernews?newsid=" + id;
                 break;
+            case "watercoolerreplies":
+                actionText = "View thread";
+                url = String.Format("/membership/posts/t{0}-{1}", id, title.Trim().Replace(" ", "-"));        //Kishor: you should remove this prefix e.g.'3 replies in: '
+                break;
+
+
         }
     }
 }

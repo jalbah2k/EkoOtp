@@ -95,8 +95,6 @@ public partial class Whatisnew : System.Web.UI.UserControl
         Literal litAction = (Literal)e.Item.FindControl("litAction");
         HtmlAnchor theLink = (HtmlAnchor)e.Item.FindControl("theLink");
 
-        litType.Text = HttpUtility.HtmlEncode(type);
-        litTitle.Text = HttpUtility.HtmlEncode(title);
 
         if (dr["ActivityDate"] != DBNull.Value)
         {
@@ -106,7 +104,10 @@ public partial class Whatisnew : System.Web.UI.UserControl
 
         string actionText;
         string url;
-        WhatisNewHelper.GetAction(type, id, out actionText, out url);
+        WhatisNewHelper.GetAction(type, id, title, out actionText, out url);
+
+        litType.Text = HttpUtility.HtmlEncode(type.Replace("WatercoolerReplies", "Watercooler"));
+        litTitle.Text = HttpUtility.HtmlEncode(title);
 
         litAction.Text = actionText;
         theLink.HRef = url;
