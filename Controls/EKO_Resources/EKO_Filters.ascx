@@ -77,7 +77,7 @@
         };
     }
 
-    function searchResources(myvalue) {
+    function applyFilters(myvalue) {
         $.ajax({
             type: "POST",
             url: "/api/search",
@@ -90,10 +90,28 @@
 
                 helpers.updateSearchResults(response[0].items, $('#result-items'));
                 helpers.updateSearchResults(response[0].header, $('#div-plHeader'));
+            },
+            error: function (xhr, status, errorThrown) {
+                alert(status + " | " + xhr.responseText);
+            }
+        });
+    }
+
+    function searchResources(myvalue) {
+        $.ajax({
+            type: "POST",
+            url: "/api/keywordsearch",
+            data: JSON.stringify(myvalue),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (!response || !response[0])
+                    return;
+
+                helpers.updateSearchResults(response[0].items, $('#result-items'));
+                helpers.updateSearchResults(response[0].header, $('#div-plHeader'));
 
                 var newurl = helpers.updateUrlParameter(window.location.href, "search_term", myvalue.search || "");
-                newurl = helpers.updateUrlParameter(newurl, "format", myvalue.format || "");
-                newurl = helpers.updateUrlParameter(newurl, "audience", myvalue.audience || "");
                 helpers.changeUrl(newurl);
             },
             error: function (xhr, status, errorThrown) {
@@ -156,8 +174,28 @@
             helpers.changeUrl(newurl);
         });
 
-        $('#btnSearchRes, #btnApplyFilters, #mobileSearch').click(function () {
-            searchResources(getFilterPayload());
+        $('#btnApplyFilters').click(function () {
+            var myvalue = getFilterPayload();
+            if (!myvalue.lib && !myvalue.cat && !myvalue.format && !myvalue.audience) {
+                if ($.trim(myvalue.search || "") === "")
+                    return;
+                myvalue.lib = "";
+                myvalue.cat = "";
+                myvalue.format = "";
+                myvalue.audience = "";
+                searchResources(myvalue);
+                return;
+            }
+            applyFilters(myvalue);
+        });
+
+        $('#btnSearchRes, #mobileSearch').click(function () {
+            var myvalue = getFilterPayload();
+            myvalue.lib = "";
+            myvalue.cat = "";
+            myvalue.format = "";
+            myvalue.audience = "";
+            searchResources(myvalue);
             if (this.id == "mobileSearch")
                 $("#format-filter, #audience-filter, #apply-filter, #cat-filter, #lib-filter, #mobBtnWrap").toggle();
         });

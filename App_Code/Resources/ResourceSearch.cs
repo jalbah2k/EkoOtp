@@ -77,15 +77,11 @@ public class ResourceSearch
 
         if (!String.IsNullOrEmpty(Keywords))
         {
-            string searchTerm = Keywords.Trim();
-            searchTerm = FTSAux.RemoveNoiseWords(searchTerm, LCIDs[Language - 1]);
-
-            if (!String.IsNullOrEmpty(searchTerm))
-            {
-                myFTS = new FullTextSearch.FullTextSearch(searchTerm);
-                dapt.SelectCommand.Parameters.Add(new SqlParameter("@keywords", myFTS.NormalForm));
-                dapt.SelectCommand.Parameters.Add(new SqlParameter("@searchTerm", searchTerm));
-            }
+            string original = Keywords.Trim();
+            dapt.SelectCommand.Parameters.Add(new SqlParameter("@searchTerm", original));
+            dapt.SelectCommand.Parameters.Add(new SqlParameter("@Top", 1000));
+            // Do not pass @keywords (CONTAINSTABLE). Hyphen is parsed as AND NOT
+            // ("Ontario - Report" becomes Ontario AND NOT Report) and the FTS catalog is empty.
         }
 
         if (Save == "1" && (
