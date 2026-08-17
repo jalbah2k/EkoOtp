@@ -3,16 +3,12 @@
     var helpers =
     {
         buildDropdown: function (result, dropdown, emptyMessage) {
-            // Remove current options
             dropdown.html('');
-
-            // Add the empty option with the empty message
             dropdown.append('<option value="">' + emptyMessage + '</option>');
 
             if (result == null)
                 return;
 
-            // Loop through each of the results and append the option to the dropdown
             for (i = 0; i < result.length; i++) {
                 if (result[i].id == 0)
                     break;
@@ -21,18 +17,13 @@
             }
         },
 
-        clearDropdown: function ( dropdown, emptyMessage) {
-            // Remove current options
+        clearDropdown: function (dropdown, emptyMessage) {
             dropdown.html('');
-
-            // Add the empty option with the empty message
             dropdown.append('<option value="">' + emptyMessage + '</option>');
         },
 
         changeQS: function (qstring) {
             if (history.pushState) {
-
-              //e.g. var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?myNewUrlQuery=1';
                 var newurl = '<%=MyUrl%>' + qstring;
                 window.history.pushState({ path: newurl }, '', newurl);
             }
@@ -71,10 +62,22 @@
         updateSearchResults: function (result, div) {
             div.html('');
             div.html(result);
-        }       
+        }
     }
 
-    function searchResources (myvalue) {
+    function getFilterPayload() {
+        return {
+            u: <%=Session["LoggedInId"].ToString()%>,
+            lib: $('#<%= ddlLib.ClientID%>').val(),
+            cat: $('#<%= ddlCateg.ClientID%>').val(),
+            format: $('#<%= ddlFormat.ClientID%>').val(),
+            audience: $('#<%= ddlAudience.ClientID%>').val(),
+            search: $('#<%=txtSearch.ClientID%>').val(),
+            save: 1
+        };
+    }
+
+    function searchResources(myvalue) {
         $.ajax({
             type: "POST",
             url: "/api/search",
@@ -82,10 +85,15 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
+                if (!response || !response[0])
+                    return;
+
                 helpers.updateSearchResults(response[0].items, $('#result-items'));
                 helpers.updateSearchResults(response[0].header, $('#div-plHeader'));
 
-                var newurl = helpers.updateUrlParameter(window.location.href, "search_term", myvalue.search);
+                var newurl = helpers.updateUrlParameter(window.location.href, "search_term", myvalue.search || "");
+                newurl = helpers.updateUrlParameter(newurl, "format", myvalue.format || "");
+                newurl = helpers.updateUrlParameter(newurl, "audience", myvalue.audience || "");
                 helpers.changeUrl(newurl);
             },
             error: function (xhr, status, errorThrown) {
@@ -108,14 +116,9 @@
                 helpers.changeQS(qstring);
             }
 
-            helpers.clearDropdown($('#<%= ddlSubcateg.ClientID%>'), '<%=SelectWord%>');
+            var myvalue = getFilterPayload();
+            myvalue.lib = $(this).val();
 
-            var myvalue = {
-                u: <%=Session["LoggedInId"].ToString()%>,
-                lib: $(this).val(),
-                search: keywords,
-                save: 1
-            };
             $.ajax({
                 type: "POST",
                 url: "/api/category",
@@ -126,7 +129,7 @@
                     helpers.buildDropdown(
                         response,
                         $('#<%=ddlCateg.ClientID%>'),
-                        '<%=SelectWord%>'
+                        '<%=AllCategoriesWord%>'
                     );
 
                     if (response != null && response.length > 0) {
@@ -141,108 +144,25 @@
                     alert(status + " | " + xhr.responseText);
                 }
             });
-
-            searchResources(myvalue);
-
         });
 
         $('#<%=ddlCateg.ClientID%>').change(function () {
+            var newvalue = "unset";
+            var selected = $(this).find('option:selected');
+            if ($(this).val() != "")
+                newvalue = selected.text();
 
-            var keywords = $('#<%=txtSearch.ClientID%>').val();            
-
-            helpers.clearDropdown($('#<%= ddlSubcateg.ClientID%>'), '<%=SelectWord%>');
-
-            var myvalue = {
-                u: <%=Session["LoggedInId"].ToString()%>,
-                lib: $('#<%= ddlLib.ClientID%>').val(),
-                cat: $(this).val(),
-                search: keywords,
-                save: 1
-            };
-            $.ajax({
-                type: "POST",
-                url: "/api/subcategory",
-                data: JSON.stringify(myvalue),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    helpers.buildDropdown(
-                        response,
-                        $('#<%=ddlSubcateg.ClientID%>'),
-                        '<%=SelectWord%>'
-                    );
-
-                    var newvalue = "unset";
-                    if (response != null && response.length > 0) {
-                        newvalue = response[0].catseo;
-                    }
-                   
-                    var newurl = helpers.updateUrlParameter(window.location.href, "category", newvalue);
-                    newurl = helpers.updateUrlParameter(newurl, "subcategory", "");
-                    helpers.changeUrl(newurl);
-                },
-                error: function (xhr, status, errorThrown) {
-                    alert(status + " | " + xhr.responseText);
-                }
-            });
-
-            searchResources(myvalue);
+            var newurl = helpers.updateUrlParameter(window.location.href, "category", newvalue);
+            helpers.changeUrl(newurl);
         });
 
-        $('#<%=ddlSubcateg.ClientID%>').change(function () {
-
-            var keywords = $('#<%=txtSearch.ClientID%>').val();
-            var myvalue = {
-                u: <%=Session["LoggedInId"].ToString()%>,
-                lib: $('#<%= ddlLib.ClientID%>').val(),
-                cat: $('#<%= ddlCateg.ClientID%>').val(),
-                sub: $(this).val(),
-                search: keywords,
-                save: 1
-            };
-            $.ajax({
-                type: "POST",
-                url: "/api/subcategory",
-                data: JSON.stringify(myvalue),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                   
-                    var newvalue = "unset";
-                    if (response != null && response.length > 0) {
-                        newvalue = response[0].subseo;
-                    }
-
-                    var newurl = helpers.updateUrlParameter(window.location.href, "subcategory", newvalue);
-                    helpers.changeUrl(newurl);
-                },
-                error: function (xhr, status, errorThrown) {
-                    alert(status + " | " + xhr.responseText);
-                }
-            });
-
-            searchResources(myvalue);
-        });
-
-        $('#btnSearchRes, #mobileSearch').click(function () {
-
-            var keywords = $('#<%=txtSearch.ClientID%>').val();
-            var myvalue = {
-                u: <%=Session["LoggedInId"].ToString()%>,
-                lib: $('#<%= ddlLib.ClientID%>').val(),
-                cat: $('#<%= ddlCateg.ClientID%>').val(),
-                sub: $(this).val(),
-                search: keywords,
-                save: 1
-            };
-
-            searchResources(myvalue);
+        $('#btnSearchRes, #btnApplyFilters, #mobileSearch').click(function () {
+            searchResources(getFilterPayload());
             if (this.id == "mobileSearch")
-                $("#sub-filter, #cat-filter, #lib-filter, #mobBtnWrap").toggle();
+                $("#format-filter, #audience-filter, #apply-filter, #cat-filter, #lib-filter, #mobBtnWrap").toggle();
         });
 
         $('#<%=txtSearch.ClientID%>').keypress(function (e) {
-
             if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
                 $('#btnSearchRes').click(); return false;
             }
@@ -252,16 +172,39 @@
     });
 </script>
 
-<div class="row-filter contained-width" >
-    <div id="lib-filter"><div><span>Library:</span><asp:DropDownList runat="server" ID="ddlLib" DataTextField="name" DataValueField="id"></asp:DropDownList></div></div>
-    <div id="cat-filter"><div><span>Category:</span><asp:DropDownList runat="server" ID="ddlCateg" DataTextField="name" DataValueField="id"></asp:DropDownList></div></div>
-    <div id="sub-filter"><div><span>Sub category:</span><asp:DropDownList runat="server" ID="ddlSubcateg" DataTextField="name" DataValueField="id"></asp:DropDownList></div></div>
-    <div id="search-filter"><div><label for="<%=txtSearch.ClientID %>">Search:</label>
-        <div><asp:TextBox runat="server" ID="txtSearch"></asp:TextBox></div>
-        <button type="button" id="btnSearchRes" >Go</button>
-    </div></div>
-    <div id="mobBtnWrap">
-        <div id="closeMob">Close</div>
-        <div class="button" id="mobileSearch">Search</div>
+<div class="res-search-filters">
+    <div class="row-search contained-width">
+        <div class="search-heading">Search all resources by keyword</div>
+        <div id="search-filter">
+            <label for="<%=txtSearch.ClientID %>" class="sr-only">Search</label>
+            <asp:TextBox runat="server" ID="txtSearch" placeholder="Search resources..."></asp:TextBox>
+            <button type="button" id="btnSearchRes">Search</button>
+        </div>
+    </div>
+
+    <div class="row-filter contained-width">
+        <div id="lib-filter"><div>
+            <label for="<%=ddlLib.ClientID %>">Library</label>
+            <asp:DropDownList runat="server" ID="ddlLib" DataTextField="name" DataValueField="id"></asp:DropDownList>
+        </div></div>
+        <div id="cat-filter"><div>
+            <label for="<%=ddlCateg.ClientID %>">Category</label>
+            <asp:DropDownList runat="server" ID="ddlCateg" DataTextField="name" DataValueField="id"></asp:DropDownList>
+        </div></div>
+        <div id="format-filter"><div>
+            <label for="<%=ddlFormat.ClientID %>">Format</label>
+            <asp:DropDownList runat="server" ID="ddlFormat" DataTextField="name" DataValueField="id"></asp:DropDownList>
+        </div></div>
+        <div id="audience-filter"><div>
+            <label for="<%=ddlAudience.ClientID %>">Audience</label>
+            <asp:DropDownList runat="server" ID="ddlAudience" DataTextField="name" DataValueField="id"></asp:DropDownList>
+        </div></div>
+        <div id="apply-filter"><div>
+            <button type="button" id="btnApplyFilters">Apply filters</button>
+        </div></div>
+        <div id="mobBtnWrap">
+            <div id="closeMob">Close</div>
+            <div class="button" id="mobileSearch">Search</div>
+        </div>
     </div>
 </div>

@@ -43,28 +43,39 @@ public class SearchController : ApiController
         try { int.Parse(catid); }
         catch { catid = ""; }
 
-        string subcatid = values["sub"];
-        try { int.Parse(subcatid); }
-        catch { subcatid = ""; }
+        string formatid = values["format"];
+        try { int.Parse(formatid); }
+        catch { formatid = ""; }
 
-        string searchterm = values["search"];
+        string audienceid = values["audience"];
+        try { int.Parse(audienceid); }
+        catch { audienceid = ""; }
+
+        string searchterm = values["search"] == null ? "" : values["search"].ToString();
+        if (searchterm == "null")
+            searchterm = "";
 
         string save = "0";
         try { save = values["save"]; }
         catch{ }
 
-        if (libid == "" && searchterm == "")
-        {
-            JToken[] json = new JToken[1];
-            json[0] = JObject.Parse("{ \"items\" : \"" + "" + "\", \"header\" : \"" + "" + "\"}");
+        if (libid == "" && searchterm == "" && formatid == "" && audienceid == "" && catid == "")
+            return SearchJson("", "");
 
-            return json;
-        }
-
-        return Populate(userid, libid, catid, subcatid, searchterm, 1, save);
+        return Populate(userid, libid, catid, formatid, audienceid, searchterm, 1, save);
     }
 
-    private JToken[] Populate(string userid, string libid, string catid, string subcatid, string searchterm, int lang, string save)
+    private static JToken[] SearchJson(string items, string header)
+    {
+        JObject obj = new JObject();
+        obj["items"] = items ?? "";
+        obj["header"] = header ?? "";
+        JToken[] json = new JToken[1];
+        json[0] = obj;
+        return json;
+    }
+
+    private JToken[] Populate(string userid, string libid, string catid, string formatid, string audienceid, string searchterm, int lang, string save)
     {
         DataSet ds = new DataSet();
         string html = "";
@@ -75,15 +86,16 @@ public class SearchController : ApiController
             ResourceSearch res = new ResourceSearch("Resources_Search_New", CommandType.StoredProcedure, userid, lang);
             res.LibraryId = libid;
             res.CategoryId = catid;
-            res.SubCategoryId = subcatid;
-            res.Keywords = searchterm;
+            res.FormatId = formatid;
+            res.AudienceId = audienceid;
+            res.Keywords = searchterm ?? "";
             res.Save = save;
 
             SqlDataAdapter dapt = res.Build();
             dapt.SelectCommand.Connection = conn;
 
             dapt.Fill(ds);
-            DataTable dt = ds.Tables[0];
+            DataTable dt = ds.Tables.Count > 0 ? ds.Tables[0] : new DataTable();
 
             Res_ItemTemplate _item = new Res_ItemTemplate();
 
@@ -92,30 +104,24 @@ public class SearchController : ApiController
                 html += _item.GetContent(dr, ConfigurationManager.AppSettings.Get("Resources.Page.Details"));
             }
 
-            if (searchterm != "")
+            if (!String.IsNullOrEmpty(searchterm))
             {
                 int records = dt.Rows.Count;
                 string libName = "";
 
-                if (ds.Tables[1].Rows.Count > 0)
-                {
+                if (ds.Tables.Count > 1 && ds.Tables[1].Rows.Count > 0)
                     libName = ds.Tables[1].Rows[0]["name"].ToString();
-                }
-                    
+
                 header = res.GetHeaderResult(records, searchterm, libName, ConfigurationManager.AppSettings["Resources.Page"] + "?search_term=" + searchterm);
             }
-            else if (ds.Tables[1].Rows.Count > 0)
+            else if (ds.Tables.Count > 1 && ds.Tables[1].Rows.Count > 0)
             {
                 DataRow dr = ds.Tables[1].Rows[0];
                 header = String.Format("<h1>{0}</h1><p>{1}</p>", dr["name"].ToString(), dr["description"].ToString());
             }
         }
 
-        html = html.Replace("\"", "“");
-        JToken[] json = new JToken[1];
-        json[0] = JObject.Parse("{ \"items\" : \"" + html + "\", \"header\" : \"" + header + "\"}");
-
-        return json;
+        return SearchJson(html, header);
     }
 
     // PUT api/<controller>/5

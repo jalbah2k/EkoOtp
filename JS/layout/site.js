@@ -15,11 +15,11 @@ $(document).ready(function () {
     });
 
     $( "#search-filter input" ).focusin(function() {
-      $("#sub-filter, #cat-filter, #lib-filter, #mobBtnWrap, #mobBtnWrapmainMenu").show();
+      $("#format-filter, #audience-filter, #apply-filter, #cat-filter, #lib-filter, #mobBtnWrap, #mobBtnWrapmainMenu").show();
     });
 
-    $( "#btnSearchRes, #closeMob" ).click(function() {
-      $("#sub-filter, #cat-filter, #lib-filter, #mobBtnWrap").toggle();
+    $( "#closeMob" ).click(function() {
+      $("#format-filter, #audience-filter, #apply-filter, #cat-filter, #lib-filter, #mobBtnWrap").toggle();
     });
 
     $( "#mobileSearch" ).click(function() {

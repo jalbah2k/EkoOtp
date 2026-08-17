@@ -26,7 +26,8 @@ public class ResourceSearch
 
     public string LibraryId { set; get; }
     public string CategoryId { set; get; }
-    public string SubCategoryId { set; get; }
+    public string FormatId { set; get; }
+    public string AudienceId { set; get; }
     public string Keywords { set; get; }
     public int Language { set; get; }
     public string Save { set; get; }
@@ -65,27 +66,33 @@ public class ResourceSearch
             dapt.SelectCommand.Parameters.AddWithValue("@ResourcesGroupId", LibraryId);
 
             if (!String.IsNullOrEmpty(CategoryId))
-            {
                 dapt.SelectCommand.Parameters.AddWithValue("@CategID", CategoryId);
+        }
 
-                if (!String.IsNullOrEmpty(SubCategoryId))
-                    dapt.SelectCommand.Parameters.AddWithValue("@SubCategID", SubCategoryId);
+        if (!String.IsNullOrEmpty(FormatId))
+            dapt.SelectCommand.Parameters.AddWithValue("@FormatID", FormatId);
+
+        if (!String.IsNullOrEmpty(AudienceId))
+            dapt.SelectCommand.Parameters.AddWithValue("@AudienceID", AudienceId);
+
+        if (!String.IsNullOrEmpty(Keywords))
+        {
+            string searchTerm = Keywords.Trim();
+            searchTerm = FTSAux.RemoveNoiseWords(searchTerm, LCIDs[Language - 1]);
+
+            if (!String.IsNullOrEmpty(searchTerm))
+            {
+                myFTS = new FullTextSearch.FullTextSearch(searchTerm);
+                dapt.SelectCommand.Parameters.Add(new SqlParameter("@keywords", myFTS.NormalForm));
+                dapt.SelectCommand.Parameters.Add(new SqlParameter("@searchTerm", searchTerm));
             }
         }
 
-        if (Keywords != "")
-        {
-            string searchTerm = Keywords.Trim();
-
-            searchTerm = FTSAux.RemoveNoiseWords(searchTerm, LCIDs[Language - 1]);
-            myFTS = new FullTextSearch.FullTextSearch(searchTerm);
-
-            dapt.SelectCommand.Parameters.Add(new SqlParameter("@keywords", myFTS.NormalForm));
-            dapt.SelectCommand.Parameters.Add(new SqlParameter("@searchTerm", searchTerm));
-
-        }
-
-        if ((!String.IsNullOrEmpty(CategoryId) || Keywords != "") && Save == "1")
+        if (Save == "1" && (
+            !String.IsNullOrEmpty(CategoryId) ||
+            !String.IsNullOrEmpty(Keywords) ||
+            !String.IsNullOrEmpty(FormatId) ||
+            !String.IsNullOrEmpty(AudienceId)))
             dapt.SelectCommand.Parameters.Add(new SqlParameter("@save", 1));
 
         return dapt;

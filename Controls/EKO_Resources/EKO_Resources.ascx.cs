@@ -47,7 +47,8 @@ public partial class EKO_Resources : System.Web.UI.UserControl
 
     private void Populate()
     {
-        if (EKO_Filters.LibraryId == "" && EKO_Filters.SearchTerm == "")
+        if (EKO_Filters.LibraryId == "" && EKO_Filters.SearchTerm == ""
+            && EKO_Filters.FormatId == "" && EKO_Filters.AudienceId == "" && EKO_Filters.CategoryId == "")
             return;
 
         DataSet ds = new DataSet();
@@ -57,7 +58,8 @@ public partial class EKO_Resources : System.Web.UI.UserControl
             ResourceSearch res = new ResourceSearch("Resources_Search_New", CommandType.StoredProcedure, Session["LoggedInId"].ToString(), (int)Languages.English);
             res.LibraryId = EKO_Filters.LibraryId;
             res.CategoryId = EKO_Filters.CategoryId;
-            res.SubCategoryId = EKO_Filters.SubCategoryId;
+            res.FormatId = EKO_Filters.FormatId;
+            res.AudienceId = EKO_Filters.AudienceId;
             res.Keywords = EKO_Filters.SearchTerm;
             res.Save = EKO_Filters.Save;
 

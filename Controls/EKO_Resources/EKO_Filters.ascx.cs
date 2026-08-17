@@ -12,17 +12,18 @@ public partial class Filters : System.Web.UI.UserControl
     public string LibraryId
     {
         get { return ddlLib.SelectedValue; }
-      //  set { try { ddlLib.SelectedValue = value; } catch { } }
     }
     public string CategoryId
     {
         get { return ddlCateg.SelectedValue; }
-       // set { try { ddlCateg.SelectedValue = value; } catch { } }
     }
-    public string SubCategoryId
+    public string FormatId
     {
-        get { return ddlSubcateg.SelectedValue; }
-        //set { try { ddlSubcateg.SelectedValue = value; } catch { } }
+        get { return ddlFormat.SelectedValue; }
+    }
+    public string AudienceId
+    {
+        get { return ddlAudience.SelectedValue; }
     }
 
     public string LibraryName
@@ -33,9 +34,13 @@ public partial class Filters : System.Web.UI.UserControl
     {
         get { return ddlCateg.SelectedItem.Text; }
     }
-    public string SubCategoryName
+    public string FormatName
     {
-        get { return ddlSubcateg.SelectedItem.Text; }
+        get { return ddlFormat.SelectedItem.Text; }
+    }
+    public string AudienceName
+    {
+        get { return ddlAudience.SelectedItem.Text; }
     }
     public string Library 
     { 
@@ -59,13 +64,24 @@ public partial class Filters : System.Web.UI.UserControl
             return sret;
         }
     }
-    public string SubCategory
+    public string Format
     {
         get
         {
             string sret = "";
-            if (Request.QueryString["subcategory"] != null)
-                sret = Request.QueryString["subcategory"];
+            if (Request.QueryString["format"] != null)
+                sret = Request.QueryString["format"];
+
+            return sret;
+        }
+    }
+    public string Audience
+    {
+        get
+        {
+            string sret = "";
+            if (Request.QueryString["audience"] != null)
+                sret = Request.QueryString["audience"];
 
             return sret;
         }
@@ -98,7 +114,10 @@ public partial class Filters : System.Web.UI.UserControl
         get { return Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, "") + Request.Url.AbsolutePath; }
     }
 
-    public string SelectWord = "select";
+    public string AllLibrariesWord = "All libraries";
+    public string AllCategoriesWord = "All categories";
+    public string AllFormatsWord = "All formats";
+    public string AllAudiencesWord = "All audiences";
     #endregion
 
     protected void Page_Load(object sender, EventArgs e)
@@ -115,7 +134,7 @@ public partial class Filters : System.Web.UI.UserControl
     private void PopulateDDLs()
     {
         DataSet ds = new DataSet();
-        string rowfilterLib = "", rowfilterCat = "", rowfilterSubcat = "";
+        string rowfilterLib = "", rowfilterCat = "", rowfilterFormat = "", rowfilterAudience = "";
         using (SqlConnection conn = new SqlConnection(ConfigurationManager.AppSettings.Get("dbResources")))
         {
             SqlDataAdapter dapt = new SqlDataAdapter("res.Library_ddl", conn);
@@ -126,95 +145,62 @@ public partial class Filters : System.Web.UI.UserControl
             if (!String.IsNullOrEmpty(Library))
             {
                 dapt.SelectCommand.Parameters.AddWithValue("@lib", Library);
-                rowfilterLib = "seo = '" + Library + "'";
-            
+                rowfilterLib = BuildRowFilter(Library);
+
                 if (!String.IsNullOrEmpty(Category))
                 {
                     dapt.SelectCommand.Parameters.AddWithValue("@cat", Category);
-                    rowfilterCat = "seo = '" + Category + "'";
-
-                    if (!String.IsNullOrEmpty(SubCategory))
-                        rowfilterSubcat = "seo = '" + SubCategory + "'";
+                    rowfilterCat = BuildRowFilter(Category);
                 }
             }
 
+            if (!String.IsNullOrEmpty(Format))
+            {
+                dapt.SelectCommand.Parameters.AddWithValue("@format", Format);
+                rowfilterFormat = BuildRowFilter(Format);
+            }
+
+            if (!String.IsNullOrEmpty(Audience))
+            {
+                dapt.SelectCommand.Parameters.AddWithValue("@audience", Audience);
+                rowfilterAudience = BuildRowFilter(Audience);
+            }
             #endregion
 
             dapt.Fill(ds);
-            DataTable dt = ds.Tables[0];
 
-            #region Library
-            ddlLib.DataSource = dt;
-            ddlLib.DataBind();
-            ddlLib.Items.Insert(0, new ListItem(SelectWord, ""));
-            ddlLib.Attributes.Add("aria-label", "select library");
+            BindFilterDropdown(ddlLib, ds.Tables.Count > 0 ? ds.Tables[0] : null, AllLibrariesWord, rowfilterLib, "select library");
+            BindFilterDropdown(ddlCateg, ds.Tables.Count > 1 ? ds.Tables[1] : null, AllCategoriesWord, rowfilterCat, "select category");
+            BindFilterDropdown(ddlFormat, ds.Tables.Count > 2 ? ds.Tables[2] : null, AllFormatsWord, rowfilterFormat, "select format");
+            BindFilterDropdown(ddlAudience, ds.Tables.Count > 3 ? ds.Tables[3] : null, AllAudiencesWord, rowfilterAudience, "select audience");
+        }
+    }
 
-            DataRow[] drs = dt.Select(rowfilterLib);
+    private static string BuildRowFilter(string qsValue)
+    {
+        string escaped = qsValue.Replace("'", "''");
+        int id;
+        if (int.TryParse(qsValue, out id))
+            return "id = " + id;
+        return "seo = '" + escaped + "'";
+    }
+
+    private void BindFilterDropdown(DropDownList ddl, DataTable dt, string emptyText, string rowFilter, string ariaLabel)
+    {
+        ddl.Items.Clear();
+        if (dt != null && dt.Rows.Count > 0)
+        {
+            ddl.DataSource = dt;
+            ddl.DataBind();
+        }
+        ddl.Items.Insert(0, new ListItem(emptyText, ""));
+        ddl.Attributes.Add("aria-label", ariaLabel);
+
+        if (!String.IsNullOrEmpty(rowFilter) && dt != null)
+        {
+            DataRow[] drs = dt.Select(rowFilter);
             if (drs.Length == 1)
-            {
-                ddlLib.SelectedValue = drs[0]["id"].ToString();
-            }
-            #endregion
-
-            #region Categories
-            DataTable dtcateg = ds.Tables[1];
-            if (dtcateg.Rows.Count > 0)
-            {
-
-                #region Category
-                ddlCateg.DataSource = dtcateg;
-                ddlCateg.DataBind();
-                ddlCateg.Items.Insert(0, new ListItem(SelectWord, ""));
-                ddlCateg.Attributes.Add("aria-label", "select category");
-
-                drs = dtcateg.Select("id = 0");
-                if (rowfilterCat != "")
-                {
-                    drs = dtcateg.Select(rowfilterCat);
-                    if (drs.Length == 1)
-                    {
-                        ddlCateg.SelectedValue = drs[0]["id"].ToString();
-                    }
-                }
-                #endregion
-
-                #region Subcategory
-                DataTable dtSubcateg = ds.Tables[2];
-                if (dtSubcateg.Rows.Count > 0)
-                {
-                    ddlSubcateg.DataSource = dtSubcateg;
-                    ddlSubcateg.DataBind();
-                    ddlSubcateg.Items.Insert(0, new ListItem(SelectWord, ""));
-
-                    drs = dtSubcateg.Select("id = 0");
-                    if (rowfilterSubcat != "")
-                    {
-                        drs = dtSubcateg.Select(rowfilterSubcat);
-                        if (drs.Length == 1)
-                        {
-                            ddlSubcateg.SelectedValue = drs[0]["id"].ToString();
-                        }
-                    }
-                }
-                else
-                {
-                    //this.Page.ClientScript.RegisterClientScriptBlock(GetType(), "hide_Categ", "$(document).ready(function () {$('#sub-filter div').hide();});", true);
-                    ddlSubcateg.Items.Insert(0, new ListItem(SelectWord, ""));
-
-                }
-                ddlSubcateg.Attributes.Add("aria-label", "select subcategory");
-
-                #endregion
-            }
-            else
-            {
-                //this.Page.ClientScript.RegisterClientScriptBlock(GetType(), "hide_Categ", "$(document).ready(function () {$('#cat-filter div').hide();$('#sub-filter div').hide();});", true);
-                ddlCateg.Items.Insert(0, new ListItem(SelectWord, ""));
-                ddlSubcateg.Items.Insert(0, new ListItem(SelectWord, ""));
-
-            }
-            #endregion
-
+                ddl.SelectedValue = drs[0]["id"].ToString();
         }
     }
 }

@@ -3,7 +3,7 @@
 <script>
     $(document).ready(function () {
 
-        $("#result-items input[type='submit']").click(function () {
+        $("#resSearchResults").on("click", "#result-items input[type='submit']", function () {
             $("#<%=hfDownloadId.ClientID%>").val($(this).attr("id"));
         });
     });

@@ -36,9 +36,108 @@
 }
 /*#endregion */
 /*#region Resources */
-.row-filter {
+.res-search-filters {
+    width: 100%;
+}
+
+.row-search {
+    background: #3a3a3a;
+    padding: 28px 20px 32px;
+    text-align: center;
+}
+
+.row-search .search-heading {
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 400;
+    margin: 0 0 16px 0;
+}
+
+.row-search #search-filter {
+    position: relative;
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    align-items: stretch;
+    gap: 10px;
+    overflow: visible;
+    background: transparent;
+}
+
+.row-search #search-filter input {
+    flex: 1;
+    width: auto !important;
+    margin-top: 0;
+    background: #ffffff url('/Images/res-search-icon.svg') no-repeat 12px center;
+    background-size: 18px auto;
+    padding: 10px 16px 10px 40px;
+    color: #333333;
+    border-radius: 2px;
+    height: 42px;
+    box-sizing: border-box;
+}
+
+.row-search #search-filter button {
+    position: static !important;
+    width: auto !important;
+    height: 42px !important;
+    font-size: 16px !important;
+    font-weight: 600;
+    background: var(--purple) !important;
+    background-image: none !important;
+    color: #ffffff;
+    padding: 0 22px;
+    border-radius: 2px;
+    cursor: pointer;
+    opacity: 1 !important;
+}
+
+.row-search .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+}
+
+.res-search-filters .row-filter {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr auto;
+    align-items: end;
+    background: #f2f2f2;
+    padding: 18px 20px;
+    margin: 0 auto 20px auto;
+}
+
+.res-search-filters .row-filter label {
+    text-transform: none;
+    color: #333333;
+    font-size: 14px;
+    font-weight: 400;
+    display: block;
+}
+
+#apply-filter button {
+    background: var(--purple);
+    color: #ffffff;
+    border: 0;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px 18px;
+    margin-top: 22px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+@media only screen and (max-width: 767px) {
+    .res-search-filters .row-filter {
+        grid-template-columns: 1fr;
+    }
+
+    .row-search #search-filter {
+        flex-direction: row;
+        padding: 0;
+    }
 }
 
 .row-filter span,
