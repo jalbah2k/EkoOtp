@@ -21,6 +21,8 @@ public partial class EKO_Res_Libraries : System.Web.UI.UserControl
     {
         _seo = this.Page.RouteData.Values["seo"].ToString().ToLower();
 
+        EKO_Filters.NavigateToResourcesOnApply = true;
+
         if (
             //!IsPostBack 
             //&& 
@@ -29,6 +31,7 @@ public partial class EKO_Res_Libraries : System.Web.UI.UserControl
             string seo = "";
             if ((seo = this.Page.RouteData.Values["id"].ToString()) != "")
             {
+                EKO_Filters.InitialLibrarySeo = seo;
                 PopulateCat(seo);
                 return;
             }
@@ -77,7 +80,7 @@ public partial class EKO_Res_Libraries : System.Web.UI.UserControl
 
 
             if (dt.Rows.Count > 0)
-                EKO_Breadcrumbs1.Content = "Resources> <h1>Select a Library:</h1>";
+                litPageHeading.Text = "<h1 class='res-page-heading'>SELECT A LIBRARY</h1>";
 
             if (repeaterLibrary.Items.Count > 0)
                 litEKOTitle.Text = "<h2>EKO resources</h2>";
@@ -142,7 +145,7 @@ public partial class EKO_Res_Libraries : System.Web.UI.UserControl
 
             if (dt.Rows.Count > 0)
             {
-                EKO_Breadcrumbs1.Content = String.Format("<a href='/{0}'>Resources</a>> {1} <h1> Select a Category:</h1>", _seo, dt.Rows[0]["library"].ToString());
+                litCategoryHeading.Text = "<h1 class='res-page-heading'>Select a Category:</h1>";
 
                 repeaterCategory.DataSource = dv;
                 repeaterCategory.DataBind();

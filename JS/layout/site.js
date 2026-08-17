@@ -23,7 +23,10 @@ $(document).ready(function () {
     });
 
     $( "#mobileSearch" ).click(function() {
-      $( "#btnSearchRes" ).click();
+      if ($("#btnKeywordSearch").length)
+        $("#btnKeywordSearch").click();
+      else
+        $( "#btnSearchRes" ).click();
     });
 
     $("#mobileSearchDir").click(function () {

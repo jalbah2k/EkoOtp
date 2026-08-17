@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 public partial class Filters : System.Web.UI.UserControl
 {
     public AfterFiltersLoaded doSearch;
+    public bool NavigateToResourcesOnApply;
+    public string InitialLibrarySeo;
 
     #region Properties 
     public string LibraryId
@@ -46,11 +48,11 @@ public partial class Filters : System.Web.UI.UserControl
     { 
         get 
         {
-            string sret = "";
             if (Request.QueryString["library"] != null)
-                sret =  Request.QueryString["library"];
-
-            return sret;
+                return Request.QueryString["library"];
+            if (!String.IsNullOrEmpty(InitialLibrarySeo))
+                return InitialLibrarySeo;
+            return "";
         } 
     }
     public string Category
@@ -118,6 +120,18 @@ public partial class Filters : System.Web.UI.UserControl
     public string AllCategoriesWord = "All categories";
     public string AllFormatsWord = "All formats";
     public string AllAudiencesWord = "All audiences";
+
+    public string ResourcesPagePath
+    {
+        get { return "/" + ConfigurationManager.AppSettings["Resources.Page"]; }
+    }
+
+    public string LibraryPagePath
+    {
+        get { return "/reslibrary"; }
+    }
+
+    protected bool ShowClearButton;
     #endregion
 
     protected void Page_Load(object sender, EventArgs e)
@@ -126,9 +140,11 @@ public partial class Filters : System.Web.UI.UserControl
         {
             PopulateDDLs();
             txtSearch.Text = SearchTerm;
+            ShowClearButton = HasActiveFilters();
         }
 
-        doSearch();
+        if (doSearch != null && !NavigateToResourcesOnApply)
+            doSearch();
     }
 
     private void PopulateDDLs()
@@ -202,5 +218,14 @@ public partial class Filters : System.Web.UI.UserControl
             if (drs.Length == 1)
                 ddl.SelectedValue = drs[0]["id"].ToString();
         }
+    }
+
+    private bool HasActiveFilters()
+    {
+        return !String.IsNullOrEmpty(ddlLib.SelectedValue)
+            || !String.IsNullOrEmpty(ddlCateg.SelectedValue)
+            || !String.IsNullOrEmpty(ddlFormat.SelectedValue)
+            || !String.IsNullOrEmpty(ddlAudience.SelectedValue)
+            || !String.IsNullOrEmpty(txtSearch.Text.Trim());
     }
 }

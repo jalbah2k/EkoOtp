@@ -77,6 +77,46 @@
         };
     }
 
+    var filterNavigateToResources = <%= NavigateToResourcesOnApply ? "true" : "false" %>;
+    var resourcesPageUrl = '<%=ResourcesPagePath%>';
+    var libraryPageUrl = '<%=LibraryPagePath%>';
+
+    function hasActiveFilters() {
+        var v = getFilterPayload();
+        return !!(v.lib || v.cat || v.format || v.audience || $.trim(v.search || ""));
+    }
+
+    function toggleClearButton() {
+        if (hasActiveFilters())
+            $('#btnClearFilters').show();
+        else
+            $('#btnClearFilters').hide();
+    }
+
+    function buildResourcesUrl(keywordOnly) {
+        var v = getFilterPayload();
+        var parts = [];
+        if (keywordOnly) {
+            if ($.trim(v.search || ""))
+                parts.push('search_term=' + encodeURIComponent($.trim(v.search)));
+            parts.push('save=1');
+            return resourcesPageUrl + '?' + parts.join('&');
+        }
+        if (v.lib)
+            parts.push('library=' + encodeURIComponent(v.lib));
+        if (v.cat)
+            parts.push('category=' + encodeURIComponent(v.cat));
+        if (v.format)
+            parts.push('format=' + encodeURIComponent(v.format));
+        if (v.audience)
+            parts.push('audience=' + encodeURIComponent(v.audience));
+        if ($.trim(v.search || ""))
+            parts.push('search_term=' + encodeURIComponent($.trim(v.search)));
+        if (parts.length)
+            parts.push('save=1');
+        return resourcesPageUrl + (parts.length ? '?' + parts.join('&') : '');
+    }
+
     function applyFilters(myvalue) {
         $.ajax({
             type: "POST",
@@ -90,6 +130,7 @@
 
                 helpers.updateSearchResults(response[0].items, $('#result-items'));
                 helpers.updateSearchResults(response[0].header, $('#div-plHeader'));
+                helpers.changeUrl(buildResourcesUrl(false));
             },
             error: function (xhr, status, errorThrown) {
                 alert(status + " | " + xhr.responseText);
@@ -125,17 +166,24 @@
         $('#<%=ddlLib.ClientID%>').change(function () {
 
             var keywords = $('#<%=txtSearch.ClientID%>').val();
+            toggleClearButton();
 
             if ($(this).val() == "") {
                 var qstring = "";
                 if (keywords != "")
                     qstring = '?search_term=' + keywords;
 
-                helpers.changeQS(qstring);
+                if (!filterNavigateToResources)
+                    helpers.changeQS(qstring);
             }
 
             var myvalue = getFilterPayload();
             myvalue.lib = $(this).val();
+
+            if (!myvalue.lib) {
+                helpers.clearDropdown($('#<%=ddlCateg.ClientID%>'), '<%=AllCategoriesWord%>');
+                return;
+            }
 
             $.ajax({
                 type: "POST",
@@ -150,7 +198,7 @@
                         '<%=AllCategoriesWord%>'
                     );
 
-                    if (response != null && response.length > 0) {
+                    if (!filterNavigateToResources && response != null && response.length > 0) {
                         var qstring = '?library=' + response[0].libseo;
                         if (keywords != "")
                             qstring += '&search_term=' + keywords;
@@ -165,6 +213,10 @@
         });
 
         $('#<%=ddlCateg.ClientID%>').change(function () {
+            toggleClearButton();
+            if (filterNavigateToResources)
+                return;
+
             var newvalue = "unset";
             var selected = $(this).find('option:selected');
             if ($(this).val() != "")
@@ -174,11 +226,23 @@
             helpers.changeUrl(newurl);
         });
 
+        $('#<%=ddlFormat.ClientID%>, #<%=ddlAudience.ClientID%>').change(function () {
+            toggleClearButton();
+        });
+
+        $('#<%=txtSearch.ClientID%>').on('input', function () {
+            toggleClearButton();
+        });
+
         $('#btnApplyFilters').click(function () {
             var myvalue = getFilterPayload();
             if (!myvalue.lib && !myvalue.cat && !myvalue.format && !myvalue.audience) {
                 if ($.trim(myvalue.search || "") === "")
                     return;
+                if (filterNavigateToResources) {
+                    window.location = buildResourcesUrl(true);
+                    return;
+                }
                 myvalue.lib = "";
                 myvalue.cat = "";
                 myvalue.format = "";
@@ -186,11 +250,29 @@
                 searchResources(myvalue);
                 return;
             }
+            if (filterNavigateToResources) {
+                window.location = buildResourcesUrl(false);
+                return;
+            }
             applyFilters(myvalue);
         });
 
-        $('#btnSearchRes, #mobileSearch').click(function () {
+        $('#btnClearFilters').click(function () {
+            if (filterNavigateToResources) {
+                window.location = libraryPageUrl;
+                return;
+            }
+            window.location = resourcesPageUrl;
+        });
+
+        $('#btnKeywordSearch, #mobileSearch').click(function () {
             var myvalue = getFilterPayload();
+            if (filterNavigateToResources) {
+                if (!$.trim(myvalue.search || ""))
+                    return;
+                window.location = buildResourcesUrl(true);
+                return;
+            }
             myvalue.lib = "";
             myvalue.cat = "";
             myvalue.format = "";
@@ -200,13 +282,15 @@
                 $("#format-filter, #audience-filter, #apply-filter, #cat-filter, #lib-filter, #mobBtnWrap").toggle();
         });
 
-        $('#<%=txtSearch.ClientID%>').keypress(function (e) {
+        $('#<%=txtSearch.ClientID%>').keydown(function (e) {
             if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
-                $('#btnSearchRes').click(); return false;
+                e.preventDefault();
+                $('#btnKeywordSearch').click();
+                return false;
             }
-            else
-                return true;
         });
+
+        toggleClearButton();
     });
 </script>
 
@@ -216,7 +300,7 @@
         <div id="search-filter">
             <label for="<%=txtSearch.ClientID %>" class="sr-only">Search</label>
             <asp:TextBox runat="server" ID="txtSearch" placeholder="Search resources..."></asp:TextBox>
-            <button type="button" id="btnSearchRes">Search</button>
+            <button type="button" id="btnKeywordSearch">Search</button>
         </div>
     </div>
 
@@ -237,8 +321,9 @@
             <label for="<%=ddlAudience.ClientID %>">Audience</label>
             <asp:DropDownList runat="server" ID="ddlAudience" DataTextField="name" DataValueField="id"></asp:DropDownList>
         </div></div>
-        <div id="apply-filter"><div>
+        <div id="apply-filter"><div class="filter-actions">
             <button type="button" id="btnApplyFilters">Apply filters</button>
+            <button type="button" id="btnClearFilters" class="btn-clear-filters"<%= ShowClearButton ? "" : " style=\"display:none\"" %>>Clear</button>
         </div></div>
         <div id="mobBtnWrap">
             <div id="closeMob">Close</div>

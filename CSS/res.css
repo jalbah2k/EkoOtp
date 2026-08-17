@@ -60,7 +60,7 @@
     display: flex;
     align-items: stretch;
     gap: 10px;
-    overflow: visible;
+    overflow: visible !important;
     background: transparent;
 }
 
@@ -127,6 +127,26 @@
     margin-top: 22px;
     cursor: pointer;
     white-space: nowrap;
+}
+
+.filter-actions {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+#apply-filter button.btn-clear-filters {
+    background: #ffffff;
+    color: #555555;
+    border: 1px solid #cfcfcf;
+}
+
+h1.res-page-heading {
+    margin: 24px 0 8px 0;
+    font-size: 25px;
+    text-transform: uppercase;
+    background: transparent !important;
+    padding: 0 !important;
 }
 
 @media only screen and (max-width: 767px) {
