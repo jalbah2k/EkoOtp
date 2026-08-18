@@ -103,6 +103,30 @@ public partial class Admin_Controls_Resources : System.Web.UI.UserControl
         ddlIcon.DataSource = DV;
         ddlIcon.DataBind();
         ddlIcon.Items.Insert(0, "");
+
+        BindMetadataLookups();
+    }
+
+    private void BindMetadataLookups()
+    {
+        ddlFormat.Items.Clear();
+        cblAudience.Items.Clear();
+        try
+        {
+            DataTable dtFormats = MyDAL_Resources.getSTable_Text("select id, name from ResourceFormats order by isnull(SortOrder, 999), name");
+            ddlFormat.DataSource = dtFormats;
+            ddlFormat.DataBind();
+        }
+        catch { }
+        ddlFormat.Items.Insert(0, new ListItem("", ""));
+
+        try
+        {
+            DataTable dtAudiences = MyDAL_Resources.getSTable_Text("select id, name from ResourceAudiences order by isnull(SortOrder, 999), name");
+            cblAudience.DataSource = dtAudiences;
+            cblAudience.DataBind();
+        }
+        catch { }
     }
 
     private void PopulateResourcesGroupCategories(string language)
@@ -978,6 +1002,11 @@ public partial class Admin_Controls_Resources : System.Web.UI.UserControl
         tbDesc.Text = "";
         litDocu.Text = "";
         tbKeywords.Text = "";
+        tbAuthor.Text = "";
+        txtPublishedDate.Text = "";
+        ddlFormat.ClearSelection();
+        foreach (ListItem li in cblAudience.Items)
+            li.Selected = false;
 
         hfCheckedBoxes.Value = "";
         litErr.Text = "";
@@ -1136,6 +1165,7 @@ public partial class Admin_Controls_Resources : System.Web.UI.UserControl
 
                 string resourceid = ResourceID = MyDAL_Resources.ExecuteQuery(sql, prms, 120).ToString();
 
+                SaveResourceMetadata(resourceid);
                 SaveCategories(resourceid, CheckedBoxes);
 
                 if (isVideo)
@@ -1199,6 +1229,76 @@ public partial class Admin_Controls_Resources : System.Web.UI.UserControl
 
         //litErr.Text = "<span style='color:red;'>Select at least one category</span><br>";
         //return false;
+    }
+
+    private void SaveResourceMetadata(string resourceid)
+    {
+        if (String.IsNullOrEmpty(resourceid))
+            return;
+
+        List<SqlParameter> meta = new List<SqlParameter>();
+        meta.Add(new SqlParameter("@id", resourceid));
+        meta.Add(new SqlParameter("@Author", String.IsNullOrWhiteSpace(tbAuthor.Text) ? (object)DBNull.Value : tbAuthor.Text.Trim()));
+        DateTime publishedDate;
+        if (!String.IsNullOrWhiteSpace(txtPublishedDate.Text) && DateTime.TryParse(txtPublishedDate.Text, out publishedDate))
+            meta.Add(new SqlParameter("@PublishedDate", publishedDate.Date));
+        else
+            meta.Add(new SqlParameter("@PublishedDate", DBNull.Value));
+        if (!String.IsNullOrEmpty(ddlFormat.SelectedValue))
+            meta.Add(new SqlParameter("@Format", ddlFormat.SelectedValue));
+        else
+            meta.Add(new SqlParameter("@Format", DBNull.Value));
+
+        try
+        {
+            MyDAL_Resources.ExecuteNonQuery(
+                "update Resources set Author=@Author, PublishedDate=@PublishedDate, Format=@Format where id=@id",
+                meta, CommandType.Text);
+        }
+        catch { }
+
+        try
+        {
+            List<SqlParameter> del = new List<SqlParameter>();
+            del.Add(new SqlParameter("@ResourceId", resourceid));
+            MyDAL_Resources.ExecuteNonQuery("delete from Resource_Audience_Link where ResourceId=@ResourceId", del, CommandType.Text);
+
+            foreach (ListItem li in cblAudience.Items)
+            {
+                if (!li.Selected)
+                    continue;
+                List<SqlParameter> ins = new List<SqlParameter>();
+                ins.Add(new SqlParameter("@ResourceId", resourceid));
+                ins.Add(new SqlParameter("@AudienceId", li.Value));
+                MyDAL_Resources.ExecuteNonQuery(
+                    "insert into Resource_Audience_Link (ResourceId, AudienceId) values(@ResourceId, @AudienceId)",
+                    ins, CommandType.Text);
+            }
+        }
+        catch { }
+    }
+
+    private void BindSelectedAudiences()
+    {
+        foreach (ListItem li in cblAudience.Items)
+            li.Selected = false;
+
+        if (String.IsNullOrEmpty(ResourceID))
+            return;
+
+        try
+        {
+            List<SqlParameter> parms = new List<SqlParameter>();
+            parms.Add(new SqlParameter("@id", ResourceID));
+            DataTable dtAud = MyDAL_Resources.getTables("select AudienceId from Resource_Audience_Link where ResourceId=@id", parms.ToArray(), CommandType.Text).Tables[0];
+            foreach (DataRow row in dtAud.Rows)
+            {
+                ListItem li = cblAudience.Items.FindByValue(row["AudienceId"].ToString());
+                if (li != null)
+                    li.Selected = true;
+            }
+        }
+        catch { }
     }
 
     private void SaveCategories(string resourceid, string[] checkedBoxes)
@@ -1305,6 +1405,19 @@ public partial class Admin_Controls_Resources : System.Web.UI.UserControl
             tbTitle.Text = rw["Title"].ToString();
             tbDesc.Text = rw["Description"].ToString();
             tbKeywords.Text = rw["Keywords"].ToString();
+            tbAuthor.Text = rw.Table.Columns.Contains("Author") ? rw["Author"].ToString() : "";
+            if (rw.Table.Columns.Contains("PublishedDate") && rw["PublishedDate"] != DBNull.Value)
+                txtPublishedDate.Text = Convert.ToDateTime(rw["PublishedDate"]).ToString("yyyy-MM-dd");
+            else
+                txtPublishedDate.Text = "";
+
+            if (rw.Table.Columns.Contains("Format") && rw["Format"] != DBNull.Value)
+            {
+                try { ddlFormat.SelectedValue = rw["Format"].ToString(); }
+                catch { }
+            }
+
+            BindSelectedAudiences();
             cbShow.Checked = rw["Show"].ToString().ToLower() == "true" ? false : true;
             ddlIcon.SelectedValue = rw["IconType"].ToString();
 

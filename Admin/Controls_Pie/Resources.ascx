@@ -530,6 +530,35 @@ strong{
                                 <td><asp:TextBox ID="tbKeywords" runat="server" Width='500px' CssClass='firstname tbFullName textbox' MaxLength="2000" ></asp:TextBox>
                                 </td>
                                 <td></td>
+                            </tr>
+                            <tr>
+                                <td>Author:</td>
+                                <td><asp:TextBox ID="tbAuthor" runat="server" Width='500px' CssClass='firstname tbFullName textbox' MaxLength="500" ></asp:TextBox>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Published Date:</td>
+                                <td>
+                                    <asp:TextBox Width="100" CssClass="textbox dates" ID="txtPublishedDate" runat="server" />
+                                    <asp:Image ID="imgPublishedDate" ImageUrl="/images/icons/datepicker.gif" runat="server" />
+                                    <cc1:CalendarExtender ID="calPublishedDate" Format="yyyy-MM-dd" PopupPosition="BottomLeft" TargetControlID="txtPublishedDate" runat="server" PopupButtonID="imgPublishedDate" />
+                                    <cc1:TextBoxWatermarkExtender TargetControlID="txtPublishedDate" WatermarkText="yyyy-MM-dd" WatermarkCssClass="watermarked" runat="server" Enabled="True" ID="txtPublishedDateExtender"></cc1:TextBoxWatermarkExtender>
+                                    <asp:CompareValidator ID="cvPublishedDate" runat="server" ControlToValidate="txtPublishedDate" Operator="DataTypeCheck" Type="Date" ErrorMessage="Published date invalid" Display="Dynamic" SetFocusOnError="True" ValidationGroup="Resource"></asp:CompareValidator>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Format:</td>
+                                <td><asp:DropDownList runat="server" ID="ddlFormat" CssClass="dropdownlist" DataTextField="name" DataValueField="id"></asp:DropDownList>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align:top; padding-top:10px;">Audience:</td>
+                                <td><asp:CheckBoxList runat="server" ID="cblAudience" CssClass="cb-enhanced" DataTextField="name" DataValueField="id"></asp:CheckBoxList>
+                                </td>
+                                <td></td>
                             </tr>                             
     
                             <tr><td>Resource Library / Link:</td><td>

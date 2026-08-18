@@ -13,11 +13,11 @@
             success: function (response) {                
                // alert(response);
                 if (response == true) {
-                    $('button.favBtn').addClass("favourite");
+                    $('button.favBtn').addClass("favourite").attr("aria-pressed", "true");
                     $('#resLibCatBread').addClass("favourite");
                 }
                 else {
-                    $('button.favBtn').removeClass("favourite");
+                    $('button.favBtn').removeClass("favourite").attr("aria-pressed", "false");
                     $('#resLibCatBread').removeClass("favourite");
                 }
             },

@@ -61,7 +61,7 @@ public partial class EKO_Res_Libraries : System.Web.UI.UserControl
                 if (rw["qty"].ToString() != "0")
                 {
                     Literal litContent = new Literal();
-                    string s = "<a href='{3}'><div class='{2}'><h2>{0}</h2><br><h3>Favourites</h3><br>{1}</div></a>";
+                    string s = "<a href='{3}' class='{2}'><div class='{2}'><h2>{0}</h2><h3>Favourites</h3><span class='viewLink'>{1}</span></div></a>";
                     s = String.Format(s, "My Resources", "view resources (" + rw["qty"].ToString() + ")", "myresources", "/myfavourites");
 
                     litContent.Text = s;
