@@ -57,6 +57,11 @@ strong{
     width:155px;
 }
 
+select[multiple].dropdownlist option:checked {
+    background: #316ac5 linear-gradient(0deg, #316ac5 0%, #316ac5 100%);
+    color: #fff;
+    -webkit-text-fill-color: #fff;
+}
 </style>
 
 <div class="admin-header-wrapper noprint">
@@ -526,12 +531,27 @@ strong{
                                 <td></td>
                             </tr> 
                             <tr>
+                                <td>Author:</td>
+                                <td><asp:TextBox ID="tbAuthor" runat="server" Width='500px' CssClass='firstname tbFullName textbox' MaxLength="250" ></asp:TextBox>
+                                </td>
+                                <td></td>
+                            </tr>   
+                            <tr>
+                                <td>Published Date</td>
+                                <td>
+                                    <div class="datepicker-wraper">
+                                        <asp:TextBox ID="tbDate" runat="server" />
+                                        <asp:ImageButton ID="Img_EventDate_Start" runat="Server" AlternateText="Click to show calendar" CausesValidation="False" ImageUrl="/images/lemonaid/buttonsNew/datepicker.png" />
+                                        <cc1:CalendarExtender ID="Cal_Start_Date" runat="server" Format="yyyy-MM-dd" PopupButtonID="Img_EventDate_Start" TargetControlID="tbDate" />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>Keywords:</td>
                                 <td><asp:TextBox ID="tbKeywords" runat="server" Width='500px' CssClass='firstname tbFullName textbox' MaxLength="2000" ></asp:TextBox>
                                 </td>
                                 <td></td>
                             </tr>                             
-    
                             <tr><td>Resource Library / Link:</td><td>
                                 <asp:RadioButtonList RepeatDirection="Horizontal" runat="server" ID="rblType" CssClass="rb-enhanced">
                                     <asp:ListItem Text="Document" Value="1" Selected="True"></asp:ListItem>
@@ -544,6 +564,19 @@ strong{
                                 </td>
                                 <td>&nbsp;<asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Url Required" SetFocusOnError="True" ValidationGroup="Resource" ControlToValidate="tbUrl">*</asp:RequiredFieldValidator></td>
                             </tr>
+
+                             <tr>
+                                <td style="vertical-align:top">Audience:</td>
+                                <td><asp:ListBox runat="server" ID="ddlAudience" SelectionMode="Multiple"  Height="170" CssClass="dropdownlist"  DataTextField="name" DataValueField="id"></asp:ListBox>
+                                </td>
+                                <td>&nbsp;<asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Audience Required" SetFocusOnError="True" ValidationGroup="Resource" ControlToValidate="ddlAudience">*</asp:RequiredFieldValidator></td>
+                            </tr> 
+                             <tr>
+                                <td>Format:</td>
+                                <td><asp:DropDownList runat="server" ID="ddlFormats" CssClass="dropdownlist"  DataTextField="name" DataValueField="id"></asp:DropDownList>
+                                </td>
+                                <td>&nbsp;<asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Format Required" SetFocusOnError="True" ValidationGroup="Resource" ControlToValidate="ddlFormats">*</asp:RequiredFieldValidator></td>
+                            </tr> 
 
                              <tr>
                                 <td>Icon Selection:</td>

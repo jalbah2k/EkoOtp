@@ -56,6 +56,8 @@ public partial class Admin_Controls_Resources : System.Web.UI.UserControl
                 "   )" +
                 "order by LTRIM(title)";
             sqlcmd += " select IconGroup from ResourceDocuTypes group by IconGroup order by IconGroup";
+            sqlcmd += " select * from Audiences ";
+            sqlcmd += " select * from Formats ";
             
             SqlDataAdapter dapt = new SqlDataAdapter(sqlcmd, conn);
             dapt.SelectCommand.Parameters.AddWithValue("@userid", Session["LoggedInID"].ToString());
@@ -103,6 +105,14 @@ public partial class Admin_Controls_Resources : System.Web.UI.UserControl
         ddlIcon.DataSource = DV;
         ddlIcon.DataBind();
         ddlIcon.Items.Insert(0, "");
+
+        ddlAudience.DataSource = ds.Tables[5];
+        ddlAudience.DataBind();
+
+        ddlFormats.DataSource = ds.Tables[6];
+        ddlFormats.DataBind();
+        ddlFormats.Items.Insert(0, "");
+
     }
 
     private void PopulateResourcesGroupCategories(string language)
@@ -978,6 +988,8 @@ public partial class Admin_Controls_Resources : System.Web.UI.UserControl
         tbDesc.Text = "";
         litDocu.Text = "";
         tbKeywords.Text = "";
+        tbDate.Text = "";
+        tbAuthor.Text = "";
 
         hfCheckedBoxes.Value = "";
         litErr.Text = "";
@@ -988,6 +1000,9 @@ public partial class Admin_Controls_Resources : System.Web.UI.UserControl
 
         ddlOtherResources.ClearSelection();
         ddlIcon.ClearSelection();
+
+        ddlAudience.ClearSelection();
+        ddlFormats.ClearSelection();
 
     }
 
@@ -1046,7 +1061,11 @@ public partial class Admin_Controls_Resources : System.Web.UI.UserControl
                 prms.Add(new SqlParameter("@Keywords", tbKeywords.Text));
                 prms.Add(new SqlParameter("@Show", cbShow.Checked ? 0 : 1));
                 prms.Add(new SqlParameter("@icon", ddlIcon.SelectedValue));
-                
+                prms.Add(new SqlParameter("@format", ddlFormats.SelectedValue));
+
+                prms.Add(new SqlParameter("@author", tbAuthor.Text));
+                prms.Add(new SqlParameter("@publisheddate", tbDate.Text));
+
 #if MULTI_LANGUAGE
         prms.Add(new SqlParameter("@LanguageId", ddlLanguage2.SelectedValue));
 #else
@@ -1135,6 +1154,37 @@ public partial class Admin_Controls_Resources : System.Web.UI.UserControl
 
 
                 string resourceid = ResourceID = MyDAL_Resources.ExecuteQuery(sql, prms, 120).ToString();
+
+                #region Save Audiences into Resource
+                {
+                    string s = "";
+                    foreach (ListItem item in ddlAudience.Items)
+                    {
+                        if (item.Selected)
+                        {
+                            if (s != "")
+                                s += ",";
+
+                            s += item.Value;
+                        }
+                    }
+
+                    string sql_audience_upd = "delete from Resource_Audience_Link where ResourceId=@ResourceId; " +
+                        "insert into Resource_Audience_Link (ResourceId, AudienceId) " +
+                        "select @ResourceId, item from dbo.fSplitString(@audiences, ',')";
+
+                    List<SqlParameter> parameters = new List<SqlParameter>();
+                    parameters.Add(new SqlParameter("@ResourceId", resourceid));
+                    parameters.Add(new SqlParameter("@audiences", s));
+
+                    // try 
+                    {
+                        MyDAL_Resources.ExecuteNonQuery(sql_audience_upd, parameters, CommandType.Text);
+                    }
+                    //   catch { }
+                } 
+                #endregion
+
 
                 SaveCategories(resourceid, CheckedBoxes);
 
@@ -1307,6 +1357,18 @@ public partial class Admin_Controls_Resources : System.Web.UI.UserControl
             tbKeywords.Text = rw["Keywords"].ToString();
             cbShow.Checked = rw["Show"].ToString().ToLower() == "true" ? false : true;
             ddlIcon.SelectedValue = rw["IconType"].ToString();
+            ddlFormats.SelectedValue = rw["Format"].ToString();
+
+            tbAuthor.Text = rw["Author"].ToString(); 
+            if(rw["PublishedDate"] != DBNull.Value)
+                tbDate.Text = Convert.ToDateTime(rw["PublishedDate"]).ToString("yyyy-MM-dd"); 
+
+            foreach (DataRow dr in ds.Tables[1].Rows)
+            {
+                ListItem li = ddlAudience.Items.FindByValue(dr["AudienceId"].ToString());
+                if (li != null)
+                    li.Selected = true;
+            }
 
             if ((rblType.SelectedValue = (rw["IsDocument"].ToString().ToLower() == "true" ? "1" : "0")) == "1")
             {
