@@ -1,0 +1,827 @@
+﻿
+html.eko-whoiswho-page,
+html.eko-whoiswho-page body {
+	box-sizing: border-box;
+}
+
+	html.eko-whoiswho-page *,
+	body.eko-whoiswho-page * {
+		box-sizing: border-box;
+	}
+
+	html.eko-whoiswho-page #ContentTBL,
+	html.eko-whoiswho-page [id$="ContentTBL"],
+	html.eko-whoiswho-page img[src*="modifyarea"],
+	html.eko-whoiswho-page a[href*="Zone/Zone.aspx"],
+	html.eko-whoiswho-page a[href*="zone=1"],
+	html.eko-whoiswho-page .pnlWidgetToolbar,
+	html.eko-whoiswho-page [id$="pnlWidgetToolbar"],
+	html.eko-whoiswho-page .widget_handle,
+	html.eko-whoiswho-page .Draggable_Widget .widget_handle,
+	html.eko-whoiswho-page .widget_edit_btn,
+	html.eko-whoiswho-page [id$="tdEdit"],
+	html.eko-whoiswho-page .Tibby_Bottom_Button_Enabled_NotHighlighted,
+	html.eko-whoiswho-page a[title="Content Editor"],
+	html.eko-whoiswho-page img[src*="editadmin"],
+	html.eko-whoiswho-page img[src*="help_logo"],
+	html.eko-whoiswho-page a[href*="bluelemonmedia.com/help"],
+	html.eko-whoiswho-page .ekoWalk,
+	html.eko-whoiswho-page .walkPop,
+	html.eko-whoiswho-page .fa-life-ring,
+	html.eko-whoiswho-page .fa-life-saver,
+	body.eko-whoiswho-page #ContentTBL,
+	body.eko-whoiswho-page [id$="ContentTBL"],
+	body.eko-whoiswho-page img[src*="modifyarea"],
+	body.eko-whoiswho-page a[href*="Zone/Zone.aspx"],
+	body.eko-whoiswho-page a[href*="zone=1"],
+	body.eko-whoiswho-page .pnlWidgetToolbar,
+	body.eko-whoiswho-page [id$="pnlWidgetToolbar"],
+	body.eko-whoiswho-page .widget_handle,
+	body.eko-whoiswho-page .Draggable_Widget .widget_handle,
+	body.eko-whoiswho-page .widget_edit_btn,
+	body.eko-whoiswho-page [id$="tdEdit"],
+	body.eko-whoiswho-page .Tibby_Bottom_Button_Enabled_NotHighlighted,
+	body.eko-whoiswho-page a[title="Content Editor"],
+	body.eko-whoiswho-page img[src*="editadmin"],
+	body.eko-whoiswho-page img[src*="help_logo"],
+	body.eko-whoiswho-page a[href*="bluelemonmedia.com/help"],
+	body.eko-whoiswho-page .ekoWalk,
+	body.eko-whoiswho-page .walkPop,
+	body.eko-whoiswho-page .fa-life-ring,
+	body.eko-whoiswho-page .fa-life-saver {
+		display: none !important;
+		visibility: hidden !important;
+		pointer-events: none !important;
+		width: 0 !important;
+		height: 0 !important;
+		overflow: hidden !important;
+	}
+
+	html.eko-whoiswho-page h1::before,
+	html.eko-whoiswho-page h1::after,
+	html.eko-whoiswho-page .div-page-title::before,
+	html.eko-whoiswho-page .insideMemberHome h1::before,
+	body.eko-whoiswho-page h1::before,
+	body.eko-whoiswho-page h1::after,
+	body.eko-whoiswho-page .div-page-title::before,
+	body.eko-whoiswho-page .insideMemberHome h1::before {
+		content: none !important;
+		display: none !important;
+		background: none !important;
+		height: 0 !important;
+		margin: 0 !important;
+		animation: none !important;
+	}
+
+	html.eko-whoiswho-page .breadcrumbs,
+	html.eko-whoiswho-page #breadcrumbs,
+	html.eko-whoiswho-page .eko-who-breadcrumbs,
+	body.eko-whoiswho-page .breadcrumbs,
+	body.eko-whoiswho-page #breadcrumbs,
+	body.eko-whoiswho-page .eko-who-breadcrumbs {
+		display: block !important;
+		visibility: visible !important;
+		width: auto !important;
+		height: auto !important;
+		overflow: visible !important;
+		pointer-events: auto !important;
+		margin: 8px 0 0 !important;
+	}
+
+		html.eko-whoiswho-page .eko-who-breadcrumbs a,
+		body.eko-whoiswho-page .eko-who-breadcrumbs a {
+			display: inline !important;
+			visibility: visible !important;
+			width: auto !important;
+			height: auto !important;
+			overflow: visible !important;
+			pointer-events: auto !important;
+			color: #573494 !important;
+			text-transform: none !important;
+			font-size: 15px !important;
+			font-weight: 400 !important;
+			text-decoration: none !important;
+			padding: 0 !important;
+			position: static !important;
+		}
+
+			html.eko-whoiswho-page .eko-who-breadcrumbs a:hover,
+			body.eko-whoiswho-page .eko-who-breadcrumbs a:hover {
+				text-decoration: underline !important;
+			}
+
+			html.eko-whoiswho-page .eko-who-breadcrumbs a::after,
+			body.eko-whoiswho-page .eko-who-breadcrumbs a::after {
+				content: none !important;
+				display: none !important;
+			}
+
+	html.eko-whoiswho-page .eko-who-crumb-sep {
+		display: inline !important;
+		color: #6A7282 !important;
+		font-size: 15px !important;
+	}
+
+	html.eko-whoiswho-page .eko-who-crumb-current {
+		display: inline !important;
+		color: #6A7282 !important;
+		font-size: 15px !important;
+		text-transform: none !important;
+	}
+
+	html.eko-whoiswho-page .div-page-title {
+		display: block !important;
+		margin: 8px 0 18px !important;
+	}
+
+		html.eko-whoiswho-page .div-page-title h1 {
+			margin: 0 !important;
+		}
+
+	html.eko-whoiswho-page #mainMenu .sm-blue > li > a.current {
+		background: #fff !important;
+		color: #573494 !important;
+		font-weight: 600 !important;
+	}
+
+.eko-who,
+.eko-who * {
+	box-sizing: border-box;
+}
+
+.eko-who {
+	width: 100%;
+	max-width: 100%;
+	margin: 0 0 48px;
+	padding: 0;
+	position: relative;
+	overflow: visible;
+}
+
+.eko-who-crumb {
+	font-size: 15px;
+	color: #6A7282;
+	margin: 8px 0 18px;
+}
+
+	.eko-who-crumb a {
+		color: #573494;
+		text-decoration: none;
+		font-size: 15px;
+		font-weight: 400;
+	}
+
+		.eko-who-crumb a:hover {
+			text-decoration: underline;
+		}
+
+	.eko-who-crumb span {
+		color: #6A7282;
+	}
+
+.eko-who-card {
+	background: #fff;
+	border: 1px solid #E5E7EB;
+	border-radius: 12px;
+	box-shadow: 0 1px 2px rgba(16, 24, 40, .04);
+}
+
+.eko-who-filters {
+	display: grid !important;
+	grid-template-columns: minmax(0, 1fr) minmax(240px, 300px);
+	gap: 12px;
+	padding: 16px;
+	margin-bottom: 16px;
+	align-items: center;
+	overflow: visible !important;
+}
+
+.eko-who-search {
+	position: relative;
+	width: 100%;
+	min-width: 0;
+}
+
+	.eko-who-search input {
+		width: 100%;
+		height: 46px;
+		border: 1px solid #D1D5DC;
+		border-radius: 8px;
+		padding: 0 72px 0 14px;
+		font-size: 16px;
+		color: #1E2939;
+		background: #fff;
+	}
+
+		.eko-who-search input::placeholder {
+			color: #6A7282;
+		}
+
+.eko-who-clear {
+	display: none;
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+	border: 0;
+	background: transparent;
+	color: #573494;
+	font-size: 14px;
+	font-weight: 600;
+	cursor: pointer;
+	padding: 4px 6px;
+}
+
+.eko-who-search.has-text .eko-who-clear {
+	display: inline-block;
+}
+
+.eko-who-org {
+	display: block !important;
+	visibility: visible !important;
+	width: 100% !important;
+	min-width: 240px;
+	position: relative;
+	z-index: 5;
+}
+
+	.eko-who-org select,
+	.eko-who select#ddlOrganization,
+	.eko-who-org select[id$="ddlOrganization"] {
+		display: block !important;
+		visibility: visible !important;
+		opacity: 1 !important;
+		width: 100% !important;
+		min-width: 240px !important;
+		height: 46px !important;
+		min-height: 46px !important;
+		border: 1px solid #D1D5DC !important;
+		border-radius: 8px !important;
+		padding: 0 36px 0 12px !important;
+		font-size: 16px !important;
+		font-weight: 400 !important;
+		color: #1E2939 !important;
+		background-color: #fff !important;
+		background-image: url(/images/arrow-down.svg) !important;
+		background-repeat: no-repeat !important;
+		background-position: right 10px center !important;
+		background-size: 18px auto !important;
+		appearance: none !important;
+		position: relative !important;
+		z-index: 5 !important;
+	}
+
+.eko-who-status {
+	font-size: 14px;
+	color: #6A7282;
+	margin: 0 16px 10px;
+}
+
+.eko-who-table-wrap {
+	overflow-x: auto;
+	overflow-y: visible;
+}
+
+.eko-who-table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+	.eko-who-table th {
+		text-align: left;
+		background: #F5F6F8;
+		color: #6A7282;
+		font-size: 13px;
+		font-weight: 600;
+		letter-spacing: .02em;
+		padding: 12px 16px;
+		border-bottom: 1px solid #F3F4F6;
+		white-space: nowrap;
+	}
+
+	.eko-who-table td {
+		padding: 14px 16px;
+		border-bottom: 1px solid #F3F4F6;
+		vertical-align: middle;
+		font-size: 16px;
+	}
+
+	.eko-who-table tbody tr:hover {
+		background: #FAFAFB;
+	}
+
+.eko-who-name {
+	color: #1E2939;
+	font-weight: 600;
+}
+
+.eko-who-muted {
+	color: #6A7282;
+	font-weight: 400;
+}
+
+.eko-who-avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background: #EDE7F6;
+	color: #573494;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 13px;
+	font-weight: 700;
+	overflow: hidden;
+	flex: 0 0 40px;
+}
+
+	.eko-who-avatar img,
+	.eko-who-profile-avatar img {
+		width: 100%;
+		height: 100%;
+		max-width: none !important;
+		max-height: none !important;
+		object-fit: cover;
+		object-position: center;
+		display: block;
+	}
+
+.eko-who-sort {
+	border: 0;
+	background: transparent;
+	color: inherit;
+	font: inherit;
+	font-weight: 600;
+	cursor: pointer;
+	padding: 0;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+}
+
+	.eko-who-sort .caret {
+		color: #9AA3B2;
+		font-size: 11px;
+	}
+
+.eko-who-view {
+	color: #573494;
+	background: none;
+	border: 0;
+	cursor: pointer;
+	font-size: 15px;
+	font-weight: 600;
+	white-space: nowrap;
+	padding: 0;
+}
+
+	.eko-who-view:hover {
+		text-decoration: underline;
+	}
+
+.eko-who-empty {
+	padding: 28px 16px;
+	text-align: center;
+	color: #6A7282;
+}
+
+#ekoWhoBackdrop,
+.eko-who-backdrop {
+	position: fixed !important;
+	inset: 0 !important;
+	width: 100vw !important;
+	height: 100vh !important;
+	height: 100dvh !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	background: rgba(15, 23, 42, .48) !important;
+	opacity: 0 !important;
+	visibility: hidden !important;
+	pointer-events: none !important;
+	z-index: 2147483000 !important;
+	display: block !important;
+	transition: opacity .2s ease, visibility .2s ease;
+}
+
+	#ekoWhoBackdrop.is-open,
+	.eko-who-backdrop.is-open {
+		opacity: 1 !important;
+		visibility: visible !important;
+		pointer-events: auto !important;
+	}
+
+#ekoWhoPanel,
+.eko-who-panel {
+	position: fixed !important;
+	top: 0 !important;
+	right: 0 !important;
+	bottom: 0 !important;
+	left: auto !important;
+	width: min(460px, 100vw) !important;
+	max-width: 460px !important;
+	min-width: 0 !important;
+	height: 100vh !important;
+	height: 100dvh !important;
+	max-height: 100vh !important;
+	max-height: 100dvh !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	background: #fff !important;
+	color: #1E2939 !important;
+	display: flex !important;
+	flex-direction: column !important;
+	overflow: hidden !important;
+	box-shadow: -10px 0 30px rgba(0, 0, 0, .18) !important;
+	z-index: 2147483001 !important;
+	opacity: 0 !important;
+	visibility: hidden !important;
+	pointer-events: none !important;
+	transform: translate3d(100%, 0, 0) !important;
+	transition: transform .25s ease, opacity .2s ease, visibility .25s ease !important;
+	outline: none !important;
+}
+
+	#ekoWhoPanel.is-open,
+	.eko-who-panel.is-open {
+		opacity: 1 !important;
+		visibility: visible !important;
+		pointer-events: auto !important;
+		transform: translate3d(0, 0, 0) !important;
+	}
+
+body.eko-who-modal-open {
+	overflow: hidden !important;
+}
+
+#ekoWhoPanelInner,
+.eko-who-panel-inner {
+	position: relative !important;
+	width: 100% !important;
+	min-width: 0 !important;
+	height: 100% !important;
+	min-height: 0 !important;
+	padding: 58px 28px 32px !important;
+	background: #fff !important;
+	overflow-x: hidden !important;
+	overflow-y: auto !important;
+	-webkit-overflow-scrolling: touch;
+	overscroll-behavior: contain;
+	scrollbar-width: thin;
+}
+
+	#ekoWhoPanel .eko-who-panel-inner *,
+	#ekoWhoPanelInner * {
+		box-sizing: border-box !important;
+		max-width: 100%;
+	}
+
+	#ekoWhoPanel .eko-who-panel-inner::before,
+	#ekoWhoPanel .eko-who-panel-inner::after,
+	#ekoWhoPanelInner::before,
+	#ekoWhoPanelInner::after {
+		display: none !important;
+		content: none !important;
+	}
+
+#ekoWhoClose,
+.eko-who-close {
+	position: absolute !important;
+	top: 12px !important;
+	right: 12px !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	width: 38px !important;
+	height: 38px !important;
+	min-width: 38px !important;
+	min-height: 38px !important;
+	padding: 0 !important;
+	margin: 0 !important;
+	border: 0 !important;
+	border-radius: 50% !important;
+	background: #fff !important;
+	color: #6A7282 !important;
+	font-family: inherit !important;
+	font-size: 27px !important;
+	line-height: 1 !important;
+	font-weight: 400 !important;
+	cursor: pointer !important;
+	z-index: 2147483002 !important;
+	box-shadow: 0 1px 5px rgba(0, 0, 0, .08);
+}
+
+	#ekoWhoClose:hover,
+	.eko-who-close:hover {
+		color: #573494 !important;
+		background: #F7F5FB !important;
+	}
+
+#ekoWhoPanel .eko-who-profile-head,
+#ekoWhoPanelInner .eko-who-profile-head {
+	width: 100% !important;
+	margin: 0 0 24px !important;
+	padding: 0 !important;
+	display: flex !important;
+	flex-direction: column !important;
+	align-items: center !important;
+	text-align: center !important;
+}
+
+#ekoWhoPanel .eko-who-profile-avatar,
+#ekoWhoPanelInner .eko-who-profile-avatar {
+	width: 100px !important;
+	height: 100px !important;
+	min-width: 100px !important;
+	min-height: 100px !important;
+	margin: 0 auto 14px !important;
+	padding: 0 !important;
+	border-radius: 50% !important;
+	overflow: hidden !important;
+	background: #EDE7F6 !important;
+	color: #573494 !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	font-size: 28px !important;
+	font-weight: 700 !important;
+	flex-shrink: 0 !important;
+}
+
+#ekoWhoPanel .eko-who-profile-head h2,
+#ekoWhoPanelInner .eko-who-profile-head h2 {
+	width: 100% !important;
+	margin: 0 0 4px !important;
+	padding: 0 !important;
+	color: #30216F !important;
+	font-size: 25px !important;
+	line-height: 1.25 !important;
+	font-weight: 600 !important;
+	overflow-wrap: anywhere !important;
+	word-break: break-word !important;
+}
+
+#ekoWhoPanel .eko-who-pronouns,
+#ekoWhoPanelInner .eko-who-pronouns {
+	margin: 4px 0 0 !important;
+	padding: 0 !important;
+	color: #6A7282 !important;
+	font-size: 14px !important;
+}
+
+#ekoWhoPanel .eko-who-pm,
+#ekoWhoPanelInner .eko-who-pm {
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	width: 100% !important;
+	min-height: 48px !important;
+	margin: 0 0 24px !important;
+	padding: 12px 16px !important;
+	border: 0 !important;
+	border-radius: 9px !important;
+	background: #573494 !important;
+	color: #fff !important;
+	font-size: 16px !important;
+	font-weight: 600 !important;
+	line-height: 1.25 !important;
+	text-align: center !important;
+	text-decoration: none !important;
+	overflow-wrap: anywhere !important;
+}
+
+	#ekoWhoPanel .eko-who-pm:hover,
+	#ekoWhoPanelInner .eko-who-pm:hover {
+		background: #4B2A85 !important;
+		color: #fff !important;
+	}
+
+#ekoWhoPanel .eko-who-section,
+#ekoWhoPanelInner .eko-who-section {
+	width: 100% !important;
+	min-width: 0 !important;
+	margin: 0 !important;
+	padding: 18px 0 !important;
+	border-top: 1px solid #F3F4F6 !important;
+}
+
+	#ekoWhoPanel .eko-who-section h3,
+	#ekoWhoPanelInner .eko-who-section h3 {
+		margin: 0 0 12px !important;
+		padding: 0 !important;
+		color: #6A7282 !important;
+		font-size: 12px !important;
+		line-height: 1.3 !important;
+		font-weight: 700 !important;
+		letter-spacing: .08em !important;
+	}
+
+#ekoWhoPanel .eko-who-field,
+#ekoWhoPanelInner .eko-who-field {
+	width: 100% !important;
+	min-width: 0 !important;
+	margin: 0 0 12px !important;
+	padding: 0 !important;
+}
+
+	#ekoWhoPanel .eko-who-field:last-child,
+	#ekoWhoPanelInner .eko-who-field:last-child {
+		margin-bottom: 0 !important;
+	}
+
+#ekoWhoPanel .eko-who-label,
+#ekoWhoPanelInner .eko-who-label {
+	display: block !important;
+	margin: 0 0 3px !important;
+	padding: 0 !important;
+	color: #6A7282 !important;
+	font-size: 13px !important;
+	line-height: 1.3 !important;
+}
+
+#ekoWhoPanel .eko-who-value,
+#ekoWhoPanelInner .eko-who-value {
+	display: block !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	color: #1E2939 !important;
+	font-size: 16px !important;
+	line-height: 1.45 !important;
+	overflow-wrap: anywhere !important;
+	word-break: break-word !important;
+}
+
+#ekoWhoPanel .eko-who-contact-row,
+#ekoWhoPanelInner .eko-who-contact-row {
+	display: flex !important;
+	align-items: flex-start !important;
+	width: 100% !important;
+	min-width: 0 !important;
+	gap: 10px !important;
+	margin: 0 0 11px !important;
+	padding: 0 !important;
+}
+
+	#ekoWhoPanel .eko-who-contact-row:last-child,
+	#ekoWhoPanelInner .eko-who-contact-row:last-child {
+		margin-bottom: 0 !important;
+	}
+
+	#ekoWhoPanel .eko-who-contact-row i,
+	#ekoWhoPanelInner .eko-who-contact-row i {
+		flex: 0 0 18px !important;
+		width: 18px !important;
+		margin-top: 3px !important;
+		color: #573494 !important;
+		text-align: center !important;
+	}
+
+	#ekoWhoPanel .eko-who-contact-row a,
+	#ekoWhoPanel .eko-who-contact-row span,
+	#ekoWhoPanelInner .eko-who-contact-row a,
+	#ekoWhoPanelInner .eko-who-contact-row span {
+		min-width: 0 !important;
+		color: #1E2939 !important;
+		font-size: 15px !important;
+		line-height: 1.45 !important;
+		text-decoration: none !important;
+		overflow-wrap: anywhere !important;
+		word-break: break-word !important;
+	}
+
+		#ekoWhoPanel .eko-who-contact-row a:hover,
+		#ekoWhoPanelInner .eko-who-contact-row a:hover {
+			color: #573494 !important;
+			text-decoration: underline !important;
+		}
+
+#ekoWhoPanel .eko-who-chips,
+#ekoWhoPanelInner .eko-who-chips {
+	display: flex !important;
+	flex-wrap: wrap !important;
+	gap: 8px !important;
+}
+
+#ekoWhoPanel .eko-who-chip,
+#ekoWhoPanelInner .eko-who-chip {
+	display: inline-block !important;
+	max-width: 100% !important;
+	padding: 6px 12px !important;
+	border-radius: 999px !important;
+	background: #F3F4F6 !important;
+	color: #1E2939 !important;
+	font-size: 13px !important;
+	line-height: 1.3 !important;
+	overflow-wrap: anywhere !important;
+}
+
+#ekoWhoPanel .eko-who-about,
+#ekoWhoPanelInner .eko-who-about {
+	margin: 0 !important;
+	padding: 0 !important;
+	color: #1E2939 !important;
+	font-size: 16px !important;
+	line-height: 1.5 !important;
+	white-space: normal !important;
+	overflow-wrap: anywhere !important;
+	word-break: break-word !important;
+}
+
+.eko-who-no-photo {
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	background: #EDE7F6 !important;
+	color: #573494 !important;
+	font-weight: 700 !important;
+}
+
+html.eko-whoiswho-page .eko-who-close:focus-visible,
+body.eko-whoiswho-page .eko-who-close:focus-visible,
+html.eko-whoiswho-page .eko-who-view:focus-visible,
+body.eko-whoiswho-page .eko-who-view:focus-visible {
+	outline: 2px solid #573494 !important;
+	outline-offset: 2px !important;
+}
+
+@media (max-width: 991px) {
+	.eko-who-filters {
+		grid-template-columns: 1fr;
+	}
+
+	.eko-who-org {
+		min-width: 0;
+	}
+
+	.eko-who-col-title {
+		display: none;
+	}
+}
+
+@media (max-width: 767px) {
+	.eko-who-table thead {
+		display: none;
+	}
+
+	.eko-who-table,
+	.eko-who-table tbody,
+	.eko-who-table tr,
+	.eko-who-table td {
+		display: block;
+		width: 100%;
+	}
+
+		.eko-who-table tr {
+			border-bottom: 1px solid #F3F4F6;
+			padding: 12px 0;
+		}
+
+		.eko-who-table td {
+			border: 0;
+			padding: 4px 16px;
+		}
+
+	.eko-who-view {
+		width: 100%;
+		text-align: left;
+		padding: 8px 0;
+	}
+
+	#ekoWhoPanel,
+	.eko-who-panel {
+		width: 100vw !important;
+		max-width: 100vw !important;
+	}
+
+	#ekoWhoPanelInner,
+	.eko-who-panel-inner {
+		padding: 56px 20px 28px !important;
+	}
+
+		#ekoWhoPanel .eko-who-profile-head h2,
+		#ekoWhoPanelInner .eko-who-profile-head h2 {
+			font-size: 22px !important;
+		}
+}
+
+@media (max-width: 480px) {
+	#ekoWhoPanelInner,
+	.eko-who-panel-inner {
+		padding-left: 16px !important;
+		padding-right: 16px !important;
+	}
+
+		#ekoWhoPanel .eko-who-profile-avatar,
+		#ekoWhoPanelInner .eko-who-profile-avatar {
+			width: 84px !important;
+			height: 84px !important;
+			min-width: 84px !important;
+			min-height: 84px !important;
+			font-size: 24px !important;
+		}
+
+	#ekoWhoClose,
+	.eko-who-close {
+		top: 8px !important;
+		right: 8px !important;
+	}
+}
