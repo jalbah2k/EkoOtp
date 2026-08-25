@@ -1,5 +1,4 @@
-﻿
-html.eko-whoiswho-page,
+﻿html.eko-whoiswho-page,
 html.eko-whoiswho-page body {
 	box-sizing: border-box;
 }
@@ -321,29 +320,36 @@ html.eko-whoiswho-page body {
 }
 
 .eko-who-avatar {
-	width: 40px;
-	height: 40px;
-	border-radius: 50%;
+	width: 40px !important;
+	height: 40px !important;
+	border-radius: 50% !important;
 	background: #EDE7F6;
 	color: #573494;
-	display: inline-flex;
+	display: inline-flex !important;
 	align-items: center;
 	justify-content: center;
 	font-size: 13px;
 	font-weight: 700;
-	overflow: hidden;
+	overflow: hidden !important;
 	flex: 0 0 40px;
+	position: relative !important;
+	line-height: 0 !important;
 }
 
 	.eko-who-avatar img,
 	.eko-who-profile-avatar img {
-		width: 100%;
-		height: 100%;
+		width: 100% !important;
+		height: 100% !important;
 		max-width: none !important;
 		max-height: none !important;
-		object-fit: cover;
-		object-position: center;
-		display: block;
+		min-width: 0 !important;
+		min-height: 0 !important;
+		object-fit: cover !important;
+		object-position: center !important;
+		display: block !important;
+		position: absolute !important;
+		top: 0 !important;
+		left: 0 !important;
 	}
 
 .eko-who-sort {
@@ -398,7 +404,7 @@ html.eko-whoiswho-page body {
 	opacity: 0 !important;
 	visibility: hidden !important;
 	pointer-events: none !important;
-	z-index: 2147483000 !important;
+	z-index: 2147483647 !important;
 	display: block !important;
 	transition: opacity .2s ease, visibility .2s ease;
 }
@@ -432,13 +438,14 @@ html.eko-whoiswho-page body {
 	flex-direction: column !important;
 	overflow: hidden !important;
 	box-shadow: -10px 0 30px rgba(0, 0, 0, .18) !important;
-	z-index: 2147483001 !important;
+	z-index: 2147483647 !important;
 	opacity: 0 !important;
 	visibility: hidden !important;
 	pointer-events: none !important;
 	transform: translate3d(100%, 0, 0) !important;
 	transition: transform .25s ease, opacity .2s ease, visibility .25s ease !important;
 	outline: none !important;
+	isolation: isolate !important;
 }
 
 	#ekoWhoPanel.is-open,
@@ -449,9 +456,15 @@ html.eko-whoiswho-page body {
 		transform: translate3d(0, 0, 0) !important;
 	}
 
-body.eko-who-modal-open {
-	overflow: hidden !important;
-}
+	body.eko-who-modal-open {
+		overflow: hidden !important;
+	}
+
+	body.eko-who-modal-open #mainMenu,
+	body.eko-who-modal-open #mainMenu .sm-blue {
+		z-index: 1 !important;
+		position: relative !important;
+	}
 
 #ekoWhoPanelInner,
 .eko-who-panel-inner {
@@ -483,6 +496,38 @@ body.eko-who-modal-open {
 		content: none !important;
 	}
 
+	#ekoWhoPanel h1::before,
+	#ekoWhoPanel h1::after,
+	#ekoWhoPanel h2::before,
+	#ekoWhoPanel h2::after,
+	#ekoWhoPanel h3::before,
+	#ekoWhoPanel h3::after,
+	#ekoWhoPanelInner h1::before,
+	#ekoWhoPanelInner h1::after,
+	#ekoWhoPanelInner h2::before,
+	#ekoWhoPanelInner h2::after,
+	#ekoWhoPanelInner h3::before,
+	#ekoWhoPanelInner h3::after {
+		content: none !important;
+		display: none !important;
+		background: none !important;
+		height: 0 !important;
+		width: 0 !important;
+		margin: 0 !important;
+		animation: none !important;
+	}
+
+	#ekoWhoPanel h1,
+	#ekoWhoPanel h2,
+	#ekoWhoPanel h3,
+	#ekoWhoPanelInner h1,
+	#ekoWhoPanelInner h2,
+	#ekoWhoPanelInner h3 {
+		background: none !important;
+		text-transform: none !important;
+		position: static !important;
+	}
+
 #ekoWhoClose,
 .eko-who-close {
 	position: absolute !important;
@@ -506,7 +551,7 @@ body.eko-who-modal-open {
 	line-height: 1 !important;
 	font-weight: 400 !important;
 	cursor: pointer !important;
-	z-index: 2147483002 !important;
+	z-index: 2147483647 !important;
 	box-shadow: 0 1px 5px rgba(0, 0, 0, .08);
 }
 
@@ -525,6 +570,8 @@ body.eko-who-modal-open {
 	flex-direction: column !important;
 	align-items: center !important;
 	text-align: center !important;
+	position: relative !important;
+	z-index: 1 !important;
 }
 
 #ekoWhoPanel .eko-who-profile-avatar,
@@ -545,6 +592,11 @@ body.eko-who-modal-open {
 	font-size: 28px !important;
 	font-weight: 700 !important;
 	flex-shrink: 0 !important;
+	position: relative !important;
+	z-index: 1 !important;
+	line-height: 0 !important;
+	max-width: 100px !important;
+	max-height: 100px !important;
 }
 
 #ekoWhoPanel .eko-who-profile-head h2,
@@ -558,6 +610,7 @@ body.eko-who-modal-open {
 	font-weight: 600 !important;
 	overflow-wrap: anywhere !important;
 	word-break: break-word !important;
+	letter-spacing: normal !important;
 }
 
 #ekoWhoPanel .eko-who-pronouns,

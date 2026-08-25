@@ -14,33 +14,11 @@ using System.Web.UI.WebControls;
 
 public partial class EKO_WhoisWho : System.Web.UI.UserControl
 {
-    private static readonly string[] ExcludedRoleNames =
-    {
-        "Administrators",
-        "EKO Administrators",
-        "Guests",
-        "Juan Test Role",
-        "Open Pages",
-        "PNCA Administrator",
-        "PNCA Executive Team",
-        "PNCA OAP URS",
-        "PNCA PreRegistration",
-        "PNCA Registered User",
-        "Provincial Network of Coordinating Agencies",
-        "Registered Users",
-        "Vivian Test Roles"
-    };
-
     public EKO_WhoisWho() { }
     public EKO_WhoisWho(string p) { }
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (TryServeProfilePhoto())
-        {
-            return;
-        }
-
         RegisterWhoisWhoAssets();
 
         if (!IsMemberSignedIn())
@@ -93,72 +71,6 @@ public partial class EKO_WhoisWho : System.Web.UI.UserControl
             || Session["MemberID"] != null;
     }
 
-    private bool TryServeProfilePhoto()
-    {
-        var raw = Request.QueryString["whoPhoto"];
-        int memberId;
-        if (string.IsNullOrWhiteSpace(raw) || !int.TryParse(raw, out memberId) || memberId <= 0)
-        {
-            return false;
-        }
-
-        if (!IsMemberSignedIn())
-        {
-            Response.StatusCode = 401;
-            Response.End();
-            return true;
-        }
-
-        byte[] photo = null;
-        using (var conn = new SqlConnection(ConfigurationManager.AppSettings["CMServer"]))
-        using (var cmd = new SqlCommand(
-            @"SELECT ProfilePhoto
-              FROM eko.Members
-              WHERE id = @id AND ISNULL(IsVisible, 0) = 1", conn))
-        {
-            cmd.Parameters.AddWithValue("@id", memberId);
-            conn.Open();
-            var value = cmd.ExecuteScalar();
-            if (value != null && value != DBNull.Value)
-            {
-                photo = (byte[])value;
-            }
-        }
-
-        if (photo == null || photo.Length == 0)
-        {
-            Response.StatusCode = 404;
-            Response.End();
-            return true;
-        }
-
-        Response.Clear();
-        Response.Buffer = true;
-        Response.Cache.SetCacheability(HttpCacheability.Private);
-        Response.Cache.SetMaxAge(TimeSpan.FromMinutes(5));
-        Response.ContentType = DetectImageContentType(photo);
-        Response.BinaryWrite(photo);
-        Response.End();
-        return true;
-    }
-
-    private static string DetectImageContentType(byte[] photo)
-    {
-        if (photo.Length >= 3 && photo[0] == 0xFF && photo[1] == 0xD8 && photo[2] == 0xFF)
-        {
-            return "image/jpeg";
-        }
-        if (photo.Length >= 8 && photo[0] == 0x89 && photo[1] == 0x50 && photo[2] == 0x4E && photo[3] == 0x47)
-        {
-            return "image/png";
-        }
-        if (photo.Length >= 3 && photo[0] == 0x47 && photo[1] == 0x49 && photo[2] == 0x46)
-        {
-            return "image/gif";
-        }
-        return "image/jpeg";
-    }
-
     private void EnsureOrganizationDropdown()
     {
         if (ddlOrganization.Items.Count > 0)
@@ -182,7 +94,6 @@ public partial class EKO_WhoisWho : System.Web.UI.UserControl
         }
         catch (Exception ex)
         {
-            // Log the error instead of silently ignoring it
             System.Diagnostics.Debug.WriteLine(
                 "Error loading organizations: " + ex.Message
             );
@@ -215,7 +126,6 @@ public partial class EKO_WhoisWho : System.Web.UI.UserControl
         }
         catch (Exception ex)
         {
-            // Log the error instead of silently ignoring it
             System.Diagnostics.Debug.WriteLine(
                 "Error binding organizations: " + ex.Message
             );
@@ -290,135 +200,99 @@ public partial class EKO_WhoisWho : System.Web.UI.UserControl
 
         return list;
     }
-
     private List<WhoisWhoMember> LoadMembers(Dictionary<string, string> orgById)
     {
         var members = new List<WhoisWhoMember>();
-        DataTable memberTable = FillTable(
-    @"SELECT
-        m.id,
-        m.userid,
-        m.yaf_userid,
-        LTRIM(RTRIM(ISNULL(m.FirtsName, ''))) AS firstname,
-        LTRIM(RTRIM(ISNULL(m.LastName, ''))) AS lastname,
-        LTRIM(RTRIM(ISNULL(CONVERT(varchar(500), m.Organization_New), ''))) AS Organization_New,
-        m.OrganizationId_New,
-        m.OrganizationType_New,
-        m.Position_Title,
-        m.Pronouns,
-        m.PronounsOther,
-        m.SecondaryEmail,
-        m.PhoneNumber,
-        m.PhoneExtension,
-        m.MobilePhone,
-        m.Institution,
-        m.CertificationDegree,
-        m.YearOfGraduation,
-        m.LinkedInProfile,
-        m.TellUs,
-        u.email AS UserEmail,
-        CASE
-            WHEN m.ProfilePhoto IS NULL THEN 0
-            ELSE 1
-        END AS HasPhoto
-      FROM [EKO_OTP].[eko].[Members] m
-      LEFT JOIN [EKO_OTP].[dbo].[Users] u
-        ON u.id = m.userid
-      WHERE m.OrganizationType_New IN (1,4)
-        AND ISNULL(m.IsVisible, 0) = 1",
-            @"SELECT
-    m.id,
-    m.userid,
-    m.yaf_userid,
-    LTRIM(RTRIM(ISNULL(m.FirtsName, ''))) AS firstname,
-    LTRIM(RTRIM(ISNULL(m.LastName, ''))) AS lastname,
-    LTRIM(RTRIM(ISNULL(CONVERT(varchar(500), m.Organization_New), ''))) AS Organization_New,
-    m.OrganizationId_New,
-    m.OrganizationType_New,
-    m.Position_Title,
-    m.Pronouns,
-    m.PronounsOther,
-    m.SecondaryEmail,
-    m.PhoneNumber,
-    m.PhoneExtension,
-    m.MobilePhone,
-    m.Institution,
-    m.CertificationDegree,
-    m.YearOfGraduation,
-    m.LinkedInProfile,
-    m.TellUs,
-    CASE
-        WHEN m.ProfilePhoto IS NULL THEN 0
-        ELSE 1
-    END AS HasPhoto
-  FROM [EKO_OTP].[eko].[Members] m
-  WHERE m.OrganizationType_New IN (1,4)
-    AND ISNULL(m.IsVisible, 0) = 1");
 
-        Dictionary<string, List<string>> committeesByUser;
-        try
+        const string sql = @"
+            SELECT *
+            FROM [EKO_OTP].[eko].[Members]
+            WHERE OrganizationType_New IN (1, 4)
+              AND IsVisible = 1";
+
+        var connectionString = ConfigurationManager.AppSettings["CMServer"];
+        if (string.IsNullOrWhiteSpace(connectionString))
         {
-            committeesByUser = LoadCommitteesByUserId();
+            throw new Exception("CMServer connection string was not found in AppSettings.");
         }
-        catch
+
+        var memberIds = new List<string>();
+
+        using (var conn = new SqlConnection(connectionString))
+        using (var cmd = new SqlCommand(sql, conn))
         {
-            committeesByUser = new Dictionary<string, List<string>>(StringComparer.OrdinalIgnoreCase);
+            conn.Open();
+
+            using (var reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    var first = ReadStr(reader, "FirtsName", "FirstName");
+                    var last = ReadStr(reader, "LastName");
+                    var name = (first + " " + last).Trim();
+                    if (string.IsNullOrWhiteSpace(name))
+                    {
+                        continue;
+                    }
+
+                    var id = ReadStr(reader, "id");
+                    var userId = ReadStr(reader, "userid");
+
+                    var orgId = ReadStr(reader, "OrganizationId_New");
+                    var organization = ReadStr(reader, "Organization_New");
+
+                    int parsedOrgId;
+                    if (int.TryParse(organization, out parsedOrgId) && orgById.ContainsKey(organization))
+                    {
+                        orgId = organization;
+                        organization = orgById[organization];
+                    }
+                    else if (string.IsNullOrWhiteSpace(organization) &&
+                             !string.IsNullOrWhiteSpace(orgId) &&
+                             orgById.ContainsKey(orgId))
+                    {
+                        organization = orgById[orgId];
+                    }
+
+                    var pronouns = FormatPronouns(ReadStr(reader, "Pronouns"), ReadStr(reader, "PronounsOther"));
+                    var about = CleanAbout(ReadStr(reader, "TellUs", "About", "Bio"));
+                    var email = ReadStr(reader, "SecondaryEmail", "Email");
+                    var photoBytes = ReadBytes(reader, "ProfilePhoto");
+                    var photoUrl = (photoBytes != null && photoBytes.Length > 0)
+                        ? "data:" + DetectImageContentType(photoBytes) + ";base64," + Convert.ToBase64String(photoBytes)
+                        : "";
+
+                    members.Add(new WhoisWhoMember
+                    {
+                        id = id,
+                        name = name,
+                        firstName = first,
+                        lastName = last,
+                        initials = BuildInitials(first, last, name),
+                        organization = organization,
+                        orgId = orgId,
+                        title = ReadStr(reader, "Position_Title"),
+                        pronouns = pronouns,
+                        institution = ReadStr(reader, "Institution"),
+                        certification = ReadStr(reader, "CertificationDegree"),
+                        yearOfGraduation = ReadStr(reader, "YearOfGraduation"),
+                        email = email,
+                        phone = ReadStr(reader, "PhoneNumber"),
+                        extension = ReadStr(reader, "PhoneExtension"),
+                        mobile = ReadStr(reader, "MobilePhone"),
+                        linkedIn = ReadStr(reader, "LinkedInProfile"),
+                        about = about,
+                        photoUrl = photoUrl,
+                        committees = new List<string>()
+                    });
+
+                    memberIds.Add(id);
+                }
+            }
         }
-        var photoPath = Request.RawUrl.Split('#')[0].Split('?')[0];
-
-        foreach (DataRow row in memberTable.Rows)
+        for (int i = 0; i < members.Count; i++)
         {
-            var first = Col(row, "firstname", "FirtsName", "FirstName");
-            var last = Col(row, "lastname", "LastName");
-            var name = (first + " " + last).Trim();
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                continue;
-            }
-
-            var orgId = Col(row, "OrganizationId_New", "Organization_New");
-            var organization = Col(row, "Organization_New");
-            int parsedOrgId;
-            if (int.TryParse(organization, out parsedOrgId) && orgById.ContainsKey(organization))
-            {
-                orgId = organization;
-                organization = orgById[organization];
-            }
-            else if (string.IsNullOrWhiteSpace(organization) && !string.IsNullOrWhiteSpace(orgId) && orgById.ContainsKey(orgId))
-            {
-                organization = orgById[orgId];
-            }
-
-            var pronouns = FormatPronouns(Col(row, "Pronouns"), Col(row, "PronounsOther"));
-            var userId = Col(row, "userid");
-            var id = Col(row, "id");
-            var committees = LookupCommittees(committeesByUser, userId, id);
-            var about = CleanAbout(Col(row, "TellUs", "About", "Bio"));
-            var email = Col(row, "SecondaryEmail", "UserEmail", "Email");
-            var hasPhoto = IsTruthy(row["HasPhoto"]);
-            members.Add(new WhoisWhoMember
-            {
-                id = id,
-                name = name,
-                firstName = first,
-                lastName = last,
-                initials = BuildInitials(first, last, name),
-                organization = organization,
-                orgId = orgId,
-                title = Col(row, "Position_Title"),
-                pronouns = pronouns,
-                institution = Col(row, "Institution"),
-                certification = Col(row, "CertificationDegree"),
-                yearOfGraduation = Col(row, "YearOfGraduation"),
-                email = email,
-                phone = Col(row, "PhoneNumber"),
-                extension = Col(row, "PhoneExtension"),
-                mobile = Col(row, "MobilePhone"),
-                linkedIn = Col(row, "LinkedInProfile"),
-                about = about,
-                photoUrl = hasPhoto ? photoPath + "?whoPhoto=" + HttpUtility.UrlEncode(id) : "",
-                committees = committees
-            });
+            members[i].committees = LoadCommitteesForMember(memberIds[i]);
         }
 
         return members
@@ -426,28 +300,63 @@ public partial class EKO_WhoisWho : System.Web.UI.UserControl
             .ToList();
     }
 
-    private static List<string> LookupCommittees(Dictionary<string, List<string>> committeesByUser, params string[] keys)
+    private static string ReadStr(SqlDataReader reader, params string[] names)
     {
-        var names = new List<string>();
-        foreach (var key in keys)
+        foreach (var name in names)
         {
-            List<string> found;
-            if (string.IsNullOrWhiteSpace(key) || !committeesByUser.TryGetValue(key, out found))
+            int ordinal;
+            try
+            {
+                ordinal = reader.GetOrdinal(name);
+            }
+            catch (IndexOutOfRangeException)
             {
                 continue;
             }
 
-            foreach (var name in found)
+            if (!reader.IsDBNull(ordinal))
             {
-                if (!names.Exists(n => string.Equals(n, name, StringComparison.OrdinalIgnoreCase)))
-                {
-                    names.Add(name);
-                }
+                return Convert.ToString(reader.GetValue(ordinal), CultureInfo.InvariantCulture) ?? "";
             }
         }
+        return "";
+    }
 
-        names.Sort(StringComparer.OrdinalIgnoreCase);
-        return names;
+    private static byte[] ReadBytes(SqlDataReader reader, string name)
+    {
+        int ordinal;
+        try
+        {
+            ordinal = reader.GetOrdinal(name);
+        }
+        catch (IndexOutOfRangeException)
+        {
+            return null;
+        }
+
+        if (reader.IsDBNull(ordinal))
+        {
+            return null;
+        }
+
+        return (byte[])reader.GetValue(ordinal);
+    }
+
+    private static string DetectImageContentType(byte[] photo)
+    {
+        if (photo.Length >= 3 && photo[0] == 0xFF && photo[1] == 0xD8 && photo[2] == 0xFF)
+        {
+            return "image/jpeg";
+        }
+        if (photo.Length >= 8 && photo[0] == 0x89 && photo[1] == 0x50 && photo[2] == 0x4E && photo[3] == 0x47)
+        {
+            return "image/png";
+        }
+        if (photo.Length >= 3 && photo[0] == 0x47 && photo[1] == 0x49 && photo[2] == 0x46)
+        {
+            return "image/gif";
+        }
+        return "image/jpeg";
     }
 
     private static string CleanAbout(string value)
@@ -470,121 +379,54 @@ public partial class EKO_WhoisWho : System.Web.UI.UserControl
 
         return text;
     }
-    private Dictionary<string, List<string>> LoadCommitteesByUserId()
+    private List<string> LoadCommitteesForMember(string memberId)
     {
-        var result = new Dictionary<string, List<string>>(
-            StringComparer.OrdinalIgnoreCase);
+        var names = new List<string>();
 
-        using (var conn = new SqlConnection(
-            ConfigurationManager.AppSettings["CMServer"]))
-        using (var cmd = new SqlCommand(
-            "[eko].[GetGroupsForWhoiswho]", conn))
+        int memberIdInt;
+        if (!int.TryParse(memberId, out memberIdInt))
         {
-            cmd.CommandType = CommandType.StoredProcedure;
+            return names;
+        }
 
-            conn.Open();
-
-            using (var reader = cmd.ExecuteReader())
+        try
+        {
+            using (var conn = new SqlConnection(ConfigurationManager.AppSettings["CMServer"]))
+            using (var cmd = new SqlCommand("[eko].[GetGroupsForWhoiswho]", conn))
             {
-                while (reader.Read())
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@MemberId", SqlDbType.Int).Value = memberIdInt;
+
+                conn.Open();
+
+                using (var reader = cmd.ExecuteReader())
                 {
-                    string userId = "";
+                    while (reader.Read())
+                    {
+                        var groupName = ReadStr(reader, "yaf_GroupName", "GroupName", "name", "Name");
+                        if (string.IsNullOrWhiteSpace(groupName))
+                        {
+                            continue;
+                        }
 
-                    if (reader["User_id"] != DBNull.Value)
-                    {
-                        userId = Convert.ToString(reader["User_id"]);
-                    }
-                    else if (reader["userid"] != DBNull.Value)
-                    {
-                        userId = Convert.ToString(reader["userid"]);
-                    }
-
-                    if (string.IsNullOrWhiteSpace(userId))
-                    {
-                        continue;
-                    }
-
-                    string groupName = "";
-
-                    if (reader["name"] != DBNull.Value)
-                    {
-                        groupName = Convert.ToString(reader["name"]);
-                    }
-                    else if (reader["GroupName"] != DBNull.Value)
-                    {
-                        groupName = Convert.ToString(reader["GroupName"]);
-                    }
-                    else if (reader["yaf_GroupName"] != DBNull.Value)
-                    {
-                        groupName = Convert.ToString(reader["yaf_GroupName"]);
-                    }
-
-                    if (string.IsNullOrWhiteSpace(groupName))
-                    {
-                        continue;
-                    }
-
-                    List<string> committees;
-
-                    if (!result.TryGetValue(userId, out committees))
-                    {
-                        committees = new List<string>();
-                        result[userId] = committees;
-                    }
-
-                    if (!committees.Exists(
-                        x => string.Equals(
-                            x,
-                            groupName,
-                            StringComparison.OrdinalIgnoreCase)))
-                    {
-                        committees.Add(groupName);
+                        if (!names.Exists(n => string.Equals(n, groupName, StringComparison.OrdinalIgnoreCase)))
+                        {
+                            names.Add(groupName);
+                        }
                     }
                 }
             }
         }
-
-        foreach (var item in result)
+        catch (Exception ex)
         {
-            item.Value.Sort(StringComparer.OrdinalIgnoreCase);
+            System.Diagnostics.Debug.WriteLine(
+                "Error loading committees for member " + memberId + ": " + ex.Message
+            );
+            return new List<string>();
         }
 
-        return result;
-    }
-
-    private static DataTable FillTable(params string[] sqlOptions)
-    {
-        Exception last = null;
-        foreach (var sql in sqlOptions)
-        {
-            try
-            {
-                using (var conn = new SqlConnection(ConfigurationManager.AppSettings["CMServer"]))
-                using (var dapt = new SqlDataAdapter(sql, conn))
-                {
-                    var table = new DataTable();
-                    dapt.Fill(table);
-                    return table;
-                }
-            }
-            catch (Exception ex)
-            {
-                last = ex;
-            }
-        }
-
-        if (last != null)
-        {
-            throw last;
-        }
-
-        return new DataTable();
-    }
-
-    private static bool IsExcludedRoleName(string name)
-    {
-        var key = NormalizeKey(name);
-        return ExcludedRoleNames.Any(item => NormalizeKey(item) == key);
+        names.Sort(StringComparer.OrdinalIgnoreCase);
+        return names;
     }
 
     private static string FormatPronouns(string pronouns, string other)
@@ -621,42 +463,6 @@ public partial class EKO_WhoisWho : System.Web.UI.UserControl
             return parts[0].Substring(0, 1).ToUpperInvariant();
         }
         return (parts[0].Substring(0, 1) + parts[parts.Length - 1].Substring(0, 1)).ToUpperInvariant();
-    }
-
-    private static bool HasColumn(DataTable table, string name)
-    {
-        return table.Columns.Contains(name);
-    }
-
-    private static string Col(DataRow row, params string[] names)
-    {
-        foreach (var name in names)
-        {
-            if (row.Table.Columns.Contains(name) && row[name] != DBNull.Value)
-            {
-                return Convert.ToString(row[name], CultureInfo.InvariantCulture) ?? "";
-            }
-        }
-        return "";
-    }
-
-    private static bool IsTruthy(object value)
-    {
-        if (value == null || value == DBNull.Value)
-        {
-            return false;
-        }
-        if (value is bool)
-        {
-            return (bool)value;
-        }
-        if (value is byte || value is short || value is int || value is long)
-        {
-            return Convert.ToInt64(value) != 0;
-        }
-
-        var text = Convert.ToString(value, CultureInfo.InvariantCulture);
-        return text == "1" || string.Equals(text, "true", StringComparison.OrdinalIgnoreCase);
     }
 
     private static string NormalizeKey(string value)

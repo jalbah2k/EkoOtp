@@ -2,20 +2,12 @@
 using System.Configuration;
 using System.Web;
 
-/// <summary>
-/// Shared URLs and page detection for the Who's Who / Member Directory.
-/// </summary>
 public static class WhoisWhoPage
 {
-    /// <summary>CMS page SEO slug (Pages.seo).</summary>
     public const string Seo = "whos-who";
-
-    /// <summary>Canonical public URL shown in the address bar / nav.</summary>
     public const string Url = "/member-directory";
-
     /// <summary>Legacy CMS SEO URL; redirected to <see cref="Url"/>.</summary>
     public const string LegacyUrl = "/whos-who";
-
     public const string NavText = "Who’s Who";
     public const string Title = "Member Directory";
 
@@ -61,10 +53,6 @@ public static class WhoisWhoPage
             || path == "/member-directory"
             || path == "/memberdirectory";
     }
-
-    /// <summary>
-    /// Prefer /member-directory over the CMS slug /whos-who in the address bar.
-    /// </summary>
     public static void EnsureCanonicalUrl()
     {
         if (HttpContext.Current == null || HttpContext.Current.Request == null)

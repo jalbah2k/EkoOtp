@@ -1,9 +1,4 @@
 ﻿using System.Collections.Generic;
-
-/// <summary>
-/// Member row serialized to the Who's Who directory JSON.
-/// Property names stay camelCase so the existing client script can bind them.
-/// </summary>
 public class WhoisWhoMember
 {
     public string id { get; set; }
