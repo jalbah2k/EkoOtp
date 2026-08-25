@@ -45,8 +45,9 @@ body.home-member .quickWrapper.QuickLinkIcons a
 }
 
 body.home-member #html_content {
-    display: grid;
-    grid-template-columns: 300px 1fr 380px;
+	display: grid;
+	/*grid-template-columns: 300px 1fr 380px;*/
+	grid-template-columns: 1fr;
 }
 
 body.home-member #resSearchResults
@@ -283,7 +284,7 @@ body.home-member #memberHomeSearch a {
 	border: 1px solid #666;
 	padding:30px;
 	margin:30px;
-	display: none;
+	/*display: none;*/
 }
 
 #memberAlert h2, #memberAlert p

@@ -76,13 +76,18 @@ public partial class Home_Members : System.Web.UI.MasterPage
                 {
                     DataTable dtu = new DataTable();
 
-                    SqlDataAdapter da = new SqlDataAdapter("select OrganizationType_New from eko.Members where userid=@id", ConfigurationManager.AppSettings["CMServer"]);
+                    SqlDataAdapter da = new SqlDataAdapter("select OrganizationType_New, FirtsName from eko.Members where userid=@id", ConfigurationManager.AppSettings["CMServer"]);
                     da.SelectCommand.CommandType = CommandType.Text;
                     da.SelectCommand.Parameters.AddWithValue("@id", Session["LoggedInID"].ToString());
                     da.Fill(dtu);
 
                     try
                     {
+                        if (dtu.Rows.Count > 0)
+                        {
+                            litWelcome.Text = String.Format("<h1>Welcome back {0}</h1>", dtu.Rows[0]["FirtsName"].ToString());
+                        }
+
                         if (dtu.Rows.Count > 0 && Convert.ToInt32(dtu.Rows[0]["OrganizationType_New"]) == (int)MemberType.PNCA)
                         {
                             IsPncaOnly = true;
@@ -96,20 +101,20 @@ public partial class Home_Members : System.Web.UI.MasterPage
 
             }
 
-            if (Session["LoggedInID"] != null)
-            {
-                DataTable dt = new DataTable();
+            //if (Session["LoggedInID"] != null)
+            //{
+            //    DataTable dt = new DataTable();
 
-                SqlDataAdapter da = new SqlDataAdapter("select * from eko.MemberSurvey where UserId=@id", ConfigurationManager.AppSettings["CMServer"]);
-                da.SelectCommand.CommandType = CommandType.Text;
-                da.SelectCommand.Parameters.AddWithValue("@id", Session["LoggedInID"].ToString());
-                da.Fill(dt);
+            //    SqlDataAdapter da = new SqlDataAdapter("select * from eko.MemberSurvey where UserId=@id", ConfigurationManager.AppSettings["CMServer"]);
+            //    da.SelectCommand.CommandType = CommandType.Text;
+            //    da.SelectCommand.Parameters.AddWithValue("@id", Session["LoggedInID"].ToString());
+            //    da.Fill(dt);
 
-                if(dt.Rows.Count != 0)
-                    eForm1.Visible = false;
-            }
-            else
-                eForm1.Visible = false;
+            //    if(dt.Rows.Count != 0)
+            //        eForm1.Visible = false;
+            //}
+            //else
+            //    eForm1.Visible = false;
 
         }
     }

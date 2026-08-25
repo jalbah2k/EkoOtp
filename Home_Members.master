@@ -8,13 +8,16 @@
 <%@ Register Src="~/Controls/Breadcrumbs/Breadcrumbs.ascx" TagPrefix="Hardcode" TagName="Breadcrumbs" %>
 
 
-<%@ Register Src="~/Header.ascx" TagPrefix="Hardcode" TagName="Header" %>
+<%@ Register Src="~/Header_EKO.ascx" TagPrefix="Hardcode" TagName="Header" %>
 <%@ Register Src="~/Footer.ascx" TagPrefix="Hardcode" TagName="Footer" %>
 <%@ Register Src="~/Controls/EKO_Directory_Logos/EKO_Directory_Logos.ascx" TagPrefix="Hardcode" TagName="EKO_Directory" %>
 <%@ Register Src="~/Controls/eFormPopup/eFormPopup.ascx" TagPrefix="Hardcode" TagName="eForm" %>
 <%@ Register Src="~/Controls/EKO_Search/EKO_Search.ascx" TagPrefix="Hardcode" TagName="EKO_Search" %>
 <%@ Register Src="~/Controls/QuickLinks/QuickLinks.ascx" TagPrefix="Hardcode" TagName="QuickLinks" %>
 <%@ Register Src="~/Controls/Whatisnew/Whatisnew.ascx" TagPrefix="Hardcode" TagName="Whatisnew" %>
+<%@ Register tagprefix="Hardcode" src="Controls/SearchText/SearchText.ascx" tagname="SearchText" %>
+<%@ Register Src="~/Controls/Banners/Banners.ascx" TagPrefix="Hardcode" TagName="Banners" %>
+
 
 
 
@@ -157,7 +160,7 @@
 		</asp:ScriptManager>
 
         <div>
-            <Hardcode:eForm runat="server" ID="eForm1" param="2129" Visible="false" />
+           <%-- <Hardcode:eForm runat="server" ID="eForm1" param="2129" Visible="false" />--%>
 
 		    <asp:ContentPlaceHolder ID="admin" runat="server" />
 		    <div style="position: absolute; left: 50%; top: 85px; z-index: 999999;">
@@ -192,18 +195,23 @@
                     <div id='insideContent'>
                         <a name="content"></a>
                         <div id="html_content" class="memberIntro">
-                            <div id="resSearchResults">
+                           <%-- <div id="resSearchResults">
                                 <div>
-                                    <Hardcode:QuickLinks runat="server" ID="QuickLinks" parameter="1" /></div>
-                            </div>
-                            <div id="memberHomeFeed">
-                                <div id="memberAlert">
-                                    <h2>Welcome John Smith</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
                                 </div>
+                            </div>--%>
+                            <div id="memberHomeFeed">
+                                <%--<div id="memberAlert">
+                                </div>--%>
+                                    <asp:Literal runat="server" ID="litWelcome"></asp:Literal>
                                 <% if (!IsPncaOnly)
                                     { %>
                                 
+
+                                <Hardcode:SearchText ID="SearchText1" runat="server" />
+
+                                <%--<Hardcode:Banners runat="server"  GalleryId="17" />--%>
+
+                                <Hardcode:QuickLinks runat="server" ID="QuickLinks" parameter="1" />
                                 <Hardcode:Whatisnew runat="server" ID="Whatisnew" />
 
                                 <%--<br /><hr />
@@ -214,7 +222,7 @@
                                 <Hardcode:Content runat="server" ID="Content1" parameters="10517" />
                                 <%} %>
                             </div>
-                            <div id="memberHomeSearch">
+                            <%--<div id="memberHomeSearch">
                                 <video controls=""><source src="/videos/Real Conversations_Clip.mp4"></video>
                                 <a href="/realconversations" class="link-pink">
                                     <img src="/images/RC_wordmark.png" />
@@ -222,7 +230,7 @@
                                 </a>
                                 <hr />
                                 <Hardcode:EKO_Search runat="server" ID="EKO_Search" />
-                            </div>
+                            </div>--%>
                         </div>  
                     </div>
                 </div>

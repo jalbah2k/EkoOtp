@@ -31,7 +31,10 @@ public partial class QuickLinks : System.Web.UI.UserControl
     public DataTable mGet_All_QuickLinks(string lang_id)
     {
         string strConnectionString = ConfigurationManager.AppSettings["CMServer"].ToString();
-        string commandString = "select * from QuickLinks where lang_id = @lang_id and active=1 and groupid=@id order by priority";
+        string commandString = "select * from QuickLinks where lang_id = @lang_id and active=1 " +
+            "and groupid=@id " +
+            "and id not in (39, 43, 44) " +
+            "order by priority";
         DataSet ds = new DataSet();
 
         using (SqlConnection connection = new SqlConnection(strConnectionString))
