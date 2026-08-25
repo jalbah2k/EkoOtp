@@ -989,7 +989,3 @@ body.eko-whoiswho-page .eko-who-view:focus-visible {
 	padding: 16px 0;
 	text-align: center;
 }
-
-	.eko-who-load-more-wrap[hidden] {
-		display: none !important;
-	}
