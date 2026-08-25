@@ -305,7 +305,11 @@
 
         // Show/hide Load More button
         if (loadMoreWrap) {
-            loadMoreWrap.hidden = visibleCount >= rows.length;
+            if (rows.length > visibleCount) {
+                loadMoreWrap.hidden = false;
+            } else {
+                loadMoreWrap.hidden = true;
+            }
         }
 
         // Update sorting arrows
