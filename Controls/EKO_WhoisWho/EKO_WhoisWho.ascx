@@ -53,10 +53,15 @@
         <div class="eko-who-empty" id="ekoWhoEmpty" hidden></div>
 
         <div class="eko-who-load-more-wrap" id="ekoWhoLoadMoreWrap" hidden>
-            <button type="button" class="eko-who-load-more" id="ekoWhoLoadMore" aria-label="Load 5 more members">
-                Load more
+            <center>
+            <button type="button"
+                        class="eko-who-load-more"
+                        id="ekoWhoLoadMore"
+                        aria-label="Load 5 more members">
+                        Load more
             </button>
-        </div>
+            </center>
+       </div>
     </div>
 
     <div class="eko-who-backdrop" id="ekoWhoBackdrop"></div>
