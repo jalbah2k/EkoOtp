@@ -1,8 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="EKO_WhoisWho.ascx.cs" Inherits="EKO_WhoisWho" %>
 <script>document.documentElement.classList.add('eko-whoiswho-page');</script>
-<% if (Page.Header == null) { %>
 <link rel="stylesheet" href="/Controls/EKO_WhoisWho/EKO_WhoisWho.css?v=<%= System.Configuration.ConfigurationManager.AppSettings["CSSVersion"] %>" />
-<% } %>
 
 <asp:Panel runat="server" ID="pnlSignedOut" Visible="false" CssClass="eko-who-signedout">
     Please sign in to view the Member Directory.
@@ -51,7 +49,14 @@
                 <tbody id="ekoWhoBody"></tbody>
             </table>
         </div>
+
         <div class="eko-who-empty" id="ekoWhoEmpty" hidden></div>
+
+        <div class="eko-who-load-more-wrap" id="ekoWhoLoadMoreWrap" hidden>
+            <button type="button" class="eko-who-load-more" id="ekoWhoLoadMore" aria-label="Load 5 more members">
+                Load more
+            </button>
+        </div>
     </div>
 
     <div class="eko-who-backdrop" id="ekoWhoBackdrop"></div>
@@ -62,4 +67,4 @@
 </asp:Panel>
 
 <script type="application/json" id="ekoWhoisWhoData"><asp:Literal runat="server" ID="litMembersJson" Mode="PassThrough" /></script>
-<script src="/Controls/EKO_WhoisWho/EKO_WhoisWho.js?v=<%= System.Configuration.ConfigurationManager.AppSettings["CSSVersion"] %>"></script>
+<script src="/Controls/EKO_WhoisWho/EKO_WhoisWho.js?v=loadmore5"></script>

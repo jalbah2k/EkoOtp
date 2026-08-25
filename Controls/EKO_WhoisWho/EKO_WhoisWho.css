@@ -796,6 +796,62 @@ body.eko-whoiswho-page .eko-who-view:focus-visible {
 	outline-offset: 2px !important;
 }
 
+.eko-who-load-more-wrap {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 24px 16px 28px;
+}
+
+.eko-who-load-more {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 160px;
+	min-height: 46px; 
+	padding: 12px 24px;
+	border: 1px solid #573494;
+	border-radius: 8px;
+	background: #573494; 
+	color: #ffffff; 
+	font-family: inherit;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 1.2;
+	cursor: pointer;
+	transition: background-color .2s ease, transform .1s ease;
+}
+
+	.eko-who-load-more:hover {
+		background: #4B2A85; 
+		border-color: #4B2A85;
+		transform: translateY(-2px); 
+	}
+
+	.eko-who-load-more:focus-visible {
+		outline: 2px solid #573494;
+		outline-offset: 2px;
+	}
+
+	.eko-who-load-more:disabled {
+		opacity: .6;
+		cursor: default;
+	}
+
+
+@media (max-width: 767px) {
+
+	.eko-who-load-more-wrap {
+		padding: 20px 16px 24px;
+	}
+
+	.eko-who-load-more {
+		width: 100%;
+		max-width: 240px;
+	}
+}
+
 @media (max-width: 991px) {
 	.eko-who-filters {
 		grid-template-columns: 1fr;
