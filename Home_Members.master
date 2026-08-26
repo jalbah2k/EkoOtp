@@ -355,6 +355,151 @@
 .search-icon {
     font-size: 15px;
 }
+
+.whats-new-container {
+    width: 60%;
+    margin: 50px 0 24px;
+}
+
+/* =========================================
+   What's New + Who's Who Layout
+   ========================================= */
+
+.home-content-layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.home-whats-new {
+    flex: 1 1 70%;
+    min-width: 0;
+}
+
+.home-whos-who {
+    flex: 0 0 30%;
+    min-width: 250px;
+}
+
+
+/* =========================================
+   Who's Who Card
+   ========================================= */
+
+.whos-who-card {
+    background: #fff;
+    border: 1px solid #e2e2e2;
+    border-radius: 6px;
+    padding: 18px 16px;
+    box-sizing: border-box;
+}
+
+.whos-who-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.whos-who-header h2 {
+    margin: 0;
+    color: #6b3fa0;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+}
+
+.whos-who-icon {
+    font-size: 16px;
+    color: #777;
+}
+
+
+/* =========================================
+   Search
+   ========================================= */
+
+.whos-who-search {
+    position: relative;
+    width: 100%;
+    margin-bottom: 18px;
+}
+
+.whos-who-search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9aa0a6;
+    font-size: 18px;
+    pointer-events: none;
+}
+
+#homeWhoSearch {
+    width: 100%;
+    height: 42px;
+    padding: 0 12px 0 36px;
+    border: 1px solid #d8d8d8;
+    border-radius: 5px;
+    background: #fff;
+    color: #333;
+    font-size: 14px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+#homeWhoSearch::placeholder {
+    color: #9a9a9a;
+}
+
+#homeWhoSearch:focus {
+    border-color: #6b3fa0;
+    box-shadow: 0 0 0 2px rgba(107, 63, 160, 0.12);
+}
+
+
+/* =========================================
+   Full Directory
+   ========================================= */
+
+.whos-who-directory {
+    display: block;
+    padding-top: 14px;
+    border-top: 1px solid #eeeeee;
+    color: #6b3fa0;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.whos-who-directory:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   Responsive
+   ========================================= */
+
+@media (max-width: 900px) {
+
+    .home-content-layout {
+        flex-direction: column;
+    }
+
+    .home-whats-new,
+    .home-whos-who {
+        width: 100%;
+        flex: 1 1 100%;
+    }
+
+    .home-whos-who {
+        min-width: 0;
+    }
+}
+
 </style>
 </head>
 <body id="body" class="home-member">
@@ -456,12 +601,46 @@
                                 </div>
 
                                 <div id="memberHomeMain" class="memberHomeMain">
-                                    <div id="memberHomeMainCol" class="memberHomeMainCol">
-                                        <Hardcode:QuickLinks runat="server" ID="QuickLinks" parameter="1" />
+    <div id="memberHomeMainCol" class="memberHomeMainCol">
+        <Hardcode:QuickLinks runat="server" ID="QuickLinks" parameter="1" />
 
-                                        <Hardcode:Whatisnew runat="server" ID="Whatisnew" />
-                                    </div>
-                                </div>
+        <div class="home-content-layout">
+
+            <!-- What's New -->
+            <div class="home-whats-new">
+                <Hardcode:Whatisnew runat="server" ID="Whatisnew" />
+            </div>
+
+            <!-- Who's Who -->
+            <aside class="home-whos-who">
+                <div class="whos-who-card">
+
+                    <div class="whos-who-header">
+                        <span class="whos-who-icon">👥</span>
+                        <h2>WHO'S WHO</h2>
+                    </div>
+
+                    <div class="whos-who-search">
+                        <span class="whos-who-search-icon">⌕</span>
+
+                        <input type="text"
+                               id="homeWhoSearch"
+                               placeholder="Search members"
+                               autocomplete="off" />
+                    </div>
+
+                    <a href="<%= LangPrefix %>whos-who"
+                       id="homeWhoDirectoryLink"
+                       class="whos-who-directory">
+                        View full directory
+                    </a>
+
+                </div>
+            </aside>
+
+        </div>
+    </div>
+</div>
 
                                 <%}
                                     else
@@ -490,6 +669,34 @@
     <%: System.Web.Optimization.Scripts.Render("~/bundles/slick") %>
 
     <script src="/Libraries/smartmenus-1.2.1/jquery.smartmenus.js"></script>
+    <script>
+    $(document).ready(function () {
+
+        var searchBox = document.getElementById('homeWhoSearch');
+        var directoryLink = document.getElementById('homeWhoDirectoryLink');
+
+        if (!searchBox || !directoryLink) {
+            return;
+        }
+
+        directoryLink.addEventListener('click', function (event) {
+
+            var searchValue = searchBox.value.trim();
+
+            if (searchValue) {
+                event.preventDefault();
+
+                var url = directoryLink.getAttribute('href');
+
+                url += (url.indexOf('?') === -1 ? '?' : '&') +
+                       'name=' + encodeURIComponent(searchValue);
+
+                window.location.href = url;
+            }
+        });
+
+    });
+    </script>
 
     <%: System.Web.Optimization.Scripts.Render("~/bundles/site") %>
     <%: System.Web.Optimization.Scripts.Render("~/bundles/forum") %>

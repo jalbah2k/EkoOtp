@@ -656,6 +656,25 @@
     /*
      * Search
      */
+    function applyUrlSearch() {
+        var params = new URLSearchParams(window.location.search);
+        var name = params.get('name');
+
+        if (!name) {
+            return;
+        }
+
+        name = name.trim();
+
+        if (!name) {
+            return;
+        }
+
+        search.value = name;
+
+        resetPaging();
+    }
+
     if (search) {
 
         search.addEventListener('input', function () {
@@ -791,6 +810,7 @@
      * This will display only 5 members.
      */
     visibleCount = pageSize;
+    applyUrlSearch();
 
     render();
 
