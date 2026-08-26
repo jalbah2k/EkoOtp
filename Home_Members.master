@@ -72,7 +72,7 @@
     <link href="<%: Styles.Url("~/CSS/site") %>" type="text/css" rel="stylesheet" />
     <link href="<%: Styles.Url("~/CSS/forum") %>" type="text/css" rel="stylesheet" />
     <link href="<%: Styles.Url("~/CSS/slick") %>" type="text/css" rel="stylesheet" />
-    <link href="<%: Styles.Url("~/CSS/home-member.css") %>" type="text/css" rel="stylesheet" />
+   <%-- <link href="<%: Styles.Url("~/CSS/home-member.css") %>" type="text/css" rel="stylesheet" />--%>
     <link rel="stylesheet" href="/CSS/memberhome.css?v=<%= "" + ConfigurationManager.AppSettings.Get("CSSVersion") %>">
 
    <%-- <script src="https://use.fontawesome.com/8123fd5db7.js"></script>--%>
@@ -532,7 +532,7 @@
 
 				
          <div id="insideWrap" class="full-width">
-            <div class="inside insideMemberHome" id="mainContentInside">
+            <div class="inside insideMemberHome contained-width" id="mainContentInside">
                 <% if (!InsideClass.Contains("no-inside-menu"))
                 {%>
                   <div id="leftMenu">

@@ -69,7 +69,7 @@ public partial class Home_Members : System.Web.UI.MasterPage
 
             {
 
-                GetMenuTitle();
+               // GetMenuTitle();
                 //GetPageTitle();
 
                 if (Session["LoggedInID"] != null)
@@ -120,30 +120,32 @@ public partial class Home_Members : System.Web.UI.MasterPage
     }
 
     
-    private void GetMenuTitle()
-    {
-        SqlConnection sqlconn = new SqlConnection(ConfigurationManager.AppSettings["CMServer"]);
+    //private void GetMenuTitle()
+    //{
+    //    SqlConnection sqlconn = new SqlConnection(ConfigurationManager.AppSettings["CMServer"]);
 
-        SqlDataAdapter dapt = new SqlDataAdapter("select name from Menus where id = (select param from Content where control='menu' and id = (select Content_ID from pages_content_zone where Page_ID=@id and Zone_ID=24))  select title, seo, InsideClass from Pages where id=@id", sqlconn);
-        dapt.SelectCommand.Parameters.AddWithValue("@id", Session["PageID"].ToString());
-        DataSet ds = new DataSet();
-        dapt.Fill(ds);
-        DataTable dt = ds.Tables[0];
+    //    SqlDataAdapter dapt = new SqlDataAdapter("select name from Menus where id = (select param from Content where control='menu' and id = (select Content_ID from pages_content_zone where Page_ID=@id and Zone_ID=24))  select title, seo, InsideClass from Pages where id=@id", sqlconn);
+    //    dapt.SelectCommand.Parameters.AddWithValue("@id", Session["PageID"].ToString());
+    //    DataSet ds = new DataSet();
+    //    dapt.Fill(ds);
+    //    DataTable dt = ds.Tables[0];
 
-        if (dt.Rows.Count > 0)
-            litMenuTitle.Text = "<h2>" + dt.Rows[0]["name"].ToString() + "</h2>";
+    //    //if (dt.Rows.Count > 0)
+    //    //    litMenuTitle.Text = "<h2>" + dt.Rows[0]["name"].ToString() + "</h2>";
 
-        if (ds.Tables[1].Rows.Count > 0)
-        {
-            mypage = ds.Tables[1].Rows[0]["seo"].ToString();
-            InsideClass = ds.Tables[1].Rows[0]["InsideClass"].ToString();
-        }
+    //    if (ds.Tables[1].Rows.Count > 0)
+    //    {
+    //        mypage = ds.Tables[1].Rows[0]["seo"].ToString();
+    //        InsideClass = ds.Tables[1].Rows[0]["InsideClass"].ToString();
+    //    }
 
-    }
+    //}
 
     protected void Page_PreRender(object sender, EventArgs e)
     {
-       
+
+        InsideClass = "no-inside-menu";
+
         {
             StringBuilder script = new StringBuilder();
             script.Append(Environment.NewLine + "$(document).ready(function () {" + Environment.NewLine);
