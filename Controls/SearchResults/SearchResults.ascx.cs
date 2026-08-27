@@ -72,6 +72,9 @@ public partial class SearchResults : System.Web.UI.UserControl
 
         InitClasses();
 
+        if (_myClass == null)
+            return;
+
         if (!Page.IsPostBack)
         {
             if (Request.QueryString["q"] != null)
@@ -121,6 +124,14 @@ public partial class SearchResults : System.Web.UI.UserControl
         c4.QueryString_SearchParm = "search_term";
         _searchClass[3] = c4;
 
+        if (_type < 1 ||
+            _type > _searchClass.Length ||
+            _searchClass[_type - 1] == null)
+        {
+            _myClass = null;
+            return;
+        }
+
         _myClass = _searchClass[_type - 1];
     }
 
@@ -128,6 +139,9 @@ public partial class SearchResults : System.Web.UI.UserControl
 
     private void DoSearch(string keywords)
     {
+        if (_myClass == null)
+            return;
+
         deepin++;
         int TotalRecords = Search_FTS(keywords);
 
@@ -135,7 +149,6 @@ public partial class SearchResults : System.Web.UI.UserControl
         {
             SqlCommand cmd = new SqlCommand("SearchTracking", conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            // cmd.Parameters.AddWithValue("@keywords", tbSearch.Text.Replace("&amp;", "&"));
             cmd.Parameters.AddWithValue("@keywords", keywords);
             cmd.Parameters.AddWithValue("@ResultsCount", TotalRecords);
 
@@ -151,6 +164,9 @@ public partial class SearchResults : System.Web.UI.UserControl
 
     private int Search_FTS(string keywords)
     {
+        if (_myClass == null)
+            return 0;
+
         int total = 0;
         litContent.Text = "";
         litTitle.Text = "<h2>" + _myClass.Title + "</h2>";

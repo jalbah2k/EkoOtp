@@ -361,6 +361,9 @@
     margin: 50px 0 24px;
 }
 
+/* =========================================
+   What's New + Who's Who Layout
+   ========================================= */
 
 .home-content-layout {
     display: flex;
@@ -381,6 +384,9 @@
 }
 
 
+/* =========================================
+   Who's Who Card
+   ========================================= */
 
 .whos-who-card {
     background: #fff;
@@ -410,6 +416,10 @@
     color: #777;
 }
 
+
+/* =========================================
+   Search
+   ========================================= */
 
 .whos-who-search {
     position: relative;
@@ -500,6 +510,10 @@
 }
 
 
+/* =========================================
+   Full Directory
+   ========================================= */
+
 .whos-who-directory {
     display: block;
     padding-top: 14px;
@@ -515,6 +529,9 @@
 }
 
 
+/* =========================================
+   Responsive
+   ========================================= */
 
 @media (max-width: 900px) {
 
@@ -1038,7 +1055,6 @@
                 });
             }
 
-            // Top "Search the member portal" bar -> /membersearch?q=
             var portalSearchBox = document.getElementById('staticWelcomeSearch');
             var portalSearchBtn = document.getElementById('btnStaticWelcomeSearch');
 
@@ -1066,7 +1082,13 @@
     </script>
 
     <%: System.Web.Optimization.Scripts.Render("~/bundles/site") %>
-    <%: System.Web.Optimization.Scripts.Render("~/bundles/forum") %>
+     <% if (Request.Url != null &&
+            !Request.Url.AbsolutePath.TrimEnd('/').EndsWith(
+                "/membersearch",
+                StringComparison.OrdinalIgnoreCase))
+        { %>
+         <%: System.Web.Optimization.Scripts.Render("~/bundles/forum") %>
+     <% } %>
  
     <asp:ContentPlaceHolder ID="Scripts" runat="server" />
 
@@ -1121,7 +1143,6 @@
     {
         margin-left: 4px !important;
     }
-
     div.quickWrapper.QuickLinkIcons > a img,
     div.quickWrapper.QuickLinkIcons > a svg
     {
