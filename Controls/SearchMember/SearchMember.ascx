@@ -21,6 +21,6 @@
 <uc1:SearchResults runat="server" ID="SearchResults_Resources" Parameters="5,4,1" ></uc1:SearchResults>
 </div>
 
-<div id="resultsForum" class="search-results-wrapper">
+<%--<div id="resultsForum" class="search-results-wrapper">
 <uc1:SearchResultsForum runat="server" ID="SearchResultsForum" Parameters="5,1"/>
-</div>
+</div>--%>
