@@ -670,32 +670,62 @@
 
     <script src="/Libraries/smartmenus-1.2.1/jquery.smartmenus.js"></script>
     <script>
-    $(document).ready(function () {
+        $(document).ready(function () {
 
-        var searchBox = document.getElementById('homeWhoSearch');
-        var directoryLink = document.getElementById('homeWhoDirectoryLink');
+            var searchBox = document.getElementById('homeWhoSearch');
+            var directoryLink = document.getElementById('homeWhoDirectoryLink');
 
-        if (!searchBox || !directoryLink) {
-            return;
-        }
+            if (searchBox && directoryLink) {
 
-        directoryLink.addEventListener('click', function (event) {
+                directoryLink.addEventListener('click', function (event) {
 
-            var searchValue = searchBox.value.trim();
+                    var searchValue = searchBox.value.trim();
 
-            if (searchValue) {
-                event.preventDefault();
+                    if (searchValue) {
+                        event.preventDefault();
 
-                var url = directoryLink.getAttribute('href');
+                        var url = directoryLink.getAttribute('href');
 
-                url += (url.indexOf('?') === -1 ? '?' : '&') +
-                       'name=' + encodeURIComponent(searchValue);
+                        url += (url.indexOf('?') === -1 ? '?' : '&') +
+                            'q=' + encodeURIComponent(searchValue);
 
-                window.location.href = url;
+                        window.location.href = url;
+                    }
+                });
+
+                searchBox.addEventListener('keydown', function (event) {
+                    if (event.key === 'Enter') {
+                        event.preventDefault();
+                        directoryLink.click();
+                    }
+                });
             }
-        });
 
-    });
+            // Top "Search the member portal" bar -> /membersearch?q=
+            var portalSearchBox = document.getElementById('staticWelcomeSearch');
+            var portalSearchBtn = document.getElementById('btnStaticWelcomeSearch');
+
+            if (portalSearchBox && portalSearchBtn) {
+
+                function goToMemberSearch() {
+                    var q = portalSearchBox.value.trim();
+
+                    if (q) {
+                        window.location.href = '/membersearch?q=' + encodeURIComponent(q);
+                    }
+                }
+
+                portalSearchBtn.addEventListener('click', goToMemberSearch);
+
+                portalSearchBox.addEventListener('keydown', function (event) {
+                    if (event.key === 'Enter') {
+                        event.preventDefault();
+                        goToMemberSearch();
+                    }
+                });
+            }
+
+        });
     </script>
 
     <%: System.Web.Optimization.Scripts.Render("~/bundles/site") %>
@@ -703,13 +733,13 @@
  
     <asp:ContentPlaceHolder ID="Scripts" runat="server" />
 
-<div class="preLoad">
+<%--<div class="preLoad">
     <img src="/images/mh-notifications-hover.svg" alt="">
     <img src="/images/mh-resources-hover.svg" alt="">
     <img src="/images/mh-watercooler-hover.svg" alt="">
     <img src="/images/mh-news-hover.svg" alt="">
     <img src="/images/mh-account-hover.svg" alt="">
-</div>
+</div>--%>
 
 <style>
     div.quickWrapper.QuickLinkIcons

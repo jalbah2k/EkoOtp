@@ -609,6 +609,15 @@
         backdrop.classList.remove('is-open');
         panel.classList.remove('is-open');
 
+        if (window.history && window.history.pushState &&
+            new URLSearchParams(window.location.search).get('id')) {
+
+            var url = new URL(window.location.href);
+            url.searchParams.delete('id');
+
+            window.history.pushState({}, '', url.toString());
+        }
+
         if (lastFocus && lastFocus.focus) {
             lastFocus.focus();
         }
@@ -658,21 +667,16 @@
      */
     function applyUrlSearch() {
         var params = new URLSearchParams(window.location.search);
-        var name = params.get('name');
+        var q = (params.get('q') || '').trim();
+        var id = (params.get('id') || '').trim();
 
-        if (!name) {
-            return;
+        if (q && search) {
+            search.value = q;
         }
 
-        name = name.trim();
+        visibleCount = pageSize;
 
-        if (!name) {
-            return;
-        }
-
-        search.value = name;
-
-        resetPaging();
+        return id;
     }
 
     if (search) {
@@ -735,10 +739,35 @@
 
             if (btn) {
 
-                openProfile(
-                    btn.getAttribute('data-id'),
-                    btn
-                );
+                var id = btn.getAttribute('data-id');
+
+                var member = members.filter(function (m) {
+                    return String(m.id) === String(id);
+                })[0];
+
+                // Update the URL so this member's profile is a
+                // direct, shareable/bookmarkable link, and so the
+                // list narrows to just this one record.
+                if (member && window.history && window.history.pushState) {
+
+                    var url = new URL(window.location.href);
+                    url.searchParams.set('q', member.name);
+                    url.searchParams.set('id', member.id);
+
+                    window.history.pushState(
+                        { id: member.id, q: member.name },
+                        '',
+                        url.toString()
+                    );
+
+                    if (search) {
+                        search.value = member.name;
+                        visibleCount = pageSize;
+                        render();
+                    }
+                }
+
+                openProfile(id, btn);
             }
         }
     );
@@ -807,11 +836,43 @@
     /*
      * INITIAL RENDER
      *
-     * This will display only 5 members.
+     * This will display only 5 members, filtered
+     * down by ?q= if present on the URL.
      */
     visibleCount = pageSize;
-    applyUrlSearch();
+    var initialId = applyUrlSearch();
 
     render();
+
+    // Deep link straight to a single member's profile, e.g.
+    // /whos-who?q=Kishor%20N&id=42
+    if (initialId) {
+        openProfile(initialId, null);
+    }
+
+    /*
+     * Browser back/forward support: keep the search box,
+     * filtered list, and open profile panel in sync with
+     * the URL's q/id params.
+     */
+    window.addEventListener('popstate', function () {
+
+        var params = new URLSearchParams(window.location.search);
+        var q = (params.get('q') || '').trim();
+        var id = (params.get('id') || '').trim();
+
+        if (search) {
+            search.value = q;
+        }
+
+        visibleCount = pageSize;
+        render();
+
+        if (id) {
+            openProfile(id, null);
+        } else {
+            closeProfile();
+        }
+    });
 
 })();
