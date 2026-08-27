@@ -11,12 +11,11 @@
 <%@ Register Src="~/Header_EKO.ascx" TagPrefix="Hardcode" TagName="Header" %>
 <%@ Register Src="~/Footer.ascx" TagPrefix="Hardcode" TagName="Footer" %>
 <%@ Register Src="~/Controls/EKO_Directory_Logos/EKO_Directory_Logos.ascx" TagPrefix="Hardcode" TagName="EKO_Directory" %>
-<%@ Register Src="~/Controls/eFormPopup/eFormPopup.ascx" TagPrefix="Hardcode" TagName="eForm" %>
+<%--<%@ Register Src="~/Controls/eFormPopup/eFormPopup.ascx" TagPrefix="Hardcode" TagName="eForm" %>--%>
 <%@ Register Src="~/Controls/EKO_Search/EKO_Search.ascx" TagPrefix="Hardcode" TagName="EKO_Search" %>
 <%@ Register Src="~/Controls/QuickLinks/QuickLinks.ascx" TagPrefix="Hardcode" TagName="QuickLinks" %>
 <%@ Register Src="~/Controls/Whatisnew/Whatisnew.ascx" TagPrefix="Hardcode" TagName="Whatisnew" %>
 <%@ Register tagprefix="Hardcode" src="Controls/SearchText/SearchText.ascx" tagname="SearchText" %>
-<%@ Register Src="~/Controls/Banners/Banners.ascx" TagPrefix="Hardcode" TagName="Banners" %>
 
 
 
@@ -73,9 +72,9 @@
     <link href="<%: Styles.Url("~/CSS/forum") %>" type="text/css" rel="stylesheet" />
     <link href="<%: Styles.Url("~/CSS/slick") %>" type="text/css" rel="stylesheet" />
    <%-- <link href="<%: Styles.Url("~/CSS/home-member.css") %>" type="text/css" rel="stylesheet" />--%>
-    <link rel="stylesheet" href="/CSS/memberhome.css?v=<%= "" + ConfigurationManager.AppSettings.Get("CSSVersion") %>">
+<%--    <link rel="stylesheet" href="/CSS/memberhome.css?v=<%= "" + ConfigurationManager.AppSettings.Get("CSSVersion") %>">--%>
 
-   <%-- <script src="https://use.fontawesome.com/8123fd5db7.js"></script>--%>
+    <link rel="stylesheet" href="/Controls/BannerGallery/banner-gallery.css" />
 
 	<link rel="shortcut icon" href="/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/Images/favicons/apple-touch-icon.png">
@@ -273,6 +272,7 @@
         padding: 10px;
         height: 100%;
         box-sizing: border-box;
+        color: var(--darkgrey);
     }
 
     .static-editable-thumb
@@ -577,8 +577,6 @@
              <asp:ContentPlaceHolder ID="Alert" runat="server"></asp:ContentPlaceHolder>
 
             <Hardcode:Header runat="server" />
-	
-	        <asp:ContentPlaceHolder ID="Banner" runat="server" />
 
 				
          <div id="insideWrap" class="full-width">
@@ -619,7 +617,7 @@
 </button>
                                         </div>
                                     </div>
-                                    <div class="editable-zone-col">
+                                   <%-- <div class="editable-zone-col">
                                         <div class="static-editable-zone">
                                             <div class="static-editable-thumb">
                                                 <span class="static-editable-play">&#9658;</span>
@@ -633,10 +631,17 @@
                                                 <a href="#" class="static-editable-link">Watch now &rarr;</a>
                                             </div>
                                         </div>
+                                    </div>--%>
+                                    <div class="editable-zone-col">
+                                        <div class="static-editable-zone">
+                                            
+                                            <Hardcode:Content runat="server" ID="Content3" parameters="13739" />
+                                        </div>
                                     </div>
                                 </div>
+                                <asp:ContentPlaceHolder ID="Banner" runat="server" />
 
-                                <div class="static-banner-gallery">
+                               <%-- <div class="static-banner-gallery">
                                     <div class="static-banner-image">Image</div>
                                     <div class="static-banner-content">
                                         <p class="static-banner-eyebrow">Event</p>
@@ -648,7 +653,8 @@
                                             <a href="#" class="btn-secondary">View details</a>
                                         </div>
                                     </div>
-                                </div>
+                                </div>--%>
+
 
                                 <div id="memberHomeMain" class="memberHomeMain">
     <div id="memberHomeMainCol" class="memberHomeMainCol">
