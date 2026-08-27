@@ -6,7 +6,7 @@
 <asp:Literal runat="server" id="litSubtitle"></asp:Literal>
 
 <div id="resultsPages" class="search-results-wrapper">
-<uc1:SearchResults runat="server" ID="SearchResults_Page" Parameters="5,1,1" ></uc1:SearchResults>
+<uc1:SearchResults runat="server" ID="SearchResults_Page" Parameters="5,1,1,0" ></uc1:SearchResults>
 </div>
 
 <div id="resultsDirectory" class="search-results-wrapper">

@@ -15,6 +15,7 @@ public partial class SearchResults : System.Web.UI.UserControl
     int _records = 0;
     int _type = 1;
     public bool _partial = true;
+    public bool _public_pages = true;
 
     private SearchClass[] _searchClass = new SearchClass[4];
     private SearchClass _myClass;
@@ -46,6 +47,11 @@ public partial class SearchResults : System.Web.UI.UserControl
             {
                 if (s[2] == "0")
                     _partial = false;
+            }
+            if (s.Length > 3)
+            {
+                if (s[3] == "0")
+                    _public_pages = false;
             }
         }
         catch
@@ -186,6 +192,10 @@ public partial class SearchResults : System.Web.UI.UserControl
             param.Add(new SqlParameter("@LCID", LCIDs[Convert.ToInt32(Session["Language"]) - 1]));
             if ((comm == "SearchPagesFTS" || comm == "Resources_Search_New") && Session["LoggedInID"] != null)
                 param.Add(new SqlParameter("@userid", Session["LoggedInID"].ToString()));
+
+            if (comm == "SearchPagesFTS" && !_public_pages)
+                param.Add(new SqlParameter("@no_public", 1));
+
 
             DataTable dt = getTable(comm, param.ToArray());
 
