@@ -72,4 +72,4 @@
 </asp:Panel>
 
 <script type="application/json" id="ekoWhoisWhoData"><asp:Literal runat="server" ID="litMembersJson" Mode="PassThrough" /></script>
-<script src="/Controls/EKO_WhoisWho/EKO_WhoisWho.js?v=loadmore5"></script>
+<script src="/Controls/EKO_WhoisWho/EKO_WhoisWho.js?v=loadmore6"></script>

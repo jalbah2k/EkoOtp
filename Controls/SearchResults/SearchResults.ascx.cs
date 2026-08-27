@@ -18,12 +18,12 @@ public partial class SearchResults : System.Web.UI.UserControl
 
     private SearchClass[] _searchClass = new SearchClass[4];
     private SearchClass _myClass;
-    public SearchResults() 
-    { 
-        Parameters = ""; 
+    public SearchResults()
+    {
+        Parameters = "";
     }
 
-    public SearchResults(string p) 
+    public SearchResults(string p)
     {
         SplitParameters(p);
     }
@@ -55,7 +55,7 @@ public partial class SearchResults : System.Web.UI.UserControl
     private string SearchTerm
     {
         set { ViewState["SearchTerm"] = value; }
-        get 
+        get
         {
             if (ViewState["SearchTerm"] != null)
             {
@@ -163,7 +163,7 @@ public partial class SearchResults : System.Web.UI.UserControl
 
         //if (!searchTerm.Contains("hospital"))
         {
-            
+
             List<SqlParameter> param = new List<SqlParameter>();
             param.Add(new SqlParameter("@keywords", myFTS.NormalForm));
             param.Add(new SqlParameter("@lang", Convert.ToInt32(Session["Language"])));
@@ -182,7 +182,7 @@ public partial class SearchResults : System.Web.UI.UserControl
             }
 
             int total_res = dt.Rows.Count;
-            if (_partial )
+            if (_partial)
             {
                 if (total_res > _records)
                 {
@@ -201,17 +201,104 @@ public partial class SearchResults : System.Web.UI.UserControl
                 litMessage.Text = String.Format("<h3>Displaying {0} {1} results</h3>", dt.Rows.Count, _myClass.Type);
             }
 
-            for (int i = 0; i < total_res; i++ )
+            for (int i = 0; i < total_res; i++)
             {
                 DataRow dr = dt.Rows[i];
-                litContent.Text += String.Format("<div><a href='{0}'>{1}</a></div><br>", dr["seo"].ToString(), dr["title"].ToString());
 
+                string title = GetColumnValue(dr, "title");
+
+                if (string.IsNullOrEmpty(title))
+                    title = GetColumnValue(dr, "Name");
+
+                string url = GetSearchResultUrl(dr);
+
+                litContent.Text += String.Format(
+                    "<div><a href=\"{0}\">{1}</a></div><br>",
+                    HttpUtility.HtmlAttributeEncode(url),
+                    HttpUtility.HtmlEncode(title)
+                );
             }
 
         }
 
         return total;
 
+    }
+    private string GetColumnValue(DataRow row, string columnName)
+    {
+        if (row == null || row.Table == null)
+            return "";
+
+        if (!row.Table.Columns.Contains(columnName))
+            return "";
+
+        if (row[columnName] == DBNull.Value)
+            return "";
+
+        return row[columnName].ToString();
+    }
+
+    private string GetSearchResultUrl(DataRow row)
+    {
+        // Pages
+        if (_myClass.Type == "page")
+        {
+            string seo = GetColumnValue(row, "seo");
+
+            if (!string.IsNullOrEmpty(seo))
+                return "/" + seo.ToLower();
+
+            return "/home";
+        }
+
+        // News
+        if (_myClass.Type == "news")
+        {
+            string seo = GetColumnValue(row, "seo");
+
+            if (!string.IsNullOrEmpty(seo))
+                return "/" + seo.ToLower();
+
+            string id = GetColumnValue(row, "Id");
+
+            if (!string.IsNullOrEmpty(id))
+                return "/news/" + id;
+
+            return "/news";
+        }
+
+        // Member Directory
+        if (_myClass.Type == "members")
+        {
+            string memberName = GetColumnValue(row, "Name");
+
+            if (string.IsNullOrEmpty(memberName))
+                memberName = GetColumnValue(row, "title");
+
+            if (!string.IsNullOrEmpty(memberName))
+                return "/whos-who?q=" +
+                    HttpUtility.UrlEncode(memberName);
+
+            return "/whos-who";
+        }
+
+        // Resources
+        if (_myClass.Type == "resources")
+        {
+            string seo = GetColumnValue(row, "seo");
+
+            if (!string.IsNullOrEmpty(seo))
+                return "/" + seo.ToLower();
+
+            string id = GetColumnValue(row, "ResourceID");
+
+            if (!string.IsNullOrEmpty(id))
+                return "/resources/" + HttpUtility.UrlEncode(id);
+
+            return "/resources";
+        }
+
+        return "/";
     }
 
     private DataTable getTable(string cmd, SqlParameter[] param)
@@ -226,7 +313,6 @@ public partial class SearchResults : System.Web.UI.UserControl
 
     private string RemoveNoiseWords(string searchTerm, string LCID)
     {
-        //Do nothing if there is any quotations " or '
         string strReturn = "";
 
         if (searchTerm.IndexOf("\"") == -1 && searchTerm.IndexOf("'") == -1)

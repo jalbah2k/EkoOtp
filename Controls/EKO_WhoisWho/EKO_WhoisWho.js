@@ -36,6 +36,7 @@
 
     var sortKey = 'name';
     var sortDir = 'asc';
+    var selectedMemberId = '';
     var lastFocus = null;
     var timer = null;
     var pageSize = 5;
@@ -115,6 +116,10 @@
                 ? org.options[org.selectedIndex].text
                 : '';
 
+        var exactNameSearch = q && members.some(function (m) {
+            return lower(m.name).trim() === q;
+        });
+
         return members
             .filter(function (m) {
 
@@ -135,7 +140,20 @@
                 /*
                  * Search filter
                  */
-                if (q && searchBlob(m).indexOf(q) === -1) {
+                if (q) {
+                    if (exactNameSearch) {
+                        if (lower(m.name).trim() !== q) {
+                            return false;
+                        }
+                    } else if (searchBlob(m).indexOf(q) === -1) {
+                        return false;
+                    }
+                }
+
+                if (
+                    selectedMemberId &&
+                    String(m.id) !== String(selectedMemberId)
+                ) {
                     return false;
                 }
 
@@ -192,10 +210,7 @@
 
         var rows = filtered();
 
-        /*
-         * No need to show Load More if
-         * all records are already displayed.
-         */
+      
         if (visibleCount >= rows.length) {
             return;
         }
@@ -669,6 +684,8 @@
         var params = new URLSearchParams(window.location.search);
         var q = (params.get('q') || '').trim();
         var id = (params.get('id') || '').trim();
+        selectedMemberId =
+            (params.get('member') || '').trim();
 
         if (q && search) {
             search.value = q;
@@ -686,6 +703,7 @@
 
             // Reset to first 5 records whenever search changes
             visibleCount = pageSize;
+            selectedMemberId = '';
 
             timer = setTimeout(render, 120);
         });
@@ -745,9 +763,6 @@
                     return String(m.id) === String(id);
                 })[0];
 
-                // Update the URL so this member's profile is a
-                // direct, shareable/bookmarkable link, and so the
-                // list narrows to just this one record.
                 if (member && window.history && window.history.pushState) {
 
                     var url = new URL(window.location.href);
@@ -833,28 +848,16 @@
         }
     );
 
-    /*
-     * INITIAL RENDER
-     *
-     * This will display only 5 members, filtered
-     * down by ?q= if present on the URL.
-     */
+ 
     visibleCount = pageSize;
     var initialId = applyUrlSearch();
 
     render();
 
-    // Deep link straight to a single member's profile, e.g.
-    // /whos-who?q=Kishor%20N&id=42
     if (initialId) {
         openProfile(initialId, null);
     }
 
-    /*
-     * Browser back/forward support: keep the search box,
-     * filtered list, and open profile panel in sync with
-     * the URL's q/id params.
-     */
     window.addEventListener('popstate', function () {
 
         var params = new URLSearchParams(window.location.search);
