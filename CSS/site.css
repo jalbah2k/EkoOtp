@@ -1610,7 +1610,7 @@ body #insideMemberSlider:hover .slick-prev, body #insideMemberSlider:hover .slic
 
 .innerContWrap img
 {
-	max-width: 100%;
+	max-width: 85%;
 }
 body  #insideMemberSlider .slick-prev
 {
@@ -3182,7 +3182,7 @@ form[action*="./EKOMembers"] #result-items
 
 .memberIntro h2
 {
-	text-align: center;
+/*	text-align: center;*/
 	margin-bottom: 26px;
 	display: block;
 }

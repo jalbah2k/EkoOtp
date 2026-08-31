@@ -550,6 +550,1695 @@
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+    /*
+       Member home visual refresh
+       --------------------------
+       This block is intentionally presentation-only. Existing IDs, controls,
+       links and client-side handlers remain unchanged.
+    */
+    html body.home-member {
+        background: #f7f8fa;
+        color: #4a4a55;
+        font-family: "proxima-nova", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    
+
+    
+
+    html body.home-member #rightInside,
+    html body.home-member #insideContent,
+    html body.home-member #html_content,
+    html body.home-member #memberHomeFeed {
+        width: 100%;
+        max-width: none;
+        box-sizing: border-box;
+    }
+
+    html body.home-member #breadcrumbs,
+    html body.home-member #insideBanner {
+        margin: 0;
+    }
+
+    html body.home-member #breadcrumbs {
+        display: none;
+    }
+
+    html body.home-member .memberIntro {
+        padding: 0;
+    }
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    html body.home-member .static-welcome-search input[type="text"]::placeholder {
+        color: #a1a1aa;
+        opacity: 1;
+    }
+
+    html body.home-member .static-welcome-search input[type="text"]:focus {
+        border-color: #7c57a7;
+        box-shadow: 0 0 0 3px rgba(124, 87, 167, .12);
+    }
+
+    
+
+    html body.home-member .welcome-search-btn:hover {
+        background: #482170;
+        box-shadow: none;
+        transform: translateY(-1px);
+    }
+
+    html body.home-member .welcome-search-btn:active {
+        background: #3f1d63;
+        transform: translateY(0);
+    }
+
+    html body.home-member .welcome-search-btn:focus {
+        box-shadow: 0 0 0 3px rgba(91, 43, 138, .2);
+    }
+
+    html body.home-member .welcome-search-btn .search-icon {
+        display: none;
+    }
+
+    
+
+    
+
+    
+
+    html body.home-member .static-editable-play {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, .72);
+        color: #aaaab5;
+        font-size: 10px;
+    }
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    html body.home-member .static-banner-gallery {
+        min-height: 164px;
+        margin: 0;
+        border: 1px solid #e6e6eb;
+        border-radius: 10px;
+        background: #fff;
+        box-shadow: 0 1px 2px rgba(30, 30, 45, .03);
+    }
+
+    html body.home-member .static-banner-gallery .static-banner-image {
+        flex-basis: 23%;
+        min-height: 164px;
+        background: linear-gradient(135deg, #c9b7df 0%, #c0e3df 100%);
+        color: #747481;
+        font-size: 10px;
+    }
+
+    html body.home-member .static-banner-gallery .static-banner-content {
+        padding: 25px 22px;
+    }
+
+    html body.home-member .static-banner-gallery .static-banner-eyebrow {
+        margin-bottom: 8px;
+        color: #b14a7d;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: .1em;
+    }
+
+    html body.home-member .static-banner-gallery .static-banner-content h2 {
+        margin-bottom: 8px;
+        color: #4f287b;
+        font-size: 16px;
+        line-height: 1.25;
+    }
+
+    html body.home-member .static-banner-gallery .static-banner-content p {
+        margin: 0 0 3px;
+        color: #777785;
+        font-size: 10px;
+        line-height: 1.45;
+    }
+
+    html body.home-member .static-banner-gallery .static-banner-buttons {
+        margin-top: 13px;
+    }
+
+    html body.home-member .static-banner-gallery .static-banner-buttons a {
+        margin-right: 6px;
+        padding: 8px 14px;
+        border-radius: 6px;
+        font-size: 10px;
+        font-weight: 600;
+    }
+
+    html body.home-member .static-banner-gallery .static-banner-buttons .btn-primary {
+        background: #5b2b8a;
+    }
+
+    html body.home-member .static-banner-gallery .static-banner-buttons .btn-secondary {
+        border-color: #e2e2e8;
+        color: #5b5b68;
+    }
+
+    
+
+    
+
+    html body.home-member div.quickWrapper.QuickLinkIcons > a:hover {
+        border-color: #cfc0df !important;
+        box-shadow: 0 5px 14px rgba(79, 40, 123, .09);
+        transform: translateY(-2px);
+    }
+
+    
+
+    
+
+    
+
+    
+
+    @media (max-width: 760px) {
+        
+
+        
+
+        
+
+        
+
+        
+    }
+
+    @media (max-width: 420px) {
+        html body.home-member .static-welcome-search {
+            align-items: stretch;
+        }
+
+        html body.home-member .welcome-search-btn {
+            min-width: 58px;
+            padding: 0 11px;
+        }
+
+        
+    }
+
+    /*
+       Reference screenshot alignment
+       -------------------------------
+       Layout-only overrides. No controls, URLs, IDs, or event handlers
+       are changed by this block.
+    */
+    html body.home-member,
+    html body.home-member #insideWrap,
+    html body.home-member #insideContent,
+    html body.home-member #html_content {
+        background: #fff;
+    }
+
+    html body.home-member #insideWrap {
+        padding-bottom: 0;
+    }
+
+    html body.home-member #mainContentInside {
+        width: calc(100% - 40px);
+        max-width: 1180px;
+        margin: 0 auto;
+    }
+
+    html body.home-member #memberHomeFeed {
+        position: relative;
+    }
+
+    html body.home-member .welcome-heading {
+        padding-top: 17px;
+    }
+
+    html body.home-member .welcome-heading h1 {
+        margin-bottom: 5px;
+        padding-left: 9px;
+        color: #4b2777;
+        font-size: 18px;
+        line-height: 1.2;
+    }
+
+    html body.home-member .welcome-heading h1:before {
+        top: 1px;
+        bottom: 1px;
+        width: 3px;
+        background: #39b6aa;
+    }
+
+    html body.home-member .welcome-heading .welcome-subtitle {
+        color: #777783;
+        font-size: 10px;
+        line-height: 1.35;
+    }
+
+    html body.home-member .welcome-search-row {
+        display: block;
+        box-sizing: border-box;
+        width: 100%;
+        min-height: 34px;
+        margin: 17px 0 0;
+        padding-right: 293px;
+    }
+
+    html body.home-member .welcome-search-col {
+        display: block;
+        width: 100%;
+    }
+
+    html body.home-member .static-welcome-search {
+        gap: 7px;
+    }
+
+    html body.home-member .static-welcome-search input[type="text"] {
+        height: 34px;
+        padding-left: 34px;
+        border-color: #e3e3e8;
+        border-radius: 6px;
+        background-position: 11px center;
+        font-size: 10px;
+    }
+
+    html body.home-member .welcome-search-btn {
+        min-width: 66px;
+        height: 34px;
+        padding: 0 13px;
+        border-radius: 6px;
+        font-size: 10px;
+    }
+
+    html body.home-member .editable-zone-col {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 273px;
+        height: 98px;
+    }
+
+    html body.home-member .static-editable-zone {
+        height: 98px;
+        min-height: 0;
+        padding: 17px 0 0 33px;
+        border-left-color: #ededf0;
+    }
+
+    html body.home-member .static-editable-thumb {
+        flex-basis: 94px;
+        height: 63px;
+        border-radius: 6px;
+        background: #e4e4e9;
+    }
+
+    html body.home-member .static-editable-content {
+        padding-top: 0;
+    }
+
+    html body.home-member .static-editable-eyebrow {
+        margin-bottom: 5px;
+        font-size: 8px;
+        letter-spacing: .13em;
+    }
+
+    html body.home-member .static-editable-title {
+        font-size: 10px;
+        line-height: 1.25;
+    }
+
+    html body.home-member .static-editable-link {
+        margin-top: 4px;
+        font-size: 9px;
+    }
+
+    html body.home-member #insideBanner {
+        /*
+           The reference has a clear breathing space between the search
+           row and the event card. Keep the banner in the normal document
+           flow so existing banner content and controls are unaffected.
+        */
+        margin-top: 44px !important;
+    }
+
+    @media (max-width: 760px) {
+        html body.home-member #mainContentInside {
+            width: calc(100% - 32px);
+        }
+
+        html body.home-member .welcome-search-row {
+            display: flex;
+            min-height: 0;
+            margin-top: 16px;
+            padding-right: 0;
+        }
+
+        html body.home-member .editable-zone-col {
+            position: static;
+            width: auto;
+            height: auto;
+        }
+
+        html body.home-member .static-editable-zone {
+            height: auto;
+            min-height: 58px;
+            padding: 0;
+        }
+
+        html body.home-member #insideBanner {
+            margin-top: 28px !important;
+        }
+    }
+
+    /*
+       Home widgets reference design
+       -----------------------------
+       Presentation-only overrides for the quick links, What's New list,
+       and Who's Who card. Existing repeater output and event handlers stay
+       unchanged.
+    */
+    html body.home-member #memberHomeMain,
+    html body.home-member #memberHomeMainCol {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    html body.home-member div.quickWrapper.QuickLinkIcons {
+        grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+        gap: 10px !important;
+        margin: 0 0 18px !important;
+    }
+
+    html body.home-member div.quickWrapper.QuickLinkIcons > a {
+        height: 72px !important;
+        border-radius: 9px !important;
+        padding: 8px 5px !important;
+    }
+
+    html body.home-member div.quickWrapper.QuickLinkIcons a.qLinkIcon:before {
+        width: 26px !important;
+        height: 26px !important;
+        margin-bottom: 7px !important;
+        background-size: 14px 14px !important;
+    }
+
+    html body.home-member div.quickWrapper.QuickLinkIcons > a > span,
+    html body.home-member div.quickWrapper.QuickLinkIcons > a > div {
+        font-size: 9px !important;
+    }
+
+    html body.home-member .home-content-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 195px;
+        align-items: start;
+        gap: 22px;
+        margin: 0;
+    }
+
+    html body.home-member .home-whats-new {
+        min-width: 0;
+    }
+
+    html body.home-member .whats-new {
+        position: relative;
+        margin: 0;
+    }
+
+    html body.home-member .whats-new > h2 {
+        margin: 0 0 9px;
+        color: #573494;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1.25;
+    }
+
+    html body.home-member .whats-new > center {
+        position: absolute;
+        top: -1px;
+        right: 0;
+        margin: 0;
+        padding: 0;
+    }
+
+    html body.home-member .whats-new > center .load-more {
+        display: inline-block;
+        margin: 0;
+        color: #573494;
+        font-size: 0;
+        font-weight: 600;
+        line-height: 1.25;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    html body.home-member .whats-new > center .load-more::after {
+        content: "Load More Updates";
+        font-size: 9px;
+    }
+
+    html body.home-member .whats-new > br {
+        display: none;
+    }
+
+    html body.home-member .whats-new-list {
+        border-color: #e5e5ea;
+        border-radius: 9px;
+        box-shadow: 0 1px 2px rgba(30, 30, 45, .025);
+    }
+
+    html body.home-member .whats-new-row {
+        position: relative;
+        display: grid;
+        grid-template-columns: 18px minmax(0, 1fr) auto;
+        grid-template-rows: auto;
+        gap: 0 9px;
+        min-height: 54px;
+        padding: 10px 15px;
+    }
+
+    html body.home-member .whats-new-type {
+        position: absolute;
+        bottom: 9px;
+        left: 33px;
+        z-index: 1;
+        color: #9a9aa5;
+        font-size: 7px;
+        font-weight: 700;
+        line-height: 1;
+        letter-spacing: .06em;
+    }
+
+    html body.home-member .whats-new-type::before {
+        position: absolute;
+        top: 2px;
+        left: -18px;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #573494;
+        content: "";
+    }
+
+    html body.home-member .whats-new-title {
+        grid-column: 2;
+        grid-row: 1;
+        min-width: 0;
+        padding-bottom: 13px;
+        color: #454550;
+        font-size: 10px;
+        font-weight: 500;
+        line-height: 1.25;
+    }
+
+    html body.home-member .whats-new-date {
+        position: absolute;
+        bottom: 8px;
+        left: 86px;
+        color: #9a9aa5;
+        font-size: 7px;
+        font-weight: 500;
+        line-height: 1;
+        text-align: left;
+    }
+
+    html body.home-member .whats-new-action {
+        grid-column: 3;
+        grid-row: 1;
+        align-self: center;
+        color: #573494 !important;
+        font-size: 9px;
+        font-weight: 600;
+        line-height: 1.2;
+        text-decoration: none !important;
+    }
+
+    html body.home-member .whats-new-action:hover,
+    html body.home-member .whats-new-action:focus {
+        color: #4b2a85 !important;
+        text-decoration: none !important;
+    }
+
+    html body.home-member .home-whos-who {
+        min-width: 0;
+        width: 100%;
+    }
+
+    html body.home-member .whos-who-card {
+        width: 100%;
+        min-height: 109px;
+        padding: 11px;
+        border-color: #e5e5ea;
+        border-radius: 9px;
+        box-shadow: 0 1px 2px rgba(30, 30, 45, .025);
+    }
+
+    html body.home-member .whos-who-header {
+        gap: 5px;
+        margin-bottom: 9px;
+    }
+
+    html body.home-member .whos-who-icon {
+        display: none;
+    }
+
+    html body.home-member .whos-who-header h2 {
+        color: #92929c;
+        font-size: 8px;
+        letter-spacing: .12em;
+        line-height: 1.2;
+    }
+
+    html body.home-member .whos-who-search {
+        margin-bottom: 10px;
+    }
+
+    html body.home-member #homeWhoSearch {
+        height: 26px;
+        padding-left: 28px;
+        border-color: #e7e7ec;
+        border-radius: 5px;
+        background: #fafafd;
+        font-size: 9px;
+    }
+
+    html body.home-member .whos-who-search-icon {
+        left: 9px;
+        font-size: 13px;
+    }
+
+    html body.home-member .whos-who-directory {
+        padding-top: 9px;
+        border-top-color: #eeeeF2;
+        color: #573494;
+        font-size: 9px;
+        font-weight: 600;
+        text-decoration: none !important;
+    }
+
+    html body.home-member .whos-who-directory::after {
+        content: " →";
+        display: inline;
+        font-size: 10px;
+    }
+
+    html body.home-member .whos-who-directory:hover,
+    html body.home-member .whos-who-directory:focus {
+        color: #4b2a85;
+        text-decoration: none !important;
+    }
+
+    @media (max-width: 900px) {
+        html body.home-member .home-content-layout {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        html body.home-member .home-whos-who {
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 760px) {
+        html body.home-member div.quickWrapper.QuickLinkIcons {
+            grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        }
+    }
+
+    @media (max-width: 420px) {
+        html body.home-member div.quickWrapper.QuickLinkIcons {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        }
+
+        html body.home-member .whats-new-row {
+            padding-right: 11px;
+            padding-left: 11px;
+        }
+
+        html body.home-member .whats-new-action {
+            font-size: 8px;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* =========================================================
+       FINAL SCREENSHOT MATCH - 2026-08-31
+       Keep this as the final/last visual layer.
+       No IDs, controls, links or JavaScript behavior changed.
+       ========================================================= */
+
+    html body.home-member {
+        background: #f7f8fa;
+        color: #333344;
+        font-family: "proxima-nova", "Helvetica Neue", Arial, sans-serif;
+        font-size: 12px;
+    }
+
+    html body.home-member #insideWrap {
+        background: #f7f8fa;
+        padding-bottom: 30px;
+    }
+
+    html body.home-member #mainContentInside {
+        width: calc(100% - 76px);
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html body.home-member #insideContent,
+    html body.home-member #html_content,
+    html body.home-member #memberHomeFeed,
+    html body.home-member #memberHomeMain,
+    html body.home-member #memberHomeMainCol {
+        width: 100%;
+        max-width: none;
+        box-sizing: border-box;
+    }
+
+    /* Welcome / search area */
+    html body.home-member .welcome-heading {
+        padding: 12px 20px 0;
+        text-align: left;
+    }
+
+    html body.home-member .welcome-heading h1 {
+        display: inline-block;
+        position: relative;
+        margin: 0 0 4px;
+        padding-left: 10px;
+        color: #4b2777;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: -0.015em;
+    }
+
+    html body.home-member .welcome-heading h1:before {
+        position: absolute;
+        top: 1px;
+        bottom: 1px;
+        left: 0;
+        width: 3px;
+        border-radius: 3px;
+        background: #39b6aa;
+        content: "";
+    }
+
+    html body.home-member .welcome-heading .welcome-subtitle {
+        margin: 0;
+        color: #777783;
+        font-size: 11px;
+        line-height: 1.35;
+    }
+
+    html body.home-member .welcome-search-row {
+        display: block;
+        position: relative;
+        width: calc(100% - 40px);
+        min-height: 98px;
+        margin: 17px 20px 0;
+        padding: 0 293px 0 0;
+        box-sizing: border-box;
+    }
+
+    html body.home-member .welcome-search-col {
+        display: block;
+        width: 100%;
+        min-width: 0;
+    }
+
+    html body.home-member .static-welcome-search {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        max-width: none;
+        gap: 7px;
+        margin: 0;
+    }
+
+    html body.home-member .static-welcome-search input[type="text"] {
+        flex: 1 1 auto;
+        min-width: 0;
+        height: 36px;
+        box-sizing: border-box;
+        padding: 0 12px 0 31px;
+        border: 1px solid #e1e2e8;
+        border-radius: 7px;
+        outline: 0;
+        background-color: #fff;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='%239da0aa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-4-4'/%3E%3C/svg%3E");
+        background-position: 11px center;
+        background-repeat: no-repeat;
+        color: #474751;
+        font-size: 11px;
+    }
+
+    html body.home-member .static-welcome-search input[type="text"]::placeholder {
+        color: #9a9aaa;
+        opacity: 1;
+    }
+
+    html body.home-member .static-welcome-search input[type="text"]:focus {
+        border-color: #7c57a7;
+        box-shadow: 0 0 0 3px rgba(124, 87, 167, .10);
+    }
+
+    html body.home-member .welcome-search-btn {
+        flex: 0 0 auto;
+        min-width: 70px;
+        height: 36px;
+        padding: 0 15px;
+        border: 0;
+        border-radius: 7px;
+        background: #5b2b8a;
+        color: #fff;
+        box-shadow: none;
+        font-size: 11px;
+        font-weight: 600;
+        line-height: 1;
+    }
+
+    html body.home-member .welcome-search-btn:hover {
+        background: #4d2378;
+        box-shadow: none;
+        transform: none;
+    }
+
+    html body.home-member .welcome-search-btn:active {
+        background: #421d66;
+        transform: none;
+    }
+
+    html body.home-member .welcome-search-btn:focus {
+        box-shadow: 0 0 0 3px rgba(91, 43, 138, .15);
+    }
+
+    /* Real conversations block */
+    html body.home-member .editable-zone-col {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 273px;
+        height: 98px;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+    html body.home-member .static-editable-zone {
+        display: flex;
+        align-items: flex-start;
+        height: 98px;
+        min-height: 0;
+        gap: 12px;
+        padding: 0 0 0 33px;
+        border: 0;
+        border-left: 1px solid #ececf0;
+        border-radius: 0;
+        background: transparent;
+        box-sizing: border-box;
+    }
+
+    html body.home-member .static-editable-thumb {
+        flex: 0 0 100px;
+        width: 100px;
+        height: 66px;
+        margin-top: 18px;
+        border-radius: 7px;
+        background: #e3e4e9;
+    }
+
+    html body.home-member .static-editable-content {
+        min-width: 0;
+        padding-top: 3px;
+    }
+
+    html body.home-member .static-editable-eyebrow {
+        margin: 0 0 4px;
+        color: #9b9baa;
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: .12em;
+        line-height: 1.2;
+    }
+
+    html body.home-member .static-editable-title {
+        margin: 0;
+        color: #17172a;
+        font-size: 10px;
+        font-weight: 600;
+        line-height: 1.3;
+    }
+
+    html body.home-member .static-editable-link {
+        display: inline-block;
+        margin-top: 5px;
+        color: #573494;
+        font-size: 9px;
+        font-weight: 600;
+    }
+
+    /* Event/banner */
+    html body.home-member #insideBanner {
+        margin: 8px 0 20px !important;
+    }
+
+    html body.home-member .static-banner-gallery {
+        display: flex;
+        align-items: stretch;
+        min-height: 194px;
+        margin: 0;
+        overflow: hidden;
+        border: 1px solid #dfdfe5;
+        border-radius: 10px;
+        background: #fff;
+        box-shadow: 0 1px 2px rgba(30, 30, 45, .06);
+    }
+
+    html body.home-member .static-banner-gallery .static-banner-image {
+        flex: 0 0 23%;
+        min-height: 194px;
+        background: linear-gradient(135deg, #b9add3 0%, #b5dadd 100%);
+        color: #626275;
+        font-size: 10px;
+    }
+
+    html body.home-member .static-banner-gallery .static-banner-content {
+        flex: 1 1 auto;
+        padding: 27px 27px;
+        box-sizing: border-box;
+    }
+
+    html body.home-member .static-banner-gallery .static-banner-eyebrow {
+        margin: 0 0 10px;
+        color: #cf0871;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: .08em;
+        line-height: 1.2;
+    }
+
+    html body.home-member .static-banner-gallery .static-banner-content h2 {
+        margin: 0 0 11px;
+        color: #56318e;
+        font-size: 17px;
+        font-weight: 700;
+        line-height: 1.25;
+    }
+
+    html body.home-member .static-banner-gallery .static-banner-content p {
+        max-width: 520px;
+        margin: 0 0 14px;
+        color: #646477;
+        font-size: 10px;
+        line-height: 1.55;
+    }
+
+    html body.home-member .static-banner-gallery .static-banner-buttons {
+        margin-top: 0;
+    }
+
+    html body.home-member .static-banner-gallery .static-banner-buttons a {
+        margin-right: 7px;
+        padding: 9px 16px;
+        border-radius: 6px;
+        font-size: 10px;
+        font-weight: 600;
+    }
+
+    html body.home-member .static-banner-gallery .static-banner-buttons .btn-primary {
+        background: #5b2b8a;
+        color: #fff;
+    }
+
+    html body.home-member .static-banner-gallery .static-banner-buttons .btn-secondary {
+        background: #fff;
+        border: 1px solid #d4d7df;
+        color: #454554;
+    }
+
+    /* Quick links */
+    html body.home-member div.quickWrapper.QuickLinkIcons {
+        display: grid !important;
+        grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+        gap: 10px !important;
+        width: 100%;
+        margin: 0 0 21px !important;
+        padding: 0 !important;
+        box-sizing: border-box;
+    }
+
+    html body.home-member div.quickWrapper.QuickLinkIcons > a {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: auto !important;
+        min-width: 0 !important;
+        max-width: none !important;
+        height: 80px !important;
+        padding: 8px 5px !important;
+        box-sizing: border-box;
+        border: 1px solid #dedfe5 !important;
+        border-radius: 10px !important;
+        background: #fff !important;
+        color: #343448 !important;
+        box-shadow: none;
+        text-align: center;
+    }
+
+    html body.home-member div.quickWrapper.QuickLinkIcons > a:hover {
+        border-color: #cfc0df !important;
+        box-shadow: 0 3px 10px rgba(79, 40, 123, .07);
+        transform: none;
+    }
+
+    html body.home-member div.quickWrapper.QuickLinkIcons a.qLinkIcon:before {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px !important;
+        height: 30px !important;
+        margin: 0 auto 7px !important;
+        border-radius: 50%;
+        background-color: #edf8f6;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 15px 15px !important;
+    }
+
+    html body.home-member div.quickWrapper.QuickLinkIcons > a > span,
+    html body.home-member div.quickWrapper.QuickLinkIcons > a > div {
+        color: #353548 !important;
+        font-size: 9px !important;
+        font-weight: 500;
+        line-height: 1.2;
+    }
+
+    /* What's New + Who's Who */
+    html body.home-member .home-content-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 213px;
+        align-items: start;
+        gap: 27px;
+        width: 100%;
+        margin: 0;
+    }
+
+    html body.home-member .home-whats-new {
+        min-width: 0;
+        width: 100%;
+    }
+
+    html body.home-member .whats-new {
+        position: relative;
+        margin: 0;
+    }
+
+    html body.home-member .whats-new > h2 {
+        margin: 0 0 11px;
+        color: #573494;
+        font-size: 13px;
+        font-weight: 700;
+        line-height: 1.25;
+    }
+
+    html body.home-member .whats-new > center {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 0;
+    }
+
+    html body.home-member .whats-new > center .load-more {
+        display: inline-block;
+        margin: 0;
+        color: #573494;
+        font-size: 9px;
+        font-weight: 600;
+        line-height: 1.25;
+        text-decoration: none;
+    }
+
+    html body.home-member .whats-new > center .load-more::after {
+        content: none;
+    }
+
+    html body.home-member .whats-new > br {
+        display: none;
+    }
+
+    html body.home-member .whats-new-list {
+        overflow: hidden;
+        border: 1px solid #e0e1e6;
+        border-radius: 10px;
+        background: #fff;
+        box-shadow: 0 1px 2px rgba(30, 30, 45, .06);
+    }
+
+    html body.home-member .whats-new-row {
+        position: relative;
+        display: grid;
+        grid-template-columns: 18px minmax(0, 1fr) auto;
+        grid-template-rows: auto;
+        gap: 0 9px;
+        min-height: 60px;
+        padding: 12px 17px;
+        box-sizing: border-box;
+        border-bottom: 1px solid #ececf0;
+    }
+
+    html body.home-member .whats-new-row:last-child {
+        border-bottom: 0;
+    }
+
+    html body.home-member .whats-new-type {
+        position: absolute;
+        bottom: 12px;
+        left: 37px;
+        z-index: 1;
+        color: #9292a0;
+        font-size: 7px;
+        font-weight: 700;
+        line-height: 1;
+        letter-spacing: .05em;
+    }
+
+    html body.home-member .whats-new-type::before {
+        position: absolute;
+        top: 2px;
+        left: -21px;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #573494;
+        content: "";
+    }
+
+    html body.home-member .whats-new-title {
+        grid-column: 2;
+        grid-row: 1;
+        min-width: 0;
+        padding-bottom: 15px;
+        color: #22223a;
+        font-size: 10px;
+        font-weight: 500;
+        line-height: 1.3;
+    }
+
+    html body.home-member .whats-new-date {
+        position: absolute;
+        bottom: 11px;
+        left: 94px;
+        color: #9292a0;
+        font-size: 7px;
+        font-weight: 500;
+        line-height: 1;
+        text-align: left;
+    }
+
+    html body.home-member .whats-new-action {
+        grid-column: 3;
+        grid-row: 1;
+        align-self: center;
+        color: #573494 !important;
+        font-size: 9px;
+        font-weight: 600;
+        line-height: 1.2;
+        text-decoration: none !important;
+        white-space: nowrap;
+    }
+
+    /* Who's Who card */
+    html body.home-member .home-whos-who {
+        min-width: 0;
+        width: 100%;
+    }
+
+    html body.home-member .whos-who-card {
+        width: 100%;
+        min-height: 123px;
+        padding: 12px 13px;
+        box-sizing: border-box;
+        border: 1px solid #dedfe5;
+        border-radius: 10px;
+        background: #fff;
+        box-shadow: 0 1px 2px rgba(30, 30, 45, .06);
+    }
+
+    html body.home-member .whos-who-header {
+        gap: 5px;
+        margin: 0 0 11px;
+    }
+
+    html body.home-member .whos-who-icon {
+        display: none;
+    }
+
+    html body.home-member .whos-who-header h2 {
+        margin: 0;
+        color: #92929c;
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: .12em;
+        line-height: 1.2;
+    }
+
+    html body.home-member .whos-who-search {
+        position: relative;
+        width: 100%;
+        margin: 0 0 12px;
+    }
+
+    html body.home-member .whos-who-search-icon {
+        left: 10px;
+        color: #a1a3ad;
+        font-size: 13px;
+    }
+
+    html body.home-member #homeWhoSearch {
+        width: 100%;
+        height: 30px;
+        padding: 0 9px 0 29px;
+        border: 1px solid #dfe1e7;
+        border-radius: 6px;
+        background: #fff;
+        color: #4c4c5a;
+        font-size: 9px;
+        box-sizing: border-box;
+    }
+
+    html body.home-member #homeWhoSearch::placeholder {
+        color: #9b9cab;
+    }
+
+    html body.home-member .whos-who-directory {
+        margin: 0 -13px -12px;
+        padding: 15px 13px 14px;
+        border-top: 1px solid #ececf0;
+        color: #573494;
+        font-size: 9px;
+        font-weight: 600;
+        line-height: 1.2;
+        text-decoration: none !important;
+    }
+
+    html body.home-member .whos-who-directory::after {
+        content: " →";
+        display: inline;
+        font-size: 10px;
+    }
+
+    html body.home-member .whos-who-directory:hover,
+    html body.home-member .whos-who-directory:focus {
+        color: #4b2a85;
+        text-decoration: none !important;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+        html body.home-member #mainContentInside {
+            width: calc(100% - 32px);
+        }
+
+        html body.home-member .home-content-layout {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        html body.home-member .home-whos-who {
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 760px) {
+        html body.home-member .welcome-search-row {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            min-height: 0;
+            margin: 16px 0 0;
+            padding-right: 0;
+        }
+
+        html body.home-member .editable-zone-col {
+            position: static;
+            width: 100%;
+            height: auto;
+        }
+
+        html body.home-member .static-editable-zone {
+            height: auto;
+            min-height: 58px;
+            padding: 0;
+            border-left: 0;
+        }
+
+        html body.home-member #insideBanner {
+            margin-top: 28px !important;
+        }
+
+        html body.home-member div.quickWrapper.QuickLinkIcons {
+            grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        }
+    }
+
+    @media (max-width: 420px) {
+        html body.home-member .welcome-heading {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        html body.home-member .static-welcome-search {
+            align-items: stretch;
+        }
+
+        html body.home-member .welcome-search-btn {
+            min-width: 58px;
+            padding: 0 11px;
+        }
+
+        html body.home-member div.quickWrapper.QuickLinkIcons {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        }
+
+        html body.home-member .whats-new-row {
+            padding-right: 11px;
+            padding-left: 11px;
+        }
+
+        html body.home-member .whats-new-action {
+            font-size: 8px;
+        }
+    }
+
+
+
+    /* =========================================================
+       FINAL FIX - Real Conversations content overflow
+       The carousel/image inside .editable-zone-col was larger
+       than its allocated header area and was overflowing into
+       the event/banner section.
+       ========================================================= */
+
+    html body.home-member .editable-zone-col {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 273px;
+        height: 98px;
+        min-width: 0;
+        box-sizing: border-box;
+        overflow: hidden;
+        z-index: 2;
+    }
+
+    html body.home-member .editable-zone-col .outerContWrap.slick {
+        position: relative !important;
+        width: 100% !important;
+        height: 98px !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+        box-sizing: border-box !important;
+    }
+
+    html body.home-member .editable-zone-col .outerContWrap.slick .innerWrap {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        width: 100% !important;
+        height: 98px !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+        box-sizing: border-box;
+    }
+
+    html body.home-member .editable-zone-col .outerContWrap.slick .innerWrap img {
+        display: block;
+        flex: 0 0 100px;
+        width: 100px !important;
+        max-width: 100px !important;
+        height: 66px !important;
+        max-height: 66px !important;
+        margin-top: 18px;
+        object-fit: contain;
+        object-position: center;
+        box-sizing: border-box;
+    }
+
+    html body.home-member .editable-zone-col .outerContWrap.slick .innerWrap br {
+        display: none;
+    }
+
+    html body.home-member .editable-zone-col .outerContWrap.slick .innerWrap > a {
+        display: block;
+        flex: 1 1 auto;
+        min-width: 0;
+        max-width: 135px;
+        margin-top: 21px;
+        color: #17172a;
+        font-size: 9px;
+        font-weight: 600;
+        line-height: 1.3;
+        text-decoration: none;
+        overflow-wrap: break-word;
+    }
+
+    html body.home-member .editable-zone-col .outerContWrap.slick .innerWrap > a:hover {
+        text-decoration: underline;
+    }
+
+    html body.home-member .editable-zone-col .outerContWrap.slick [id$="_tdEdit"] {
+        position: absolute !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        z-index: 3;
+    }
+
+    /* Keep the event/banner completely below the header conversation area. */
+    html body.home-member #insideBanner {
+        position: relative;
+        z-index: 1;
+        clear: both;
+    }
+
+    @media (max-width: 760px) {
+        html body.home-member .editable-zone-col {
+            position: static;
+            width: 100%;
+            height: auto;
+            overflow: visible;
+        }
+
+        html body.home-member .editable-zone-col .outerContWrap.slick,
+        html body.home-member .editable-zone-col .outerContWrap.slick .innerWrap {
+            height: auto !important;
+            min-height: 58px;
+            overflow: visible !important;
+        }
+
+        html body.home-member .editable-zone-col .outerContWrap.slick .innerWrap img {
+            flex-basis: 86px;
+            width: 86px !important;
+            max-width: 86px !important;
+            height: 58px !important;
+            max-height: 58px !important;
+            margin-top: 0;
+        }
+
+        html body.home-member .editable-zone-col .outerContWrap.slick .innerWrap > a {
+            margin-top: 2px;
+            max-width: none;
+        }
+    }
+
+
+
+    /* =========================================================
+       REAL CONVERSATIONS - SHOW ALL CONTENT
+       Do not hide the logo, text/link, or editor.
+       The editor is placed below the Real Conversations logo.
+       ========================================================= */
+
+    html body.home-member .editable-zone-col {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 273px;
+        height: 112px;
+        min-width: 0;
+        box-sizing: border-box;
+        overflow: visible !important;
+        z-index: 2;
+    }
+
+    html body.home-member .editable-zone-col .outerContWrap.slick {
+        position: relative !important;
+        display: block !important;
+        width: 100% !important;
+        height: auto !important;
+        max-width: 100% !important;
+        overflow: visible !important;
+        box-sizing: border-box !important;
+    }
+
+    html body.home-member .editable-zone-col .outerContWrap.slick .innerWrap {
+        position: relative !important;
+        display: grid !important;
+        grid-template-columns: 94px minmax(0, 1fr) !important;
+        grid-template-rows: 63px auto !important;
+        column-gap: 10px !important;
+        width: 100% !important;
+        height: auto !important;
+        max-width: 100% !important;
+        overflow: visible !important;
+        box-sizing: border-box !important;
+        align-items: start !important;
+    }
+
+    /* Real Conversations logo - visible and contained in its area. */
+    html body.home-member .editable-zone-col .outerContWrap.slick .innerWrap img {
+        display: block !important;
+        grid-column: 1 !important;
+        grid-row: 1 !important;
+        width: 94px !important;
+        max-width: 94px !important;
+        height: 63px !important;
+        max-height: 63px !important;
+        margin: 0 !important;
+        object-fit: contain !important;
+        object-position: center !important;
+        box-sizing: border-box !important;
+    }
+
+    html body.home-member .editable-zone-col .outerContWrap.slick .innerWrap br {
+        display: none !important;
+    }
+
+    /* Keep the existing conversation text/link visible. */
+    html body.home-member .editable-zone-col .outerContWrap.slick .innerWrap > a {
+        display: block !important;
+        grid-column: 2 !important;
+        grid-row: 1 !important;
+        min-width: 0 !important;
+        max-width: none !important;
+        margin: 4px 0 0 !important;
+        padding: 0 !important;
+        color: #17172a !important;
+        font-size: 9px !important;
+        font-weight: 600 !important;
+        line-height: 1.35 !important;
+        text-decoration: none !important;
+        overflow: visible !important;
+        overflow-wrap: break-word !important;
+    }
+
+    html body.home-member .editable-zone-col .outerContWrap.slick .innerWrap > a:hover {
+        text-decoration: underline !important;
+    }
+
+    /* Editor stays visible BELOW the Real Conversations logo. */
+    html body.home-member .editable-zone-col .outerContWrap.slick .innerWrap [id$="_tdEdit"],
+    html body.home-member .editable-zone-col .outerContWrap.slick [id$="_tdEdit"] {
+        position: static !important;
+        grid-column: 1 !important;
+        grid-row: 2 !important;
+        display: block !important;
+        width: 94px !important;
+        margin: 5px 0 0 !important;
+        padding: 0 !important;
+        z-index: 3 !important;
+        box-sizing: border-box !important;
+    }
+
+    /* If the editor contains an edit link/button, keep it visible. */
+    html body.home-member .editable-zone-col .outerContWrap.slick [id$="_tdEdit"] a,
+    html body.home-member .editable-zone-col .outerContWrap.slick [id$="_tdEdit"] button,
+    html body.home-member .editable-zone-col .outerContWrap.slick [id$="_tdEdit"] input {
+        display: inline-block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    /* Give the header enough room so the conversation widget does not
+       overlap the event/banner content below it. */
+    html body.home-member .welcome-search-row {
+        min-height: 112px !important;
+    }
+
+    html body.home-member #insideBanner {
+        position: relative;
+        z-index: 1;
+    }
+
+    @media (max-width: 760px) {
+        html body.home-member .editable-zone-col {
+            position: static;
+            width: 100%;
+            height: auto;
+            overflow: visible !important;
+        }
+
+        html body.home-member .editable-zone-col .outerContWrap.slick,
+        html body.home-member .editable-zone-col .outerContWrap.slick .innerWrap {
+            width: 100% !important;
+            height: auto !important;
+            min-height: 0 !important;
+            overflow: visible !important;
+        }
+
+        html body.home-member .editable-zone-col .outerContWrap.slick .innerWrap {
+            grid-template-columns: 86px minmax(0, 1fr) !important;
+            grid-template-rows: 58px auto !important;
+        }
+
+        html body.home-member .editable-zone-col .outerContWrap.slick .innerWrap img {
+            width: 86px !important;
+            max-width: 86px !important;
+            height: 58px !important;
+            max-height: 58px !important;
+        }
+
+        html body.home-member .editable-zone-col .outerContWrap.slick [id$="_tdEdit"] {
+            width: 86px !important;
+        }
+
+        html body.home-member .welcome-search-row {
+            min-height: 0 !important;
+        }
+    }
+
+    div.quickWrapper.QuickLinkIcons
+    {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        gap: 12px !important;
+        padding: 0 !important;
+        margin: 16px 0 !important;
+    }
+
+    div.quickWrapper.QuickLinkIcons > a
+    {
+        display: flex !important;
+        flex: 1 1 140px !important;
+        min-width: 120px !important;
+        max-width: 220px !important;
+        height: 96px !important;
+        box-sizing: border-box !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        border: 1px solid #ddd !important;
+        border-radius: 6px !important;
+        padding: 14px 8px !important;
+        text-decoration: none !important;
+        color: #333 !important;
+        background: #fff !important;
+        overflow: hidden !important;
+    }
+
+    div.quickWrapper.QuickLinkIcons a.qLinkIcon:before
+    {
+        content: "" !important;
+        display: block !important;
+        width: 24px !important;
+        height: 24px !important;
+        margin: 0 auto 8px auto !important;
+        flex: 0 0 auto !important;
+    }
+
+    div.quickWrapper.QuickLinkIcons a.qLinkIcon:after
+    {
+        content: none !important;
+    }
+
+    div.quickWrapper.QuickLinkIcons a.qLinkIcon span
+    {
+        margin-left: 4px !important;
+    }
+    div.quickWrapper.QuickLinkIcons > a img,
+    div.quickWrapper.QuickLinkIcons > a svg
+    {
+        max-width: 100% !important;
+        max-height: 32px !important;
+        width: auto !important;
+        height: auto !important;
+        object-fit: contain !important;
+        flex: 0 0 auto !important;
+        margin: 0 auto 6px auto !important;
+    }
+
+    div.quickWrapper.QuickLinkIcons > a > span,
+    div.quickWrapper.QuickLinkIcons > a > div
+    {
+        max-width: 100% !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+        font-size: 13px !important;
+    }
+
+
 </style>
 </head>
 <body id="body" class="home-member">
@@ -610,7 +2299,7 @@
                                 <div class="welcome-search-row">
                                     <div class="welcome-search-col">
                                         <div class="static-welcome-search">
-                                            <input type="text" id="staticWelcomeSearch" name="staticWelcomeSearch" placeholder="Search the member portal" />
+                                             <input type="text" id="staticWelcomeSearch" name="staticWelcomeSearch" placeholder="Search the member portal" aria-label="Search the member portal" />
                                             <button type="button" id="btnStaticWelcomeSearch" class="welcome-search-btn">
     <span class="search-icon">🔍</span>
     Search
@@ -1097,81 +2786,6 @@
      <% } %>
  
     <asp:ContentPlaceHolder ID="Scripts" runat="server" />
-
-<style>
-    div.quickWrapper.QuickLinkIcons
-    {
-        display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: wrap !important;
-        gap: 12px !important;
-        padding: 0 !important;
-        margin: 16px 0 !important;
-    }
-
-    div.quickWrapper.QuickLinkIcons > a
-    {
-        display: flex !important;
-        flex: 1 1 140px !important;
-        min-width: 120px !important;
-        max-width: 220px !important;
-        height: 96px !important;
-        box-sizing: border-box !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        text-align: center !important;
-        border: 1px solid #ddd !important;
-        border-radius: 6px !important;
-        padding: 14px 8px !important;
-        text-decoration: none !important;
-        color: #333 !important;
-        background: #fff !important;
-        overflow: hidden !important;
-    }
-
-    div.quickWrapper.QuickLinkIcons a.qLinkIcon:before
-    {
-        content: "" !important;
-        display: block !important;
-        width: 24px !important;
-        height: 24px !important;
-        margin: 0 auto 8px auto !important;
-        flex: 0 0 auto !important;
-    }
-
-    div.quickWrapper.QuickLinkIcons a.qLinkIcon:after
-    {
-        content: none !important;
-    }
-
-    div.quickWrapper.QuickLinkIcons a.qLinkIcon span
-    {
-        margin-left: 4px !important;
-    }
-    div.quickWrapper.QuickLinkIcons > a img,
-    div.quickWrapper.QuickLinkIcons > a svg
-    {
-        max-width: 100% !important;
-        max-height: 32px !important;
-        width: auto !important;
-        height: auto !important;
-        object-fit: contain !important;
-        flex: 0 0 auto !important;
-        margin: 0 auto 6px auto !important;
-    }
-
-    div.quickWrapper.QuickLinkIcons > a > span,
-    div.quickWrapper.QuickLinkIcons > a > div
-    {
-        max-width: 100% !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-        white-space: nowrap !important;
-        font-size: 13px !important;
-    }
-</style>
-
 
 </body>
 </html>
