@@ -1,4 +1,6 @@
-﻿@media only screen and (min-width: 768px) {
+﻿@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
+
+@media only screen and (min-width: 768px) {
 	#banner .slick-slide {
 	    background-size: 35vw!important;
 	    background-position: top left 10vw!important;
@@ -5554,4 +5556,1002 @@ body.tributeaward-new #leftMenuDropWrap {
     color: #5b2a86;
 }
 
+/*#endregion */
+
+/*#region Welcome Section Redesign (matches EKO Members dashboard mockup) */
+
+html body.home-member.home-member .welcome-heading {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+html body.home-member.home-member .welcome-heading h1 {
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 24px !important;
+    font-weight: 600 !important;
+    line-height: 32px !important;
+    letter-spacing: normal !important;
+    color: #5c2d91 !important;
+    margin: 0 0 4px !important;
+    padding-left: 14px !important;
+}
+html body.home-member.home-member .welcome-heading h1:before {
+    top: 50% !important;
+    bottom: auto !important;
+    transform: translateY(-50%) !important;
+    height: 20px !important;
+    width: 4px !important;
+    border-radius: 2px !important;
+    background: #3cb5ae !important;
+}
+html body.home-member.home-member .welcome-heading .welcome-subtitle {
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 20px !important;
+    color: #6b7280 !important;
+    margin: 0 0 20px !important;
+    padding-left: 14px !important;
+}
+html body.home-member.home-member .static-welcome-search input[type="text"] {
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    color: #374151 !important;
+    height: 42px !important;
+    padding: 0 14px 0 38px !important;
+    background-color: #f9fafb !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 8px !important;
+    background-position: 12px center !important;
+}
+html body.home-member.home-member .static-welcome-search input[type="text"]::placeholder {
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    color: #9a9aaa !important;
+}
+html body.home-member.home-member .welcome-search-btn {
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    height: 42px !important;
+    min-width: 100px !important;
+    padding: 0 22px !important;
+    border-radius: 8px !important;
+    background: #5c2d91 !important;
+}
+html body.home-member.home-member .welcome-search-btn:hover {
+    background: #4a2474 !important;
+}
+
+/*#endregion */
+
+/*#region Quick Links Redesign (icon badges + typography) */
+
+html body.home-member.home-member .quickWrapper.QuickLinkIcons a.qLinkIcon {
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    color: #1f2430 !important;
+    background: #fff !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 12px !important;
+    box-shadow: 0 1px 2px rgba(16,24,40,0.04) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    padding: 24px 10px !important;
+    height: auto !important;
+    min-height: 118px !important;
+    transition: box-shadow .2s ease, transform .2s ease, border-color .2s ease !important;
+}
+html body.home-member.home-member .quickWrapper.QuickLinkIcons a.qLinkIcon:hover {
+    box-shadow: 0 6px 16px rgba(16,24,40,0.10) !important;
+    border-color: #d8d9e0 !important;
+    transform: translateY(-2px) !important;
+}
+html body.home-member.home-member .quickWrapper.QuickLinkIcons a.qLinkIcon::before {
+    content: "" !important;
+    position: static !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 44px !important;
+    height: 44px !important;
+    margin: 0 !important;
+    border-radius: 50% !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: 14px 14px !important;
+    z-index: auto !important;
+}
+
+html body.home-member.home-member #quickLinkIcon_40::before {
+    background-color: #e3f4f1 !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24' fill='none'%3E%3Cpath d='M4 5.5c3-1.3 6-1.3 8 0 2-1.3 5-1.3 8 0v13c-3-1.3-6-1.3-8 0-2-1.3-5-1.3-8 0z' stroke='%232f8f86' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round' /%3E%3Cline x1='12' y1='5.5' x2='12' y2='18.5' stroke='%232f8f86' stroke-width='1.7' stroke-linecap='round'/%3E%3C/svg%3E") !important;
+}
+html body.home-member.home-member #quickLinkIcon_41::before {
+    background-color: #e3f4f1 !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24' fill='none'%3E%3Cpath d='M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9.5L5 21v-4H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z' stroke='%232f8f86' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round' /%3E%3C/svg%3E") !important;
+}
+html body.home-member.home-member #quickLinkIcon_42::before {
+    background-color: #f1ebf8 !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24' fill='none'%3E%3Crect x='3.5' y='4.5' width='17' height='15' rx='2' stroke='%235c2d91' stroke-width='1.7'/%3E%3Cline x1='7' y1='8.5' x2='12' y2='8.5' stroke='%235c2d91' stroke-width='1.4' stroke-linecap='round'/%3E%3Cline x1='7' y1='11.5' x2='17' y2='11.5' stroke='%235c2d91' stroke-width='1.4' stroke-linecap='round'/%3E%3Cline x1='7' y1='14.5' x2='17' y2='14.5' stroke='%235c2d91' stroke-width='1.4' stroke-linecap='round'/%3E%3Cline x1='7' y1='17' x2='14' y2='17' stroke='%235c2d91' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E") !important;
+}
+html body.home-member.home-member #quickLinkIcon_45::before {
+    background-color: #f1ebf8 !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24' fill='none'%3E%3Cpath d='M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.1 1.3 1.1 2.2h5a2.6 2.6 0 0 1 1.1-2.2A6 6 0 0 0 12 3z' stroke='%235c2d91' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round' /%3E%3C/svg%3E") !important;
+}
+html body.home-member.home-member #quickLinkIcon_52::before {
+    background-color: #eef0f3 !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24' fill='none'%3E%3Cpath d='M14 3h7v7' stroke='%236b7280' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round' /%3E%3Cpath d='M21 3l-9.5 9.5' stroke='%236b7280' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round' /%3E%3Cpath d='M19 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6' stroke='%236b7280' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round' /%3E%3C/svg%3E") !important;
+}
+
+html body.home-member.home-member #quickLinkIcon_54 {
+    padding: 18px 10px !important;
+}
+html body.home-member.home-member #quickLinkIcon_54::before {
+    display: none !important;
+}
+html body.home-member.home-member #quickLinkIcon_54 img {
+    position: static !important;
+    height: 18px !important;
+    width: auto !important;
+    margin: 0 0 4px !important;
+}
+
+/*#endregion */
+
+/*#region Page Background (full-width light grey behind content below search) */
+
+html body.home-member.home-member #memberHomeFeed {
+    background-color: #fff !important;
+}
+html body.home-member.home-member .welcome-heading,
+html body.home-member.home-member .welcome-search-row {
+    background-color: #fff !important;
+}
+html body.home-member.home-member #Banner_DroppableContent,
+html body.home-member.home-member #memberHomeMain {
+    background-color: #f9fafb !important;
+    width: 100vw !important;
+    position: relative !important;
+    left: 50% !important;
+    right: 50% !important;
+    margin-left: -50vw !important;
+    margin-right: -50vw !important;
+    box-sizing: border-box !important;
+    padding-left: max(16px, calc(50vw - 590px)) !important;
+    padding-right: max(16px, calc(50vw - 590px)) !important;
+    display: flow-root !important;
+}
+html body.home-member.home-member #Banner_DroppableContent {
+    padding-top: 20px !important;
+}
+html body.home-member.home-member #memberHomeMain {
+    padding-bottom: 20px !important;
+}
+
+/*#endregion */
+
+/*#region What's New Redesign (spacing, typography, bullets) */
+
+html body.home-member.home-member .whats-new > h2 {
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    color: #5c2d91 !important;
+    margin: 0 0 14px !important;
+}
+html body.home-member.home-member .whats-new-list {
+    border: 1px solid #e5e7eb !important;
+    border-radius: 12px !important;
+    box-shadow: 0 1px 2px rgba(16,24,40,0.04) !important;
+}
+html body.home-member.home-member .whats-new-row {
+    display: grid !important;
+    grid-template-columns: 16px max-content minmax(0,1fr) auto !important;
+    grid-template-areas:
+        "dot title title action"
+        "dot type  date  action" !important;
+    row-gap: 3px !important;
+    column-gap: 8px !important;
+    align-items: center !important;
+    padding: 16px 20px !important;
+    border-bottom: 1px solid #eee !important;
+    transition: background-color .15s ease !important;
+    position: relative !important;
+}
+html body.home-member.home-member .whats-new-row:hover {
+    background-color: #faf9fc !important;
+}
+html body.home-member.home-member .whats-new-row::before {
+    content: "" !important;
+    grid-area: dot !important;
+    width: 8px !important;
+    height: 8px !important;
+    border-radius: 50% !important;
+    background: #5c2d91 !important;
+    align-self: start !important;
+    margin-top: 7px !important;
+    position: static !important;
+}
+html body.home-member.home-member .whats-new-title {
+    grid-area: title !important;
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    color: #1f2430 !important;
+    line-height: 1.4 !important;
+    position: static !important;
+}
+html body.home-member.home-member .whats-new-type {
+    grid-area: type !important;
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.04em !important;
+    color: #6b7280 !important;
+    white-space: nowrap !important;
+    position: static !important;
+    bottom: auto !important;
+    left: auto !important;
+}
+html body.home-member.home-member .whats-new-type::before {
+    content: none !important;
+    display: none !important;
+}
+html body.home-member.home-member .whats-new-date {
+    grid-area: date !important;
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    color: #6b7280 !important;
+    text-align: left !important;
+    justify-self: start !important;
+    position: static !important;
+}
+html body.home-member.home-member .whats-new-action {
+    grid-area: action !important;
+    align-self: center !important;
+    justify-self: end !important;
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #5c2d91 !important;
+    position: static !important;
+}
+html body.home-member.home-member .whats-new-action:hover {
+    color: #4a2474 !important;
+}
+
+/*#endregion */
+
+/*#region Who's Who Redesign (search bar + directory link) */
+
+html body.home-member.home-member .whos-who-card {
+    position: relative !important;
+    margin-top: 39px !important;
+}
+html body.home-member.home-member .whos-who-header {
+    position: absolute !important;
+    top: -39px !important;
+    left: 0 !important;
+}
+html body.home-member.home-member .whos-who-header h2 {
+    color: transparent !important;
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    letter-spacing: normal !important;
+    position: relative !important;
+}
+html body.home-member.home-member .whos-who-header h2::before {
+    content: "Who's Who";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font: inherit;
+    color: #573494 !important;
+    text-transform: none !important;
+    white-space: nowrap !important;
+}
+html body.home-member.home-member .whos-who-search {
+    position: relative !important;
+}
+html body.home-member.home-member .whos-who-search input#homeWhoSearch {
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    color: #374151 !important;
+    background-color: #f9fafb !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 8px !important;
+    height: 42px !important;
+    box-sizing: border-box !important;
+    padding: 0 14px 0 38px !important;
+    width: 100% !important;
+}
+html body.home-member.home-member .whos-who-search input#homeWhoSearch::placeholder {
+    font-size: 14px !important;
+    color: #4D5660 !important;
+    opacity: 1 !important;
+}
+html body.home-member.home-member .whos-who-search-icon {
+    top: 50% !important;
+    left: 12px !important;
+    transform: translateY(-50%) !important;
+    font-size: 24px !important;
+    color: #9ca3af !important;
+}
+html body.home-member.home-member .whos-who-directory {
+    font-weight: 700 !important;
+    font-size: 15px !important;
+}
+
+/*#endregion */
+
+/*#region Event Banner Redesign (rounded corners + dual button styling) */
+
+html body.home-member.home-member .bg-root {
+    border-radius: 16px !important;
+    overflow: hidden !important;
+}
+html body.home-member.home-member .bg-btn {
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    padding: 12px 22px !important;
+    letter-spacing: normal !important;
+    text-transform: none !important;
+}
+html body.home-member.home-member .bg-btn-primary {
+    background-color: #5c2d91 !important;
+    color: #fff !important;
+    border: none !important;
+}
+html body.home-member.home-member .bg-btn-primary:hover {
+    background-color: #4a2474 !important;
+}
+html body.home-member.home-member .bg-btn-secondary {
+    background-color: #fff !important;
+    color: #1f2430 !important;
+    border: 1px solid #e5e7eb !important;
+}
+html body.home-member.home-member .bg-btn-secondary:hover {
+    background-color: #f9fafb !important;
+    border-color: #d8d9e0 !important;
+}
+
+/*#endregion */
+
+/*#region Resource Library Redesign (search banner, filter dropdowns, library cards) */
+
+/* Search banner: full width purple */
+html body.inside.inside .res-search-filters .row-search.contained-width {
+    background-color: #7439ad !important;
+    max-width: none !important;
+    width: 100vw !important;
+    position: relative !important;
+    left: 50% !important;
+    right: 50% !important;
+    margin-left: -50vw !important;
+    margin-right: -50vw !important;
+    box-sizing: border-box !important;
+    padding-top: 32px !important;
+    padding-bottom: 32px !important;
+    padding-left: max(20px, calc(50vw - 580px)) !important;
+    padding-right: max(20px, calc(50vw - 580px)) !important;
+}
+html body.inside.inside #search-filter {
+    max-width: 720px !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    gap: 10px !important;
+}
+html body.inside.inside .row-search .search-heading {
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-weight: 600 !important;
+}
+html body.inside.inside .row-search .search-heading::after {
+    content: "Access resources across all your libraries in one search" !important;
+    display: block !important;
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    color: #c5afda !important;
+    margin-top: 6px !important;
+    text-transform: none !important;
+}
+html body.inside.inside #Content_ctl00_EKO_Filters_txtSearch {
+    border-radius: 8px !important;
+    flex: 1 1 auto !important;
+}
+html body.inside.inside #btnKeywordSearch {
+    border-radius: 8px !important;
+    background-color: #3cb5ae !important;
+    font-family: 'Outfit', system-ui, sans-serif !important;
+}
+
+/* Filter dropdowns */
+html body.inside.inside .row-filter label {
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.04em !important;
+    color: #6b7280 !important;
+    text-transform: uppercase !important;
+}
+html body.inside.inside .row-filter select {
+    background-color: #fff !important;
+    color: #1f2430 !important;
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 8px !important;
+    padding: 10px 32px 10px 12px !important;
+    box-shadow: 0 1px 2px rgba(16,24,40,0.04) !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24' fill='none'%3E%3Cpath d='M6 9l6 6 6-6' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 8px center !important;
+    background-size: 16px 16px !important;
+}
+html body.inside.inside #apply-filter button {
+    border-radius: 8px !important;
+    font-family: 'Outfit', system-ui, sans-serif !important;
+}
+/* No white gap between the filter row and the library cards below (both grey),
+   plus a divider line to separate the two sections. */
+html body.inside.inside .res-search-filters .row-filter.contained-width {
+    max-width: none !important;
+    width: 100vw !important;
+    position: relative !important;
+    left: 50% !important;
+    right: 50% !important;
+    margin-left: -50vw !important;
+    margin-right: -50vw !important;
+    box-sizing: border-box !important;
+    padding-left: max(20px, calc(50vw - 580px)) !important;
+    padding-right: max(20px, calc(50vw - 580px)) !important;
+    margin-bottom: 0 !important;
+    border-bottom: 1px solid #e0e0e0 !important;
+    padding-bottom: 20px !important;
+}
+
+/* Library cards */
+html body.inside.inside #resLibCatSelect .div-res-content,
+html body.inside.inside .div-res-content {
+    grid-template-columns: repeat(4, 1fr) !important;
+}
+html body.inside.inside .div-res-content a.myresources,
+html body.inside.inside .div-res-content a:not(.myresources),
+html body.inside.inside .div-res-content div.lock {
+    border-radius: 12px !important;
+}
+html body.inside.inside .div-res-content .myresources h2,
+html body.inside.inside .div-res-content .unlock h2,
+html body.inside.inside .div-res-content div.lock h2 {
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.3 !important;
+}
+html body.inside.inside .div-res-content .unlock h2,
+html body.inside.inside .div-res-content div.lock h2 {
+    color: #111827 !important;
+}
+html body.inside.inside .div-res-content .myresources h3 {
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    margin: 2px 0 !important;
+}
+html body.inside.inside .div-res-content .myresources .viewLink,
+html body.inside.inside .div-res-content .unlock .viewLink,
+html body.inside.inside .div-res-content div.lock .viewLink {
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 11px !important;
+    font-weight: 400 !important;
+}
+html body.inside.inside .div-res-content .unlock .viewLink,
+html body.inside.inside .div-res-content div.lock .viewLink {
+    color: #374151 !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+}
+html body.inside.inside .div-res-content a.myresources,
+html body.inside.inside .div-res-content a:not(.myresources) {
+    padding-right: 40px !important;
+}
+html body.inside.inside #resLibCatSelect .div-res-content > a,
+html body.inside.inside #resLibCatSelect .div-res-content > div.lock {
+    min-height: 64px !important;
+}
+html body.inside.inside .div-res-content .myresources,
+html body.inside.inside .div-res-content .unlock,
+html body.inside.inside .div-res-content div.lock {
+    padding: 14px 16px !important;
+}
+/* Drop the padlock icon and the info "i" icon on locked cards -- text alone
+   ("Limited member access") is enough, matching the mockup's icon-free look. */
+html body.inside.inside .div-res-content div.lock {
+    background-image: none !important;
+}
+html body.inside.inside .div-res-content .infoToggle {
+    display: none !important;
+}
+/* Only the active "My Resources" card needs a CSS-added chevron (the site's
+   built-in arrow-right.svg icon is suppressed for it); regular cards already
+   show that native arrow, so we must not add a second one on top of it. */
+html body.inside.inside .div-res-content a.myresources::after {
+    content: "" !important;
+    position: absolute !important;
+    top: 18px !important;
+    right: 18px !important;
+    width: 16px !important;
+    height: 16px !important;
+    background-repeat: no-repeat !important;
+    background-size: contain !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24' fill='none'%3E%3Cpath d='M9 6l6 6-6 6' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+}
+
+/* "Select a library" heading: smaller, and drop the redundant "EKO resources" line */
+html body.inside.inside .res-page-heading {
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.03em !important;
+    margin: 24px 0 18px !important;
+}
+html body.inside.inside .div-res-content.contained-width:has(> h2:only-child) {
+    display: none !important;
+}
+
+/*#endregion */
+
+/*#region Resource Details Redesign (title, meta box, buttons, sidebar cards) */
+
+html body.inside.inside .res-eyebrow {
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.06em !important;
+    color: #9a9aa5 !important;
+    margin: 0 0 6px !important;
+}
+html body.inside.inside .res-title {
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    color: #743aad !important;
+    line-height: 1.25 !important;
+    margin: 0 0 8px !important;
+}
+html body.inside.inside .res-added {
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 13px !important;
+    color: #6b7280 !important;
+    margin: 0 0 20px !important;
+}
+html body.inside.inside .res-meta-list {
+    background-color: #fff !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 12px !important;
+    box-shadow: 0 1px 2px rgba(16,24,40,0.04) !important;
+    padding: 20px 24px !important;
+    grid-template-columns: repeat(2, minmax(200px, 1fr)) !important;
+    row-gap: 18px !important;
+    column-gap: 24px !important;
+    margin-bottom: 24px !important;
+}
+html body.inside.inside .res-meta-item dt {
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.05em !important;
+    color: #9a9aa5 !important;
+    margin: 0 0 4px !important;
+}
+html body.inside.inside .res-meta-item dd {
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #1f2430 !important;
+    margin: 0 !important;
+}
+html body.inside.inside .res-actions .button {
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+}
+html body.inside.inside .res-btn-secondary {
+    border-color: #e5e7eb !important;
+    color: #1f2430 !important;
+}
+html body.inside.inside .res-card {
+    border-radius: 12px !important;
+    padding: 20px !important;
+}
+html body.inside.inside .res-card + .res-card {
+    margin-top: 20px !important;
+}
+html body.inside.inside .res-card-heading {
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+    color: #6b7280 !important;
+    margin: 0 0 10px !important;
+}
+html body.inside.inside .res-library-name,
+html body.inside.inside .res-library-name a {
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    color: #5c2d91 !important;
+}
+html body.inside.inside .res-back-library {
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 13px !important;
+    color: #5c2d91 !important;
+    display: inline-block !important;
+    margin-top: 8px !important;
+}
+html body.inside.inside .res-related-title {
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #1f2430 !important;
+    margin-bottom: 2px !important;
+}
+html body.inside.inside .res-related-format {
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 14px !important;
+    color: #6b7280 !important;
+}
+
+/*#endregion */
+
+/*#region Resource Details: top padding + button icons */
+
+html body.inside.inside #singleDetails {
+    padding-top: 40px !important;
+}
+html body.inside.inside .res-btn-primary.new-tab {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 3h7v7'/%3E%3Cpath d='M21 3l-9.5 9.5'/%3E%3Cpath d='M19 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: 14px 50% !important;
+    background-size: 16px 16px !important;
+}
+html body.inside.inside .res-btn-secondary.download {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%235f6670' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3v12'/%3E%3Cpath d='M7 10l5 5 5-5'/%3E%3Cpath d='M5 19h14'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: 14px 50% !important;
+    background-size: 16px 16px !important;
+}
+
+/*#endregion */
+
+/*#region Resource Search Results Cards (match compact library-card style) */
+
+html body.inside.inside #resSearchResults .div-res-content div.resCard {
+    border: 1px solid #e5e7eb !important;
+    border-radius: 12px !important;
+    padding: 16px 18px 44px !important;
+    background-repeat: no-repeat !important;
+}
+/* Small format-type icon, placed on the card's own background (not a
+   pseudo-element) so it doesn't collide with the native "New" ribbon,
+   which uses ::before on the same card */
+html body.inside.inside #resSearchResults .div-res-content div.resCard.Document { background-image: url("/Images/type-doc.svg") !important; background-position: right 52px bottom 14px !important; background-size: 24px 24px !important; }
+html body.inside.inside #resSearchResults .div-res-content div.resCard.Video { background-image: url("/Images/type-vid.svg") !important; background-position: right 52px bottom 14px !important; background-size: 24px 24px !important; }
+html body.inside.inside #resSearchResults .div-res-content div.resCard.Image { background-image: url("/Images/type-img.svg") !important; background-position: right 52px bottom 14px !important; background-size: 24px 24px !important; }
+html body.inside.inside #resSearchResults .div-res-content div.resCard.pdf { background-image: url("/Images/type-pdf.svg") !important; background-position: right 52px bottom 14px !important; background-size: 24px 24px !important; }
+html body.inside.inside #resSearchResults .div-res-content div.resCard.Music { background-image: url("/Images/type-audio.svg") !important; background-position: right 52px bottom 14px !important; background-size: 24px 24px !important; }
+html body.inside.inside #resSearchResults .div-res-content div.resCard.Presentation { background-image: url("/Images/type-pres.svg") !important; background-position: right 52px bottom 14px !important; background-size: 24px 24px !important; }
+html body.inside.inside #resSearchResults .div-res-content div.resCard.Spreadsheet { background-image: url("/Images/type-ss.svg") !important; background-position: right 52px bottom 14px !important; background-size: 24px 24px !important; }
+html body.inside.inside #resSearchResults .div-res-content div.resCard.Link { background-image: url("/Images/type-link.svg") !important; background-position: right 52px bottom 14px !important; background-size: 24px 24px !important; }
+html body.inside.inside #resSearchResults .div-res-content div.resCard h2 {
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #111827 !important;
+    line-height: 1.35 !important;
+    margin: 0 0 6px !important;
+    padding-right: 30px !important;
+    box-sizing: border-box !important;
+}
+html body.inside.inside #resSearchResults .div-res-content div.resCard .view-resource {
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #5c2d91 !important;
+}
+/* Download button: bigger arrow, with a soft padded chip behind it so the
+   icon isn't flush against its own click area. appearance/padding/box-sizing
+   are reset because the native "body input[type=submit]" rule adds 24px of
+   left/right padding and default button rendering, which was silently
+   expanding this to ~55px wide and overlapping the type icon to its left. */
+html body.inside.inside #resSearchResults .div-res-content div.resCard input[type=submit] {
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    box-sizing: border-box !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 32px !important;
+    height: 32px !important;
+    right: 12px !important;
+    bottom: 10px !important;
+    background-size: 20px !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-color: #f5eefa !important;
+    border-radius: 8px !important;
+}
+/* Favourite star: reposition/resize for the smaller card */
+html body.inside.inside #resSearchResults .div-res-content div.resCard::after {
+    top: 14px !important;
+    right: 14px !important;
+    width: 18px !important;
+    height: 18px !important;
+}
+/* Keep the native "New" ribbon (::before, purple, top-left) working as-is;
+   just push the card's content down so the title doesn't run under it */
+html body.inside.inside #resSearchResults .div-res-content div.resCard.new {
+    padding-top: 58px !important;
+}
+
+/*#endregion */
+
+/*#region Whos-Who Directory Page (title, search bg, table header) */
+
+html body.eko-whoiswho-page.eko-whoiswho-page h2 {
+    position: relative !important;
+    display: inline-block !important;
+    margin: 0 0 20px !important;
+    padding-left: 14px !important;
+    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-size: 24px !important;
+    font-weight: 600 !important;
+    color: #573494 !important;
+}
+html body.eko-whoiswho-page.eko-whoiswho-page h2::before {
+    content: "" !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 4px !important;
+    height: 22px !important;
+    border-radius: 2px !important;
+    background: #573494 !important;
+}
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoSearch {
+    background-color: #f9fafb !important;
+    border: 1px solid #e5e7eb !important;
+}
+html body.eko-whoiswho-page.eko-whoiswho-page .eko-who-status {
+    font-size: 16px !important;
+    color: #4b5563 !important;
+}
+html body.eko-whoiswho-page.eko-whoiswho-page .eko-who-table thead tr {
+    background-color: #f8f5ff !important;
+}
+/* The native .eko-who-table th rule sets its own background (#F5F6F8),
+   and cell backgrounds paint over row backgrounds in table rendering, so
+   the tr color above was being hidden underneath it. Override the th
+   background directly so the purple actually shows. */
+html body.eko-whoiswho-page.eko-whoiswho-page .eko-who-table thead th {
+    background-color: #f8f5ff !important;
+}
+/* Round the top corners of the table card so the purple header row doesn't
+   sit flush with square corners against the rounded card underneath it */
+html body.eko-whoiswho-page.eko-whoiswho-page .eko-who-table-wrap {
+    border-radius: 12px !important;
+    overflow: hidden !important;
+}
+/* Column spacing: tighten avatar->name and name->organization, and group
+   Title + View Profile together on the right, instead of the columns
+   auto-spreading evenly across the full row width */
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoTable {
+    table-layout: fixed !important;
+    width: 100% !important;
+}
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoTable th:nth-child(1),
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoTable td:nth-child(1) {
+    width: 7% !important;
+    padding-right: 6px !important;
+}
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoTable th:nth-child(2),
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoTable td:nth-child(2) {
+    width: 15% !important;
+    padding-left: 4px !important;
+}
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoTable th:nth-child(3),
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoTable td:nth-child(3) {
+    width: 48% !important;
+    padding-left: 8px !important;
+}
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoTable th.eko-who-col-title,
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoTable td.eko-who-col-title {
+    width: 18% !important;
+    padding-right: 6px !important;
+}
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoTable th:nth-child(5),
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoTable td:nth-child(5) {
+    width: 12% !important;
+    padding-left: 6px !important;
+}
+
+/*#endregion */
+
+/*#region Whos-Who Directory Row Height (shorter, tighter rows) */
+
+html body.eko-whoiswho-page.eko-whoiswho-page .eko-who-table tbody td {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+}
+html body.eko-whoiswho-page.eko-whoiswho-page .eko-who-table .eko-who-avatar {
+    width: 32px !important;
+    height: 32px !important;
+    line-height: 32px !important;
+    font-size: 12px !important;
+}
+
+/*#endregion */
+
+/*#region Who's Who Profile Panel Typography (bigger, darker text) */
+
+html body.eko-whoiswho-page.eko-whoiswho-page .eko-who-section h3 {
+    font-size: 14px !important;
+    color: #4b5563 !important;
+}
+html body.eko-whoiswho-page.eko-whoiswho-page .eko-who-label {
+    font-size: 17px !important;
+    color: #4b5563 !important;
+}
+html body.eko-whoiswho-page.eko-whoiswho-page .eko-who-value {
+    font-size: 17px !important;
+    color: #1a1f29 !important;
+}
+html body.eko-whoiswho-page.eko-whoiswho-page .eko-who-contact-row a,
+html body.eko-whoiswho-page.eko-whoiswho-page .eko-who-contact-row span {
+    font-size: 16px !important;
+    color: #1a1f29 !important;
+}
+html body.eko-whoiswho-page.eko-whoiswho-page .eko-who-chip {
+    font-size: 16px !important;
+    color: #1a1f29 !important;
+}
+html body.eko-whoiswho-page.eko-whoiswho-page .eko-who-about {
+    font-size: 17px !important;
+    font-weight: 400 !important;
+    color: #1a1f29 !important;
+}
+
+/*#endregion */
+
+/*#region Event Banner Body Text (bigger) */
+
+html body.home-member.home-member .bg-text {
+    font-size: 17px !important;
+}
+
+/*#endregion */
+
+/*#region Whos-Who Page: hide redundant "whos-who" page-name heading */
+
+html body.eko-whoiswho-page.eko-whoiswho-page h1 {
+    display: none !important;
+}
+
+/*#endregion */
+
+/*#region Whos-Who Page: hide breadcrumb nav ("News & Events" link) */
+html body.eko-whoiswho-page.eko-whoiswho-page nav.breadcrumbs {
+    display: none !important;
+}
+/*#endregion */
+
+
+/*#region EKOMembers Home: notification bell dot (red, bigger, no outline) */
+html body.home-member.home-member .header-notification-dot {
+    background-color: #e63946 !important;
+    border: none !important;
+    width: 11px !important;
+    height: 11px !important;
+    top: -3px !important;
+    right: -3px !important;
+}
+/*#endregion */
+
+/*#region Whos-Who Profile Panel: fix broken contact icons (Font Awesome webfont 404s on server, so replace with inline SVG icons) */
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoPanel .eko-who-contact-row i.fa,
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoPanelInner .eko-who-contact-row i.fa {
+    display: inline-block !important;
+    width: 16px !important;
+    height: 16px !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: 16px 16px !important;
+    color: transparent !important;
+}
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoPanel .eko-who-contact-row i.fa::before,
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoPanelInner .eko-who-contact-row i.fa::before {
+    content: "" !important;
+}
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoPanel .eko-who-contact-row i.fa-envelope,
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoPanelInner .eko-who-contact-row i.fa-envelope {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23573494' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z'/%3E%3Cpolyline points='22,6 12,13 2,6'/%3E%3C/svg%3E") !important;
+}
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoPanel .eko-who-contact-row i.fa-phone,
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoPanelInner .eko-who-contact-row i.fa-phone {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23573494' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z'/%3E%3C/svg%3E") !important;
+}
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoPanel .eko-who-contact-row i.fa-link,
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoPanelInner .eko-who-contact-row i.fa-link {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23573494' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/%3E%3Cpath d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/%3E%3C/svg%3E") !important;
+}
+/*#endregion */
+
+/*#region Whos-Who Profile Panel: align contact icons with text, purple links */
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoPanel .eko-who-contact-row,
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoPanelInner .eko-who-contact-row {
+    align-items: center !important;
+}
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoPanel .eko-who-contact-row i.fa,
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoPanelInner .eko-who-contact-row i.fa {
+    margin-top: 0 !important;
+}
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoPanel .eko-who-contact-row a,
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoPanelInner .eko-who-contact-row a {
+    color: #573494 !important;
+}
+/*#endregion */
+
+/*#region Whos-Who Profile Panel: bigger, darker Details values */
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoPanel .eko-who-value,
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoPanelInner .eko-who-value {
+    font-size: 18px !important;
+    color: #111827 !important;
+}
+/*#endregion */
+
+/*#region Whos-Who Profile Panel: bigger Details labels */
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoPanel .eko-who-label,
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoPanelInner .eko-who-label {
+    font-size: 15px !important;
+}
+/*#endregion */
+
+/*#region Whos-Who Profile Panel: match "link" contact field weight to email field */
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoPanel .eko-who-contact-row a,
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoPanelInner .eko-who-contact-row a {
+    font-weight: 500 !important;
+}
+/*#endregion */
+
+/*#region EKOMembers Home: darker search box placeholder text */
+html body.home-member.home-member #staticWelcomeSearch::placeholder {
+    color: #6b7280 !important;
+}
+/*#endregion */
+
+/*#region Whos-Who Profile Panel: purple Committee Membership chips */
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoPanel .eko-who-chip,
+html body.eko-whoiswho-page.eko-whoiswho-page #ekoWhoPanelInner .eko-who-chip {
+    background-color: #f5eefa !important;
+    color: #573494 !important;
+}
 /*#endregion */
