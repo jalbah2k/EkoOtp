@@ -775,11 +775,11 @@
                         url.toString()
                     );
 
-                    if (search) {
-                        search.value = member.name;
-                        visibleCount = pageSize;
-                        render();
-                    }
+                    //if (search) {
+                    //    search.value = member.name;
+                    //    visibleCount = pageSize;
+                    //    render();
+                    //}
                 }
 
                 openProfile(id, btn);

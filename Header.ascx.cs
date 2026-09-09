@@ -21,11 +21,13 @@ public partial class Header : UserControl
 
     public List<string> RegisteredElements;
 
+    public bool HasUnreadMessages { get; private set; }
     public Header()
     {
         _lang = "1";
         _language = "en";
         _seo = "";
+        HasUnreadMessages = false;
     }
 
 
@@ -103,6 +105,8 @@ public partial class Header : UserControl
     }
     protected void Page_Load(object sender, EventArgs e)
     {
+        LoadUnreadMessageState();
+
         if (this.Page.RouteData.Values["lang"] != null)
         {
             try
@@ -141,5 +145,80 @@ public partial class Header : UserControl
             _language = "";
 
 
+    }
+
+    private void LoadUnreadMessageState()
+    {
+        HasUnreadMessages = false;
+
+        if (Session["LoggedInID"] == null)
+        {
+            return;
+        }
+
+        int loggedInUserId;
+        if (!Int32.TryParse(
+                Session["LoggedInID"].ToString(),
+                out loggedInUserId))
+        {
+            return;
+        }
+
+        ConnectionStringSettings yafConnection =
+            ConfigurationManager.ConnectionStrings["yafnet"];
+
+        if (yafConnection == null ||
+            String.IsNullOrWhiteSpace(yafConnection.ConnectionString))
+        {
+            return;
+        }
+
+        const string sql = @"
+            SELECT COUNT(*) AS qty
+            FROM yaf_UserPMessage
+            WHERE (flags & 1) = 0
+              AND UserID IN
+              (
+                  SELECT UserID
+                  FROM yaf_User
+                  WHERE ProviderUserKey IN
+                  (
+                      SELECT yaf_userid COLLATE SQL_Latin1_General_CP1_CI_AS
+                      FROM EKO_OTP.dbo.Users
+                      WHERE id = @userid
+                  )
+              );";
+
+        try
+        {
+            using (SqlConnection connection =
+                   new SqlConnection(yafConnection.ConnectionString))
+            using (SqlCommand command =
+                   new SqlCommand(sql, connection))
+            {
+                command.CommandType = CommandType.Text;
+                command.Parameters.Add(
+                    "@userid",
+                    SqlDbType.Int
+                ).Value = loggedInUserId;
+
+                connection.Open();
+
+                object result = command.ExecuteScalar();
+                int unreadCount = result == null ||
+                                  result == DBNull.Value
+                    ? 0
+                    : Convert.ToInt32(result);
+
+                HasUnreadMessages = unreadCount > 0;
+            }
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine(
+                "Unread message lookup failed: " + ex.Message
+            );
+            HasUnreadMessages = false;
+        }
     }
 }

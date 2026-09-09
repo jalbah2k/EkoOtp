@@ -135,7 +135,7 @@ public class Res_ItemTemplate
         _id = rw["id"].ToString();
         _title = rw["Title"].ToString();
         _docType = rw["docType"].ToString();
-        _description = rw["Description"].ToString();
+        _description = rw["Teaser"].ToString() != "" ? rw["Teaser"].ToString() : "";// rw["Description"].ToString();
         _icon = rw["IconType"].ToString();
 
         if (String.IsNullOrEmpty(_description))
@@ -171,7 +171,8 @@ public class Res_ItemTemplate
         _id = rw["id"].ToString();
         _title = rw["Title"].ToString();
         _docType = rw["docType"].ToString();
-        _description = rw["Description"].ToString();
+        //_description = rw["Description"].ToString();
+        _description = rw["Teaser"].ToString() != "" ? rw["Teaser"].ToString() : ""; // rw["Description"].ToString();
         _icon = rw["IconType"].ToString();
 
         if (String.IsNullOrEmpty(_description))

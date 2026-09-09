@@ -531,13 +531,31 @@ select[multiple].dropdownlist option:checked {
                                 <td></td>
                             </tr> 
                             <tr>
+                                <td style="vertical-align:top; padding-top:10px;">Teaser:</td>
+                                <td>
+                                    <asp:TextBox ID="txtTeaser" runat="server" Width="500px"
+                                    CssClass="firstname tbFullName textbox"
+                                    TextMode="MultiLine" Rows="3" Height="80"
+                                    MaxLength="135" onkeyup="clipTeaser(this);" onpaste="setTimeout(function(){clipTeaser(document.getElementById('<%= txtTeaser.ClientID %>'));},0);"></asp:TextBox>
+                                <div style="font-size:11px; color:#666;">
+                                    <span id="teaserCount">135</span> characters remaining
+                                </div>
+                                <asp:CustomValidator ID="cvTeaser" runat="server"
+                                    ControlToValidate="txtTeaser"
+                                    OnServerValidate="cvTeaser_ServerValidate"
+                                    ErrorMessage="Teaser cannot exceed 135 characters."
+                                    Display="Dynamic" ForeColor="Red" />
+                                </td>
+                                <td></td>
+                            </tr> 
+                            <tr>
                                 <td>Author:</td>
                                 <td><asp:TextBox ID="tbAuthor" runat="server" Width='500px' CssClass='firstname tbFullName textbox' MaxLength="250" ></asp:TextBox>
                                 </td>
                                 <td></td>
                             </tr>   
                             <tr>
-                                <td>Published Date</td>
+                                <td>Published Date:</td>
                                 <td>
                                     <div class="datepicker-wraper">
                                         <asp:TextBox ID="tbDate" runat="server" />
@@ -639,6 +657,25 @@ select[multiple].dropdownlist option:checked {
             $("#<%=ddlOtherResources.ClientID%>").dropdownchecklist();
 
         });
+
+        var TEASER_MAX = 135;
+
+        function clipTeaser(tb) {
+            if (!tb) return;
+                // normalize CRLF to a single char for counting so JS matches the server
+                var val = tb.value.replace(/\r\n/g, "\n");
+            if (val.length > TEASER_MAX) {
+                    val = val.substring(0, TEASER_MAX);
+                tb.value = val;
+            }
+                var lbl = document.getElementById("teaserCount");
+                if (lbl) lbl.innerHTML = (TEASER_MAX - val.length);
+            }
+
+                    // run on load and after any partial postback
+                    function pageLoad() {
+                        clipTeaser(document.getElementById("<%= txtTeaser.ClientID %>"));
+        }
     </script> 
 </asp:Panel>
 </div>

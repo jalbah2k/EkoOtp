@@ -2200,6 +2200,10 @@ body .bread-filter
 	background: url('/Images/type-doc.svg') center top 15px no-repeat #fff;
 	background-size: 65px auto!important;
 }
+#resSearchResults .div-res-content div.resCard p{
+	font-size:17px;
+}
+
 
 #resSearchResults .div-res-content div.resCard.Music
 {
@@ -6466,7 +6470,7 @@ html body.eko-whoiswho-page.eko-whoiswho-page nav.breadcrumbs {
 
 
 /*#region EKOMembers Home: notification bell dot (red, bigger, no outline) */
-html body.home-member.home-member .header-notification-dot {
+html .header-notification-dot {
     background-color: #e63946 !important;
     border: none !important;
     width: 11px !important;

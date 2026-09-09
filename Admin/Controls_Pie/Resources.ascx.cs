@@ -1,4 +1,5 @@
 ﻿//#define MULTI_LANGUAGE
+using DocumentFormat.OpenXml.Office.CoverPageProps;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -986,6 +987,7 @@ public partial class Admin_Controls_Resources : System.Web.UI.UserControl
         tbUrl.Text = "";
         tbTitle.Text = "";
         tbDesc.Text = "";
+        txtTeaser.Text = "";
         litDocu.Text = "";
         tbKeywords.Text = "";
         tbDate.Text = "";
@@ -1063,8 +1065,27 @@ public partial class Admin_Controls_Resources : System.Web.UI.UserControl
                 prms.Add(new SqlParameter("@icon", ddlIcon.SelectedValue));
                 prms.Add(new SqlParameter("@format", ddlFormats.SelectedValue));
 
+                #region Teaser
+                string teaser = txtTeaser.Text.Replace("\r\n", "\n");
+                if (teaser.Length > 135)
+                    teaser = teaser.Substring(0, 135);
+
+                prms.Add(new SqlParameter("@teaser", teaser)); 
+                #endregion
+
                 prms.Add(new SqlParameter("@author", tbAuthor.Text));
-                prms.Add(new SqlParameter("@publisheddate", tbDate.Text));
+                if (tbDate.Text != "")
+                {
+                    DateTime publishedDate;
+                    if (DateTime.TryParse(tbDate.Text, out publishedDate))
+                        prms.Add(new SqlParameter("@publisheddate", publishedDate));
+                    else
+                        prms.Add(new SqlParameter("@publisheddate", DBNull.Value));
+                }
+                else
+                {
+                    prms.Add(new SqlParameter("@publisheddate", DBNull.Value));
+                }
 
 #if MULTI_LANGUAGE
         prms.Add(new SqlParameter("@LanguageId", ddlLanguage2.SelectedValue));
@@ -1354,6 +1375,7 @@ public partial class Admin_Controls_Resources : System.Web.UI.UserControl
 
             tbTitle.Text = rw["Title"].ToString();
             tbDesc.Text = rw["Description"].ToString();
+            txtTeaser.Text = rw["Teaser"].ToString();
             tbKeywords.Text = rw["Keywords"].ToString();
             cbShow.Checked = rw["Show"].ToString().ToLower() == "true" ? false : true;
             ddlIcon.SelectedValue = rw["IconType"].ToString();
@@ -1410,8 +1432,13 @@ public partial class Admin_Controls_Resources : System.Web.UI.UserControl
         return false;
     }
 
-#endregion
+    #endregion
 
+    protected void cvTeaser_ServerValidate(object source, ServerValidateEventArgs args)
+    {
+        string val = (args.Value ?? string.Empty).Replace("\r\n", "\n");
+        args.IsValid = val.Length <= 135;
+    }
 
     protected void ddlFilter_SelectedIndexChanged(object sender, EventArgs e)
     {

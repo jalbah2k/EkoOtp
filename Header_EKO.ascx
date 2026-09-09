@@ -7,6 +7,9 @@ body.TYPE_PNCA #ekoPncaTips, body.TYPE_PNCA #ekoTips, body.TYPE_EKO #ekoPncaTips
     display: none;
 }
 
+#div-wrapping-header{
+    background-color:#fff;
+}
 #headerSocial, #mobileSocial
 {
     display: inline-flex;
@@ -64,6 +67,7 @@ body.TYPE_PNCA #ekoPncaTips, body.TYPE_PNCA #ekoTips, body.TYPE_EKO #ekoPncaTips
     box-sizing: content-box;
 }
 </style>
+<div id="div-wrapping-header">
 <header class="contained-width" aria-label="header">
     <div id="logo">
         <a href="/<%=_language %>home"><img src="/images/logo.jpg" alt="Placeholder Logo" class="img-logo" style="width: 300px; height:auto;" /></a>
@@ -106,6 +110,7 @@ body.TYPE_PNCA #ekoPncaTips, body.TYPE_PNCA #ekoTips, body.TYPE_EKO #ekoPncaTips
         </div>
     </div>
 </header>
+</div>
 <div id="greenBarMobile"></div>
 
 

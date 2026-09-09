@@ -619,7 +619,7 @@ WHERE r.id = @id", conn))
             return "";
         DateTime publishedDate;
         if (DateTime.TryParse(publishedRaw.ToString(), out publishedDate))
-            return publishedDate.ToString("MMMM yyyy");
+            return publishedDate.ToString("MMMM dd, yyyy");// ("MMMM yyyy");
         return publishedRaw.ToString().Trim();
     }
 
